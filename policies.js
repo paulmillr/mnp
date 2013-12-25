@@ -306,6 +306,13 @@ var policies = [
     {max: Infinity, rate: 45}
   ]},
 
+  // http://europa.eu/youreurope/citizens/work/abroad/taxes/poland/employed_en.htm
+  {country: 'Poland', code: 'PLN', rates: ['incremental',
+    {max: 3091, rate: 0},
+    {max: 85528, rate: 18},
+    {max: Infinity,, rate: 32}
+  ]},
+
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
   // Tax % Tax Base (EUR)
