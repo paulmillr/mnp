@@ -219,6 +219,15 @@ var policies = [
     {max: Infinity, rate: 45}
   ]},
 
+  // https://en.wikipedia.org/wiki/Taxation_in_Italy
+  {country: 'Italy', code: 'EUR', symbol: '€', rates: ['incremental',
+    {max: 15000, rate: 23},
+    {max: 28000, rate: 27},
+    {max: 55000, rate: 38},
+    {max: 75000, rate: 41},
+    {max: Infinity, rate: 43}
+  ]},
+
   {country: 'Czech Republic', code: 'CZK', rates: ['simple', {min: 0, rate: 15}]},
 
   // Germany does not work.
