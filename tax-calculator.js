@@ -89,7 +89,6 @@ var policies = [
         {next: 10221, rate: 4},
         {next: 10221, rate: 6},
         {next: 10221, rate: 8},
-        {next: 10221, rate: 2},
         {next: 201058, rate: 9.3},
         {next: 50000, rate: 10.3},
         {next: 200000, rate: 11.3},
