@@ -191,7 +191,7 @@ var policies = [
   ]},
 
   // https://en.wikipedia.org/wiki/Taxation_in_China#Individual_income_tax
-  {country: 'China', code: 'CNY', symbol: '¥', rates: ['incremental',
+  {country: 'China', code: 'CNY', rates: ['incremental',
     {max: 1500, rate: 3},
     {max: 4500, rate: 10},
     {max: 9000, rate: 20},
