@@ -120,6 +120,8 @@ var policies = [
     {max: Infinity, rate: 45}
   ]},
 
+  {country: 'Czech Republic', code: 'CZK', rates: ['simple', {min: 0, rate: 15}]},
+
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
   // Tax % Tax Base (EUR)
