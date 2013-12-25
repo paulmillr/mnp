@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<!--
+  Created using jsbin.com
+  Source can be edited via http://jsbin.com/iKAkuga/8/edit
+-->
+<head>
+<meta charset="utf-8">
+<title>Tax calculator</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+<style id="jsbin-css">
+
+</style>
+</head>
+<body>
+  <script type="text/x-handlebars" data-template-name="application">
+    <div class="container">
+      <h2>Tax calculator</h2>
+
+      Last updated on: <strong>December 25, 2013</strong>
+
+      {{outlet}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+    <form class="form-inline">
+      <div class="form-group">
+        {{input autocomplete="off" value=annualIncome type="text" class="form-control" placeholder="Annual income"}}
+      </div>
+      <div class="form-group">
+        {{view Ember.Select
+          contentBinding="App.Currencies.list"
+          valueBinding="App.Currencies.current"
+          optionLabelPath="content.symbol"
+          optionValuePath="content.code"
+          class="form-control"
+        }}
+      </div>
+    </form>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Effective tax rate</th>
+          <th>{{currencySymbol}} in taxes</th>
+          <th>{{currencySymbol}} take home</th>
+        </tr>
+      </thead>
+      {{#each results}}
+        <tr>
+          <td>{{country}}</td>
+          <td>{{percent percentage}}</td>
+          <td>{{money amount}}</td>
+          <td>{{money takeHome}}</td>
+        </tr>
+      {{/each}}
+    </table>
+  </script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+  <script src="http://builds.emberjs.com/handlebars-1.0.0.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.2.0/ember.js"></script>
+  <script src="http://josscrowcroft.github.io/accounting.js/accounting.js"></script>
+  <script src="http://josscrowcroft.github.io/money.js/money.js"></script>
+  <script src="tax-calculator.js"></script>
+</body>
+</html>
