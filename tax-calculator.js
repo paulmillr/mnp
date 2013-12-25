@@ -1,13 +1,12 @@
 var oexToken = '8556217a83d84985930d67d6cf934289';
-var toCurrency = function(value, code) {
-  // console.log('toCurrency', value, code);
+
+var toCurrency = function(value, currentCode, code) {
   if (!value) return 0;
-  return fx(value).from(code).to(App.Currencies.current);
+  return fx(value).from(code).to(currentCode);
 };
-var fromCurrency = function(value, code) {
-  // console.log('fromCurrency', value, code);
+var fromCurrency = function(value, currentCode, code) {
   if (!value) return 0;
-  return fx(value).from(App.Currencies.current).to(code);
+  return fx(value).from(currentCode).to(code);
 };
 
 // rates - with or without tax brackets
@@ -15,8 +14,8 @@ var fromCurrency = function(value, code) {
 // b)    = [{min: 10000, max: 15000, rate: 0.05}]
 // convertedIncome = 15000
 
-var getRate = function(income, currency, rates)  {
-  var convertedIncome = fromCurrency(income, currency);
+var getRate = function(income, currentCurrency, currency, rates)  {
+  var convertedIncome = fromCurrency(income, currentCurrency, currency);
   // Enable or disable tax brackets
   if ('next' in rates[0]) {
     // Brackets are enabled.
@@ -39,7 +38,7 @@ var getRate = function(income, currency, rates)  {
         // console.log('mult', current, rate);
         // console.log('total +=', total, current * rate);
         total += current * rate;
-        return toCurrency(total, currency);
+        return toCurrency(total, currentCurrency, currency);
       }
     }
     throw new Error('Something went wrong');
@@ -49,7 +48,7 @@ var getRate = function(income, currency, rates)  {
     for (var i = 0, item; i < list.length; i++) {
       item = list[i];
       if (convertedIncome >= item.min) {
-        return toCurrency(convertedIncome * (item.rate / 100), currency);
+        return toCurrency(convertedIncome * (item.rate / 100), currentCurrency, currency);
       }
     }
     throw new Error('No rate matches the value ' + convertedIncome);
@@ -58,8 +57,8 @@ var getRate = function(income, currency, rates)  {
 
 var makeCalc = function(item) {
   if (typeof item.calc === 'function') return item.calc;
-  return function(income) {
-    return getRate(income, item.code, item.rates);
+  return function(income, currency) {
+    return getRate(income, currency, item.code, item.rates);
   };
 };
 
@@ -75,7 +74,7 @@ var policies = [
   // 183,250 398,350 44,603  33  183,250
   // 398,350 400,000 115,586 35  398,350
   // 400,000 ----- ----- 39.6  -----
-  {country: 'United States', code: 'USD', symbol: '$', rates: [
+  {country: 'United States', code: 'USD', symbol: 'US$', rates: [
     {next: 8925, rate: 0}, // 0-8,925
     {next: 27325, rate: 25}, // 8,925-36,250
     {next: 51600, rate: 28}, // 36,250-87,850
@@ -98,7 +97,7 @@ var policies = [
      ]}
   ]},
 
-  {country: 'Hong-Kong', code: 'HKD', symbol: 'HK$', rates: [
+  {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: [
     {min: 0, rate: 2},
     {min: 40000, rate: 7},
     {min: 80000, rate: 12},
@@ -166,7 +165,7 @@ App.deferReadiness();
 
 App.TaxPolicy = Ember.Object.extend({
   country: null,
-  calculateFor: function(annualIncome) {}
+  calculateFor: function(annualIncome, currentCurrency) {}
 });
 
 App.TAX_POLICIES = policies.map(function(item) {
@@ -179,11 +178,8 @@ Currencies = Ember.Object.extend({
   }.property('current')
 });
 
-App.Currencies = Currencies.create({
-  current: 'USD',
-  list: policies.map(function(item) {
-    return {code: item.code, symbol: symbols[item.code]};
-  })
+App.CURRENCIES = policies.map(function(item) {
+  return {code: item.code, symbol: symbols[item.code]};
 });
 
 App.Entry = Ember.Object.extend({
@@ -191,16 +187,15 @@ App.Entry = Ember.Object.extend({
   country: Ember.computed.alias('policy.country'),
   calculator: null,
   annualIncome: Ember.computed.alias('calculator.annualIncome'),
-
-  currencyBinding: 'App.Currencies.current',
+  currency: Ember.computed.alias('calculator.currencySymbol'),
 
   amount: function() {
-    return this.get('policy').calculateFor(this.get('annualIncome'));
+    return this.get('policy').calculateFor(this.get('annualIncome'), this.get('currency'));
   }.property('policy', 'annualIncome', 'currency'),
 
   takeHome: function() {
-    return this.get('annualIncome') - this.get('policy').calculateFor(this.get('annualIncome'));
-  }.property('policy', 'annualIncome', 'currency'),
+    return this.get('annualIncome') - this.get('amount');
+  }.property('annualIncome', 'amount'),
 
   percentage: function() {
     return this.get('amount') / this.get('annualIncome');
@@ -209,7 +204,7 @@ App.Entry = Ember.Object.extend({
 
 App.TaxCalculation = Ember.Object.extend({
   annualIncome: null,
-  currencySymbolBinding: 'App.Currencies.currentSymbol',
+  currencySymbol: 'USD',
 
   results: function() {
     var self = this;
@@ -227,6 +222,7 @@ App.IndexRoute = Ember.Route.extend({
 
 App.IndexController = Ember.ObjectController.extend({
   income: null,
+
   incomeChanged: function() {
     var income = this.get('income');
     this.set('annualIncome', accounting.unformat(income));
@@ -234,6 +230,7 @@ App.IndexController = Ember.ObjectController.extend({
 
   actions: {
     setIncome: function(value) {
+      this.set('currencySymbol', 'USD');
       this.set('income', value);
     }
   }

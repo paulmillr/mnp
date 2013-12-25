@@ -30,9 +30,9 @@
 
       <div class="form-group">
         {{view Ember.Select
-          contentBinding="App.Currencies.list"
-          valueBinding="App.Currencies.current"
-          optionLabelPath="content.symbol"
+          contentBinding="App.CURRENCIES"
+          valueBinding="currencySymbol"
+          optionLabelPath="content.code"
           optionValuePath="content.code"
           class="form-control"
         }}
