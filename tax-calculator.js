@@ -63,13 +63,6 @@ var getRate = function(income, currentCurrency, currency, rates)  {
   }
 };
 
-var makeCalc = function(item) {
-  if (typeof item.calc === 'function') return item.calc;
-  return function(income, currency) {
-    return getRate(income, currency, item.code, item.rates);
-  };
-};
-
 var symbols = {};
 policies.forEach(function(item) {
   symbols[item.code] = item.symbol || item.code;
@@ -78,8 +71,8 @@ policies.forEach(function(item) {
 App = Ember.Application.create();
 App.deferReadiness();
 
-App.CURRENCIES = policies.map(function(item) {
-  return {code: item.code, symbol: symbols[item.code]};
+App.CURRENCIES = policies.map(function(item) { return item.code }).
+  uniq().map(function(code) { return { code: code, symbol: symbols[code] };
 });
 
 App.TaxPolicy = Ember.Object.extend({
@@ -110,7 +103,7 @@ App.FederatedTaxPolicy = Ember.Object.extend({
   }.property('country', 'state')
 });
 
-App.TAX_POLICIES = []
+App.TAX_POLICIES = [];
 
 policies.forEach(function(item) {
   var setRates = function(i) {
@@ -137,11 +130,12 @@ App.Entry = Ember.Object.extend({
   country: Ember.computed.alias('policy.name'),
   calculator: null,
   annualIncome: Ember.computed.alias('calculator.annualIncome'),
-  currency: Ember.computed.alias('calculator.currencySymbol'),
+  currencyCode: Ember.computed.alias('calculator.currencyCode'),
+  currency: Ember.computed.alias('calculator.currency'),
 
   amount: function() {
-    return this.get('policy').calculateFor(this.get('annualIncome'), this.get('currency'));
-  }.property('policy', 'annualIncome', 'currency'),
+    return this.get('policy').calculateFor(this.get('annualIncome'), this.get('currencyCode'));
+  }.property('policy', 'annualIncome', 'currencyCode'),
 
   takeHome: function() {
     return this.get('annualIncome') - this.get('amount');
@@ -152,9 +146,12 @@ App.Entry = Ember.Object.extend({
   }.property('amount', 'annualIncome')
 });
 
-App.TaxCalculation = Ember.Object.extend({
+App.TaxCalculatior = Ember.Object.extend({
   annualIncome: null,
-  currencySymbol: 'USD',
+  currencyCode: 'USD',
+  currency: function() {
+    return symbols[this.get('currencyCode')];
+  }.property('currencyCode'),
 
   results: function() {
     var self = this;
@@ -166,7 +163,7 @@ App.TaxCalculation = Ember.Object.extend({
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return App.TaxCalculation.create();
+    return App.TaxCalculatior.create();
   }
 });
 
@@ -184,14 +181,17 @@ App.IndexController = Ember.ObjectController.extend({
 
   actions: {
     setIncome: function(value) {
-      this.set('currencySymbol', 'USD');
+      this.set('currencyCode', 'USD');
       this.set('income', value);
     }
   }
 });
 
 App.ResultsController = Ember.ArrayController.extend({
-  sortProperties: ['amount']
+  sortProperties: ['amount'],
+  needs: ['index'],
+  currencyCode: Ember.computed.alias('controllers.index.currencyCode'),
+  currency: Ember.computed.alias('controllers.index.currency')
 });
 
 Ember.Handlebars.helper('money', function(value, symbol) {
