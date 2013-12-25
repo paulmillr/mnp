@@ -113,12 +113,17 @@ App.FederatedTaxPolicy = Ember.Object.extend({
 App.TAX_POLICIES = []
 
 policies.forEach(function(item) {
-  if (item.rate) {
-    item.rates = ['simple', {max: Infinity, rate: item.rate}];
+  var setRates = function(i) {
+    if (item.rate) {
+      item.rates = ['simple', {max: Infinity, rate: item.rate}];
+    }
   }
+
+  setRates(item);
 
   if (item.states) {
     item.states.forEach(function(state) {
+      setRates(state);
       var policy = App.FederatedTaxPolicy.create({ country: item.country, state: state.state, code: item.code, federalRates: item.rates, stateRates: state.rates });
       App.TAX_POLICIES.push(policy);
     });
