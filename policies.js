@@ -114,6 +114,8 @@ var policies = [
   //   {min: 250731, rate: 45}
   // ]}
 
+  {country: 'United Arab Emirates', rates: null},
+
   {country: 'Russia', code: 'RUB', rates: ['simplem', {min: 0, rate: 13}]},
   {country: 'Ukraine', code: 'UAH', symbol: '₴', rates: ['simple',
     {min: 0, rate: 15},

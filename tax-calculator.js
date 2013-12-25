@@ -181,8 +181,8 @@ App.ResultsController = Ember.ArrayController.extend({
   sortProperties: ['amount']
 });
 
-Ember.Handlebars.helper('money', function(value) {
-  return accounting.formatMoney(value, '');
+Ember.Handlebars.helper('money', function(value, symbol) {
+  return accounting.formatMoney(value, symbol || '');
 });
 
 Ember.Handlebars.helper('percent', function(value) {
