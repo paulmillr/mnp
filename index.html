@@ -22,8 +22,8 @@
       Last updated on: <strong>December 25, 2013</strong>
 
       {{outlet}}
-
     </div>
+
     <footer>
       <div class="container">
         Crafted with love by <a href="http://goshakkk.name/">@goshakkk</a> and <a href="http://paulmillr.com">@paulmillr</a>.
@@ -40,7 +40,7 @@
       <div class="form-group">
         {{view Ember.Select
           contentBinding="App.CURRENCIES"
-          valueBinding="currencySymbol"
+          valueBinding="currencyCode"
           optionLabelPath="content.code"
           optionValuePath="content.code"
           class="form-control"
@@ -67,8 +67,8 @@
         <tr>
           <th>Country</th>
           <th>Effective tax rate</th>
-          <th>{{currencySymbol}} in taxes</th>
-          <th>{{currencySymbol}} take home</th>
+          <th>{{currency}} in taxes</th>
+          <th>{{currency}} take home</th>
         </tr>
       </thead>
       <tbody>
@@ -76,8 +76,8 @@
           <tr>
             <td>{{country}}</td>
             <td>{{percent percentage}}</td>
-            <td>{{money amount}}</td>
-            <td>{{money takeHome}}</td>
+            <td>{{money amount currency}}</td>
+            <td>{{money takeHome currency}}</td>
           </tr>
         {{/each}}
       </tbody>
