@@ -201,6 +201,15 @@ var policies = [
     {max: Infinity, rate: 40}
   ]},
 
+  // https://en.wikipedia.org/wiki/Income_tax_in_Australia#Individual_income_tax_rates_.28residents.29
+  {country: 'Australia', code: 'AUD', symbol: 'AU$', rates: ['incremental',
+    {max: 18200, rate: 0},
+    {max: 37000, rate: 19},
+    {max: 80000, rate: 32.5, fixed: 3572},
+    {max: 180000, rate: 37, fixed: 17547},
+    {max: Infinity, rate: 45, fixed: 54547}
+  ]},
+
   // https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax
   {country: 'United Kingdom', code: 'GBP', symbol: '£', rates: ['incremental',
     {max: 32011, rate: 20},
