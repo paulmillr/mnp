@@ -227,11 +227,39 @@ var policies = [
     {max: Infinity, rate: 43}
   ]},
 
-  {country: 'Czech Republic', code: 'CZK', rate: 15},
+  // http://en.wikipedia.org/wiki/Income_tax_in_the_Netherlands#Progressive_tax_on_wages_etc._.28box_1.29
+  {country: 'Netherlands', code: 'EUR', symbol: '€', rates: ['incremental',
+    {max: 19645, rate: 5.85},
+    {max: 33363, rate: 10.85},
+    {max: 55991, rate: 42},
+    {max: Infinity, rate: 52}
+  ]},
+
+  {country: 'Cyprus', code: 'EUR', symbol: '€', rates: ['incremental',
+    {max: 19500, rate: 0},
+    {max: 28000, rate: 20},
+    {max: 36300, rate: 25},
+    {max: 60000, rate: 30},
+    {max: Infinity, rate: 35}
+  ]},
+
+  {country: 'Sweden', code: 'SEK', rates: ['incremental',
+    {max: 413200, rate: 30},
+    {max: 591600, rate: 50},
+    {max: Infinity, rate: 55}
+  ]},
+
+  {country: 'Iceland', code: 'ISK', rates: ['incremental',
+    {max: 2512800, rate: 37.31},
+    {max: 8166600, rate: 40.21},
+    {max: Infinity, rate: 46.21}
+  ]},
+
+  {country: 'Czech Republic', code: 'CZK', symbol: 'Kč', rate: 15},
 
   // {country: 'Switzerland', code: 'CHF', symbol: '', rates: ['']},
   {country: 'Georgia', code: 'CHF', symbol: '', rate: 20},
-  {country: 'Latvia', code: 'EUR', symbol: '', rate: 24},
+  {country: 'Latvia', code: 'EUR', symbol: '€', rate: 24},
 
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
