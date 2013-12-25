@@ -230,7 +230,7 @@ var policies = [
   {country: 'Czech Republic', code: 'CZK', rate: 15},
 
   // {country: 'Switzerland', code: 'CHF', symbol: '', rates: ['']},
-  {country: 'Georgia', code: 'CHF', symbol: '', rate: 20},
+  {country: 'Georgia', code: 'GEL', symbol: '', rate: 20},
   {country: 'Latvia', code: 'EUR', symbol: '', rate: 24},
 
   // Germany does not work.
@@ -248,7 +248,7 @@ var policies = [
   // ]}
 
   // FTW!
-  {country: 'United Arab Emirates', rate: 0},
+  {country: 'United Arab Emirates', code: 'AED', rate: 0},
 
   {country: 'Russia', code: 'RUB', rate: 13},
   {country: 'Ukraine', code: 'UAH', symbol: '₴', rates: ['simple',

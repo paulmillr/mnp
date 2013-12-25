@@ -71,8 +71,8 @@ policies.forEach(function(item) {
 App = Ember.Application.create();
 App.deferReadiness();
 
-App.CURRENCIES = policies.map(function(item) {
-  return { code: item.code, symbol: symbols[item.code] };
+App.CURRENCIES = policies.map(function(item) { return item.code }).
+  uniq().map(function(code) { return { code: code, symbol: symbols[code] };
 });
 
 App.TaxPolicy = Ember.Object.extend({
