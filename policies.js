@@ -91,6 +91,15 @@ var policies = [
     {max: Infinity, rate: 20}
   ]},
 
+  // http://www.rd.go.th/publish/6045.0.html
+  {country: 'Thailand', code: 'THB', symbol: '฿', rates: ['incremental',
+    {max: 150000, rate: 0},
+    {max: 500000, rate: 10},
+    {max: 1000000, rate: 20},
+    {max: 4000000, rate: 30},
+    {max: Infinity, rate: 37}
+  ]},
+
   {country: 'Japan', code: 'JPY', symbol: '¥', rates: ['incremental',
     {max: 1950000, rate: 5},
     {max: 3300000, rate: 10}, // 3300000-1950000
