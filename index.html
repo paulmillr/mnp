@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html>
-<!--
-  Created using jsbin.com
-  Source can be edited via http://jsbin.com/iKAkuga/8/edit
--->
 <head>
-<meta charset="utf-8">
-<title>Tax calculator</title>
+  <meta charset="utf-8">
+  <title>ITC</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-
-<style id="jsbin-css">
-
-</style>
 </head>
 <body>
   <script type="text/x-handlebars" data-template-name="application">
     <div class="container">
-      <h2>Tax calculator</h2>
+      <h2>International personal income tax calculator</h2>
 
       Last updated on: <strong>December 25, 2013</strong>
 
@@ -27,8 +19,15 @@
   <script type="text/x-handlebars" data-template-name="index">
     <form class="form-inline">
       <div class="form-group">
-        {{input autocomplete="off" value=annualIncome type="text" class="form-control" placeholder="Annual income"}}
+        {{input autocomplete="off" value=income type="text" class="form-control" placeholder="Annual income"}}
+        <p class="help-block">
+          Try suggested values:
+          <a href="#" {{action 'setIncome' '100,000'}}>$100,000</a>,
+          <a href="#" {{action 'setIncome' '250,000'}}>$250,000</a>,
+          <a href="#" {{action 'setIncome' '500,000'}}>$500,000</a>,
+          <a href="#" {{action 'setIncome' '1,000,000'}}>$1,000,000</a>.</p>
       </div>
+
       <div class="form-group">
         {{view Ember.Select
           contentBinding="App.Currencies.list"

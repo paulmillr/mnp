@@ -225,6 +225,20 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
+App.IndexController = Ember.ObjectController.extend({
+  income: null,
+  incomeChanged: function() {
+    var income = this.get('income');
+    this.set('annualIncome', accounting.unformat(income));
+  }.observes('income'),
+
+  actions: {
+    setIncome: function(value) {
+      this.set('income', value);
+    }
+  }
+});
+
 Ember.Handlebars.helper('money', function(value) {
   return accounting.formatMoney(value, '');
 });
