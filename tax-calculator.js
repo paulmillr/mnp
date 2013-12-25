@@ -167,11 +167,30 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
+// Custom debounce implementation
+var debounce = function(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 App.IndexController = Ember.ObjectController.extend({
   income: null,
 
   incomeChanged: function() {
-    Ember.run.throttle(this, 'processIncomeChange', 500);
+    if (!this.process) {
+      this.process = debounce(this.processIncomeChange, 500, true);
+    }
+    this.process();
   }.observes('income'),
 
   processIncomeChange: function() {
