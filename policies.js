@@ -256,6 +256,12 @@ var policies = [
     {max: Infinity, rate: 45}
   ]},
 
+  // https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax
+  {country: 'Ireland', code: 'EUR', rates: ['incremental',
+    {max: 32800, rate: 20},
+    {max: Infinity, rate: 41}
+  ]},
+
   // https://en.wikipedia.org/wiki/Income_tax_in_Spain
   {country: 'Spain', code: 'EUR', symbol: '€', rates: ['incremental',
     {max: 17707.2, rate: 24},
