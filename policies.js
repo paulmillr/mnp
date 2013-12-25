@@ -40,7 +40,7 @@ var policies = [
     //   {max: 33999, rate: 6},
     //   {max: Infinity, rate: 7}
     // ]},
-    {state: 'Alaska / Florida / Texas', rate: 0},
+    {state: 'Alaska / Florida / Nevada / Texas', rate: 0},
     {state: 'California', rates: ['incremental',
       {max: 7455, rate: 0},
       {max: 17676, rate: 2},
