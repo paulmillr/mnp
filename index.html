@@ -84,7 +84,7 @@
       <tbody>
         {{#each controller}}
           <tr>
-            <td><img src="flags/{{country}}.png" alt="{{country}}" />{{country}}</td>
+            <td><img {{bind-attr src=flagURL alt=country}} />{{country}}</td>
             <td>{{percent percentage}}</td>
             <td>{{money amount}}</td>
             <td>{{money takeHome}}</td>
