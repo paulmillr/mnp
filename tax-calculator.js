@@ -135,6 +135,10 @@ App.Entry = Ember.Object.extend({
   currencyCode: Ember.computed.alias('calculator.currencyCode'),
   currency: Ember.computed.alias('calculator.currency'),
 
+  flagURL: function() {
+    return 'flags/' + this.get('policy.country').replace(/ /g, '-') + '.png';
+  }.property('policy.country'),
+
   amount: function() {
     return this.get('policy').calculateFor(this.get('annualIncome'), this.get('currencyCode'));
   }.property('policy', 'annualIncome', 'currencyCode'),
