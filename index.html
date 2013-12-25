@@ -20,12 +20,6 @@
     <form class="form-inline">
       <div class="form-group">
         {{input autocomplete="off" value=income type="text" class="form-control" placeholder="Annual income"}}
-        <p class="help-block">
-          Try suggested values:
-          <a href="#" {{action 'setIncome' '100,000'}}>$100,000</a>,
-          <a href="#" {{action 'setIncome' '250,000'}}>$250,000</a>,
-          <a href="#" {{action 'setIncome' '500,000'}}>$500,000</a>,
-          <a href="#" {{action 'setIncome' '1,000,000'}}>$1,000,000</a>.</p>
       </div>
 
       <div class="form-group">
@@ -37,8 +31,19 @@
           class="form-control"
         }}
       </div>
+      <p class="help-block">
+        Try the following values:
+        <a href="#" {{action 'setIncome' '100,000'}}>$100,000</a>,
+        <a href="#" {{action 'setIncome' '250,000'}}>$250,000</a>,
+        <a href="#" {{action 'setIncome' '500,000'}}>$500,000</a>,
+        <a href="#" {{action 'setIncome' '1,000,000'}}>$1,000,000</a>.
+      </p>
     </form>
 
+    {{render 'results' results}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="results">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -48,14 +53,16 @@
           <th>{{currencySymbol}} take home</th>
         </tr>
       </thead>
-      {{#each results}}
-        <tr>
-          <td>{{country}}</td>
-          <td>{{percent percentage}}</td>
-          <td>{{money amount}}</td>
-          <td>{{money takeHome}}</td>
-        </tr>
-      {{/each}}
+      <tbody>
+        {{#each controller}}
+          <tr>
+            <td>{{country}}</td>
+            <td>{{percent percentage}}</td>
+            <td>{{money amount}}</td>
+            <td>{{money takeHome}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
     </table>
   </script>
 

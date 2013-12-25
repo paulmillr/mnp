@@ -268,6 +268,10 @@ App.IndexController = Ember.ObjectController.extend({
   }
 });
 
+App.ResultsController = Ember.ArrayController.extend({
+  sortProperties: ['amount']
+});
+
 Ember.Handlebars.helper('money', function(value) {
   return accounting.formatMoney(value, '');
 });
