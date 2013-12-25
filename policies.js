@@ -223,6 +223,7 @@ var policies = [
     {max: Infinity, rate: 26}
   ]},
 
+  // http://www.korea4expats.com/article-income-taxes.html
   {country: 'South Korea', code: 'KRW', rates: ['incremental',
     {max: 12000000, rate: 6},
     {max: 46000000, rate: 16},
