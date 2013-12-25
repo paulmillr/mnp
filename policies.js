@@ -354,6 +354,16 @@ var policies = [
   //   {max: Infinity, rate: 45}
   // ]}
 
+  // https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax
+  {country: 'Israel', code: 'ILS', rates: ['incremental',
+    {max: 62400, rate: 10},
+    {max: 106560, rate: 14},
+    {max: 173160, rate: 21},
+    {max: 261360, rate: 30},
+    {max: 501960, rate: 33},
+    {max: Infinity, rate: 48}
+  ]},
+
   // FTW!
   {country: 'United Arab Emirates', code: 'AED', rate: 0},
 
