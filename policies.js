@@ -107,19 +107,19 @@ var policies = [
       {max: 63969, rate: 13.8},
       {max: Infinity, rate: 16.7}
     ]},
-    {state: 'Nova Scotia', rates: ['incremental',
-      {max: 29590, rate: 8.79},
-      {max: 590180, rate: 14.95},
-      {max: 93000, rate: 16.67},
-      {max: 150000, rate: 17.5},
-      {max: Infinity, rate: 21}
-    ]},
-    {state: 'New Brunswick', rates: ['incremental',
-      {max: 38954, rate: 9.39},
-      {max: 77908, rate: 13.46},
-      {max: 126662, rate: 14.46},
-      {max: Infinity, rate: 16.07}
-    ]},
+    // {state: 'Nova Scotia', rates: ['incremental',
+    //   {max: 29590, rate: 8.79},
+    //   {max: 590180, rate: 14.95},
+    //   {max: 93000, rate: 16.67},
+    //   {max: 150000, rate: 17.5},
+    //   {max: Infinity, rate: 21}
+    // ]},
+    // {state: 'New Brunswick', rates: ['incremental',
+    //   {max: 38954, rate: 9.39},
+    //   {max: 77908, rate: 13.46},
+    //   {max: 126662, rate: 14.46},
+    //   {max: Infinity, rate: 16.07}
+    // ]},
     // http://www.revenuquebec.ca/en/citoyen/impots/rens_comp/taux.aspx
     {state: 'Quebec', rates: ['incremental',
       {max: 41095, rate: 16},
@@ -138,11 +138,11 @@ var policies = [
       {max: 67000, rate: 12.75},
       {max: Infinity, rate: 17.4}
     ]},
-    {state: 'Saskatchewan', rates: ['incremental',
-      {max: 42906, rate: 11},
-      {max: 122589, rate: 13},
-      {max: Infinity, rate: 15}
-    ]},
+    // {state: 'Saskatchewan', rates: ['incremental',
+    //   {max: 42906, rate: 11},
+    //   {max: 122589, rate: 13},
+    //   {max: Infinity, rate: 15}
+    // ]},
     {state: 'Alberta', rate: 10},
     {state: 'British Columbia', rates: ['incremental',
       {max: 37568, rate: 5.06},
@@ -150,25 +150,25 @@ var policies = [
       {max: 82268, rate: 10.5},
       {max: 104754, rate: 12.29},
       {max: Infinity, rate: 14.7}
-    ]},
-    {state: 'Yukon', rates: ['incremental',
-      {max: 43561, rate: 7.04},
-      {max: 87123, rate: 9.68},
-      {max: 135054, rate: 11.44},
-      {max: Infinity, rate: 12.76}
-    ]},
-    {state: 'Nerthwest Territories', rates: ['incremental',
-      {max: 39543, rate: 5.9},
-      {max: 79086, rate: 8.6},
-      {max: 128286, rate: 12.2},
-      {max: Infinity, rate: 14.05}
-    ]},
-    {state: 'Nunavut', rates: ['incremental',
-      {max: 41535, rate: 4},
-      {max: 83071, rate: 7},
-      {max: 135054, rate: 9},
-      {max: Infinity, rate: 11.5}
     ]}
+    // {state: 'Yukon', rates: ['incremental',
+    //   {max: 43561, rate: 7.04},
+    //   {max: 87123, rate: 9.68},
+    //   {max: 135054, rate: 11.44},
+    //   {max: Infinity, rate: 12.76}
+    // ]},
+    // {state: 'Nerthwest Territories', rates: ['incremental',
+    //   {max: 39543, rate: 5.9},
+    //   {max: 79086, rate: 8.6},
+    //   {max: 128286, rate: 12.2},
+    //   {max: Infinity, rate: 14.05}
+    // ]},
+    // {state: 'Nunavut', rates: ['incremental',
+    //   {max: 41535, rate: 4},
+    //   {max: 83071, rate: 7},
+    //   {max: 135054, rate: 9},
+    //   {max: Infinity, rate: 11.5}
+    // ]}
   ]},
 
   {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: ['simple',
