@@ -1,12 +1,12 @@
 var oexToken = '8556217a83d84985930d67d6cf934289';
 
-var toCurrency = function(value, currentCode, code) {
+var toCurrency = function(value, fromCode, toCode) {
   if (!value) return 0;
-  return fx(value).from(code).to(currentCode);
+  return fx(value).from(fromCode).to(toCode);
 };
-var fromCurrency = function(value, currentCode, code) {
+var fromCurrency = function(value, toCode, fromCode) {
   if (!value) return 0;
-  return fx(value).from(currentCode).to(code);
+  return fx(value).from(fromCode).to(toCode);
 };
 
 // rates - with or without tax brackets
