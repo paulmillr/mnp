@@ -9,16 +9,24 @@ var fromCurrency = function(value, toCode, fromCode) {
   return fx(value).from(fromCode).to(toCode);
 };
 
-// rates - with or without tax brackets
+// calculation type - simple or incremental
+// rates - tax brackets
 // a)    = [{min: 10000, rate: 0.05}]
 // b)    = [{min: 10000, max: 15000, rate: 0.05}]
 // convertedIncome = 15000
 
+// Get rate.
+//
+// income      - The Integer income.
+// currentCode - The String code.
+// currency    - The String code.
+// rates       - The Array of tax rates. First item should indicate calculation
+//               type. Possible calculation types are 'simple' and 'incremental'.
 var getRate = function(income, currentCurrency, currency, rates)  {
   var convertedIncome = fromCurrency(income, currentCurrency, currency);
-  // Enable or disable tax brackets
-  if ('next' in rates[0]) {
-    // Brackets are enabled.
+  rates = rates.slice();
+  var type = rates.shift(); // 'simple' or 'incremental'
+  if (type == 'incremental') {
     var total = 0;
     var current = convertedIncome;
     // income 45000, brackets 20k: 0%, +10k: 2%, +10k: 3.5%
@@ -26,24 +34,22 @@ var getRate = function(income, currentCurrency, currency, rates)  {
     // (15000 > 10000) = total -= 10000; 25000 - 10000 / 2
     // (5000  < 10000) = total = 0; 5000 / 3.5
     var list = rates;
+    var prevMax = 0;
     for (var i = 0, item, rate; i < list.length; i++) {
       item = list[i];
       rate = (item.rate / 100);
-      // console.log('current', current, 'next', item.next);
-      if (current > item.next) {
-        // console.log('mult', item.next, rate);
-        total += item.next * rate;
-        current -= item.next;
+      var next = item.max - prevMax;
+      if (current > next) {
+        total += next * rate;
+        current -= next;
+        var prevMax = item.max;
       } else {
-        // console.log('mult', current, rate);
-        // console.log('total +=', total, current * rate);
         total += current * rate;
         return toCurrency(total, currentCurrency, currency);
       }
     }
     throw new Error('Something went wrong');
   } else {
-    // Brackets are disabled.
     var list = rates.slice().reverse();
     for (var i = 0, item; i < list.length; i++) {
       item = list[i];
@@ -51,6 +57,7 @@ var getRate = function(income, currentCurrency, currency, rates)  {
         return toCurrency(convertedIncome * (item.rate / 100), currentCurrency, currency);
       }
     }
+    console.log(rates)
     throw new Error('No rate matches the value ' + convertedIncome);
   }
 };
@@ -74,45 +81,45 @@ var policies = [
   // 183,250 398,350 44,603  33  183,250
   // 398,350 400,000 115,586 35  398,350
   // 400,000 ----- ----- 39.6  -----
-  {country: 'United States', code: 'USD', symbol: 'US$', rates: [
-    {next: 8925, rate: 0}, // 0-8,925
-    {next: 27325, rate: 15}, // 8,925-36,250
-    {next: 51600, rate: 25}, // 36,250-87,850
-    {next: 95400, rate: 28}, // 87,850-183,250
-    {next: 215100, rate: 33}, // 183,250-398,350
-    {next: 1650, rate: 35}, // 398,350-400K
-    {next: Infinity, rate: 39.6} // 400K+
+  {country: 'United States', code: 'USD', symbol: 'US$', rates: ['incremental',
+    {max: 8925, rate: 0},
+    {max: 36250, rate: 15},
+    {max: 87850, rate: 25},
+    {max: 183250, rate: 28},
+    {max: 398350, rate: 33},
+    {max: 400000, rate: 35},
+    {max: Infinity, rate: 39.6}
   ], states: [
-     {state: 'California', rates: [
-        {next: 7455, rate: 0},
-        {next: 10221, rate: 2},
-        {next: 10221, rate: 4},
-        {next: 10221, rate: 6},
-        {next: 10221, rate: 8},
-        {next: 201058, rate: 9.3},
-        {next: 50000, rate: 10.3},
-        {next: 200000, rate: 11.3},
-        {next: Infinity, rate: 12.3},
+     {state: 'California', rates: ['incremental',
+        {max: 7455, rate: 0},
+        {max: 17676, rate: 2},
+        {max: 27897, rate: 4},
+        {max: 38726, rate: 6},
+        {max: 48942, rate: 8},
+        {max: 250000, rate: 9.3},
+        {max: 300000, rate: 10.3},
+        {max: 500000, rate: 11.3},
+        {max: Infinity, rate: 12.3},
      ]}
   ]},
 
-  {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: [
+  {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: ['simple',
     {min: 0, rate: 2},
     {min: 40000, rate: 7},
     {min: 80000, rate: 12},
     {min: 120000, rate: 17}
   ]},
 
-  {country: 'Singapore', code: 'SGD', symbol: 'SG$', rates: [
-    {next: 20000, rate: 0},
-    {next: 10000, rate: 2},
-    {next: 10000, rate: 3.5},
-    {next: 40000, rate: 7},
-    {next: 40000, rate: 11.5},
-    {next: 40000, rate: 15},
-    {next: 40000, rate: 17},
-    {next: 120000, rate: 18},
-    {next: Infinity, rate: 20}
+  {country: 'Singapore', code: 'SGD', symbol: 'SG$', rates: ['incremental',
+    {max: 20000, rate: 0},
+    {max: 30000, rate: 2},
+    {max: 40000, rate: 3.5},
+    {max: 80000, rate: 7},
+    {max: 120000, rate: 11.5},
+    {max: 160000, rate: 15},
+    {max: 200000, rate: 17},
+    {max: 320000, rate: 18},
+    {max: Infinity, rate: 20}
   ]},
 
   // Tax Base (Yen)  Tax
@@ -123,13 +130,13 @@ var policies = [
   // 9,000,001 - 18,000,000  33% of base exceeding 9,000,000
   // 18,000,001 and over 40% of base exceeding 18,000,000
 
-  {country: 'Japan', code: 'JPY', symbol: '¥', rates: [
-    {next: 1950000, rate: 5},
-    {next: 1350000, rate: 10}, // 3300000-1950000
-    {next: 3650000, rate: 20}, // 6950000-3300000
-    {next: 2050000, rate: 23}, // 9000000-6950000
-    {next: 9000000, rate: 33}, // 18000000-9000000
-    {next: Infinity, rate: 40}
+  {country: 'Japan', code: 'JPY', symbol: '¥', rates: ['incremental',
+    {max: 1950000, rate: 5},
+    {max: 3300000, rate: 10}, // 3300000-1950000
+    {max: 6950000, rate: 20}, // 6950000-3300000
+    {max: 9000000, rate: 23}, // 9000000-6950000
+    {max: 18000000, rate: 33}, // 18000000-9000000
+    {max: Infinity, rate: 40}
   ]},
 
   // Germany does not work.
@@ -146,12 +153,12 @@ var policies = [
   //   {min: 250731, rate: 45}
   // ]}
 
-  {country: 'Russia', code: 'RUB', rates: [{min: 0, rate: 13}]},
-  {country: 'Ukraine', code: 'UAH', symbol: '₴', rates: [
+  {country: 'Russia', code: 'RUB', rates: ['simplem', {min: 0, rate: 13}]},
+  {country: 'Ukraine', code: 'UAH', symbol: '₴', rates: ['simple',
     {min: 0, rate: 15},
     {min: 12180, rate: 17}
   ]},
-  {country: 'Belarus', code: 'BYR', rates: [{min: 0, rate: 12}]}
+  {country: 'Belarus', code: 'BYR', rates: ['simple', {min: 0, rate: 12}]}
 ];
 
 var symbols = {};
