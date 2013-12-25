@@ -210,6 +210,27 @@ var policies = [
     {max: Infinity, rate: 37}
   ]},
 
+  // http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/
+  {country: 'Malaysia', code: 'MYR', rates: ['incremental',
+    {max: 2500, rate: 0},
+    {max: 5000, rate: 1},
+    {max: 10000, rate: 3},
+    {max: 20000, rate: 3},
+    {max: 35000, rate: 7},
+    {max: 50000, rate: 12},
+    {max: 70000, rate: 19},
+    {max: 100000, rate: 24},
+    {max: Infinity, rate: 26}
+  ]},
+
+  // http://www.korea4expats.com/article-income-taxes.html
+  {country: 'South Korea', code: 'KRW', rates: ['incremental',
+    {max: 12000000, rate: 6},
+    {max: 46000000, rate: 16},
+    {max: 88000000, rate: 25},
+    {max: Infinity, rate: 35}
+  ]},
+
   {country: 'Japan', code: 'JPY', symbol: '¥', rates: ['incremental',
     {max: 1950000, rate: 5},
     {max: 3300000, rate: 10}, // 3300000-1950000
@@ -233,6 +254,12 @@ var policies = [
     {max: 32011, rate: 20},
     {max: 150000, rate: 40},
     {max: Infinity, rate: 45}
+  ]},
+
+  // https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax
+  {country: 'Ireland', code: 'EUR', rates: ['incremental',
+    {max: 32800, rate: 20},
+    {max: Infinity, rate: 41}
   ]},
 
   // https://en.wikipedia.org/wiki/Income_tax_in_Spain
@@ -326,6 +353,16 @@ var policies = [
   //   {max: 250731, rate: 42},
   //   {max: Infinity, rate: 45}
   // ]}
+
+  // https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax
+  {country: 'Israel', code: 'ILS', rates: ['incremental',
+    {max: 62400, rate: 10},
+    {max: 106560, rate: 14},
+    {max: 173160, rate: 21},
+    {max: 261360, rate: 30},
+    {max: 501960, rate: 33},
+    {max: Infinity, rate: 48}
+  ]},
 
   // FTW!
   {country: 'United Arab Emirates', code: 'AED', rate: 0},
