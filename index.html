@@ -4,6 +4,15 @@
   <meta charset="utf-8">
   <title>ITC</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+  <style>
+    footer {
+      color: #333;
+      padding: 1em 0;
+      margin-top: 1em;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
   <script type="text/x-handlebars" data-template-name="application">
@@ -13,7 +22,13 @@
       Last updated on: <strong>December 25, 2013</strong>
 
       {{outlet}}
+
     </div>
+    <footer>
+      <div class="container">
+        Crafted with love by <a href="http://goshakkk.name/">@goshakkk</a> and <a href="http://paulmillr.com">@paulmillr</a>.
+      </div>
+    </footer>
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
