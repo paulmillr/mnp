@@ -6,6 +6,14 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
   <style>
+    .flag {
+      height: 24px;
+    }
+
+    .country-name {
+      vertical-align: middle;
+    }
+
     footer {
       color: #333;
       padding: 1em 0;
@@ -84,7 +92,7 @@
       <tbody>
         {{#each controller}}
           <tr>
-            <td><img {{bind-attr src=flagURL alt=country}} />{{country}}</td>
+            <td><img class="flag" {{bind-attr src=flagURL alt=country}} /> <span class="country-name">{{country}}</span></td>
             <td>{{percent percentage}}</td>
             <td>{{money amount}}</td>
             <td>{{money takeHome}}</td>
