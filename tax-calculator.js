@@ -76,12 +76,12 @@ var policies = [
   // 400,000 ----- ----- 39.6  -----
   {country: 'United States', code: 'USD', symbol: 'US$', rates: [
     {next: 8925, rate: 0}, // 0-8,925
-    {next: 27325, rate: 25}, // 8,925-36,250
-    {next: 51600, rate: 28}, // 36,250-87,850
-    {next: 95400, rate: 33}, // 87,850-183,250
-    {next: 215100, rate: 35}, // 183,250-398,350
-    {next: 1650, rate: 39.6}, // 398,350-400K
-    {next: Infinity, rate: 40} // 400K+
+    {next: 27325, rate: 15}, // 8,925-36,250
+    {next: 51600, rate: 25}, // 36,250-87,850
+    {next: 95400, rate: 28}, // 87,850-183,250
+    {next: 215100, rate: 33}, // 183,250-398,350
+    {next: 1650, rate: 35}, // 398,350-400K
+    {next: Infinity, rate: 39.6} // 400K+
   ], states: [
      {state: 'California', rates: [
         {next: 7455, rate: 0},
