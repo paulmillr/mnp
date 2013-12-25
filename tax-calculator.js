@@ -165,9 +165,13 @@ App.IndexController = Ember.ObjectController.extend({
   income: null,
 
   incomeChanged: function() {
+    Ember.run.throttle(this, 'processIncomeChange', 500);
+  }.observes('income'),
+
+  processIncomeChange: function() {
     var income = this.get('income');
     this.set('annualIncome', accounting.unformat(income));
-  }.observes('income'),
+  },
 
   actions: {
     setIncome: function(value) {
