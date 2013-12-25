@@ -36,12 +36,14 @@ var getRate = function(income, currentCurrency, currency, rates)  {
     // (5000  < 10000) = total = 0; 5000 / 3.5
     var list = rates;
     var prevMax = 0;
-    for (var i = 0, item, rate; i < list.length; i++) {
+    for (var i = 0, item, rate, fixed; i < list.length; i++) {
       item = list[i];
       rate = (item.rate / 100);
+      fixed = item.fixed;
       var next = item.max - prevMax;
       if (current > next) {
         total += next * rate;
+        if (fixed) total += fixed;
         current -= next;
         var prevMax = item.max;
       } else {
