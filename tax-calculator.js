@@ -23,6 +23,7 @@ var fromCurrency = function(value, toCode, fromCode) {
 // rates       - The Array of tax rates. First item should indicate calculation
 //               type. Possible calculation types are 'simple' and 'incremental'.
 var getRate = function(income, currentCurrency, currency, rates)  {
+  if (!rates) return 0;
   var convertedIncome = fromCurrency(income, currentCurrency, currency);
   rates = rates.slice();
   var type = rates.shift(); // 'simple' or 'incremental'
@@ -72,6 +73,7 @@ var makeCalc = function(item) {
 var policies = [
   // Almost right. Needs some fix
   // http://www.worldwide-tax.com/us/us_taxes.asp
+  // Income taxes by state: http://www.bankrate.com/finance/taxes/check-taxes-in-your-state.aspx
   // :/
   // Over  But not over  Tax +%  On amount over
   // $0  $8,925  $0.00 10  $ 0
@@ -90,17 +92,56 @@ var policies = [
     {max: 400000, rate: 35},
     {max: Infinity, rate: 39.6}
   ], states: [
-     {state: 'California', rates: ['incremental',
-        {max: 7455, rate: 0},
-        {max: 17676, rate: 2},
-        {max: 27897, rate: 4},
-        {max: 38726, rate: 6},
-        {max: 48942, rate: 8},
-        {max: 250000, rate: 9.3},
-        {max: 300000, rate: 10.3},
-        {max: 500000, rate: 11.3},
-        {max: Infinity, rate: 12.3},
-     ]}
+    {state: 'Albama', rates: ['incremental',
+      {max: 500, rate: 2},
+      {max: 3000, rate: 3},
+      {max: Infinity, rate: 5}
+    ]},
+    {state: 'Alaska', rates: null},
+    {state: 'Arizona', rates: ['incremental',
+      {max: 10000, rate: 2.59},
+      {max: 25000, rate: 2.88},
+      {max: 50000, rate: 3.36},
+      {max: 150000, rate: 3.24},
+      {max: Infinity, rate: 4.54}
+    ]},
+    {state: 'Arkasas', rates: ['incremental',
+      {max: 4099, rate: 1},
+      {max: 8199, rate: 2.5},
+      {max: 12199, rate: 3.5},
+      {max: 20399, rate: 4.5},
+      {max: 33999, rate: 6},
+      {max: Infinity, rate: 7}
+    ]},
+    {state: 'California', rates: ['incremental',
+      {max: 7455, rate: 0},
+      {max: 17676, rate: 2},
+      {max: 27897, rate: 4},
+      {max: 38726, rate: 6},
+      {max: 48942, rate: 8},
+      {max: 250000, rate: 9.3},
+      {max: 300000, rate: 10.3},
+      {max: 500000, rate: 11.3},
+      {max: Infinity, rate: 12.3},
+    ]},
+    {state: 'Colorado', rates: ['simple', {min: 0, rate: 4.63}]},
+    {state: 'Connecticut', rates: ['incremental',
+      {max: 10000, rate: 3},
+      {max: 50000, rate: 5},
+      {max: 100000, rate: 5.5},
+      {max: 200000, rate: 6},
+      {max: 250000, rate: 6.5},
+      {max: Infinity, rate: 6.7}
+    ]},
+    {state: 'Delaware', rates: ['incremental',
+      {max: 2000, rate: 0},
+      {max: 5000, rate: 2.2},
+      {max: 10000, rate: 3.9},
+      {max: 20000, rate: 4.8},
+      {max: 25000, rate: 5.2},
+      {max: 60000, rate: 5.55},
+      {max: Infinity, rate: 6.75}
+    ]}
   ]},
 
   {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: ['simple',
@@ -121,14 +162,6 @@ var policies = [
     {max: 320000, rate: 18},
     {max: Infinity, rate: 20}
   ]},
-
-  // Tax Base (Yen)  Tax
-  // 1 - 1,950,000 5%
-  // 1,950,001-3,300,000 10%
-  // 3,300,001 - 6,950,000 20% of base exceeding 3,300,000
-  // 6,950,001-9,000,000 23% of base exceeding 6,950,000
-  // 9,000,001 - 18,000,000  33% of base exceeding 9,000,000
-  // 18,000,001 and over 40% of base exceeding 18,000,000
 
   {country: 'Japan', code: 'JPY', symbol: '¥', rates: ['incremental',
     {max: 1950000, rate: 5},
