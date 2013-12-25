@@ -201,6 +201,13 @@ var policies = [
     {max: Infinity, rate: 40}
   ]},
 
+  // https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax
+  {country: 'United Kingdom', code: 'GBP', symbol: '£', rates: ['incremental',
+    {max: 32011, rate: 20},
+    {max: 150000, rate: 40},
+    {max: Infinity, rate: 45}
+  ]},
+
   // https://en.wikipedia.org/wiki/Income_tax_in_Spain
   {country: 'Spain', code: 'EUR', symbol: '€', rates: ['incremental',
     {max: 17707.2, rate: 24},
