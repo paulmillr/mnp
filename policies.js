@@ -52,7 +52,7 @@ var policies = [
       {max: 500000, rate: 11.3},
       {max: Infinity, rate: 12.3},
     ]},
-    {state: 'Colorado', rates: ['simple', {min: 0, rate: 4.63}]},
+    {state: 'Colorado', rate: 4.63},
     {state: 'Connecticut', rates: ['incremental',
       {max: 10000, rate: 3},
       {max: 50000, rate: 5},
@@ -125,7 +125,7 @@ var policies = [
       {max: 122589, rate: 13},
       {max: Infinity, rate: 15}
     ]},
-    {state: 'Alberta', rates: ['simple', {min: 0, rate: 10}]},
+    {state: 'Alberta', rate: 10},
     {state: 'British Columbia', rates: ['incremental',
       {max: 37568, rate: 5.06},
       {max: 71138, rate: 7.7},
@@ -154,10 +154,10 @@ var policies = [
   ]},
 
   {country: 'Hong Kong', code: 'HKD', symbol: 'HK$', rates: ['simple',
-    {min: 0, rate: 2},
-    {min: 40000, rate: 7},
-    {min: 80000, rate: 12},
-    {min: 120000, rate: 17}
+    {max: 40000, rate: 2},
+    {max: 80000, rate: 7},
+    {max: 120000, rate: 12},
+    {max: Infinity, rate: 17}
   ]},
 
   {country: 'Singapore', code: 'SGD', symbol: 'SG$', rates: ['incremental',
@@ -215,7 +215,6 @@ var policies = [
     {max: 53407.2, rate: 37},
     {max: 120000.2, rate: 43},
     {max: 175000.2, rate: 44},
-    {max: 300000.2, rate: 45},
     {max: Infinity, rate: 45}
   ]},
 
@@ -228,7 +227,11 @@ var policies = [
     {max: Infinity, rate: 43}
   ]},
 
-  {country: 'Czech Republic', code: 'CZK', rates: ['simple', {min: 0, rate: 15}]},
+  {country: 'Czech Republic', code: 'CZK', rate: 15},
+
+  // {country: 'Switzerland', code: 'CHF', symbol: '', rates: ['']},
+  {country: 'Georgia', code: 'CHF', symbol: '', rate: 20},
+  {country: 'Latvia', code: 'EUR', symbol: '', rate: 24},
 
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
@@ -237,19 +240,20 @@ var policies = [
   // 14% 8,131-52,881
   // 42% 52,882-250,730
   // 45% 250,731 and over
-  // {country: 'Germany', code: 'EUR', rates: [
-  //   {min: 0, rate: 0},
-  //   {min: 8130, rate: 14},
-  //   {min: 52881, rate: 42},
-  //   {min: 250731, rate: 45}
+  // {country: 'Germany', code: 'EUR', rates: ['simple',
+  //   {max: 8130, rate: 0},
+  //   {max: 52881, rate: 14},
+  //   {max: 250731, rate: 42},
+  //   {max: Infinity, rate: 45}
   // ]}
 
-  {country: 'United Arab Emirates', rates: null},
+  // FTW!
+  {country: 'United Arab Emirates', rate: 0},
 
-  {country: 'Russia', code: 'RUB', rates: ['simplem', {min: 0, rate: 13}]},
+  {country: 'Russia', code: 'RUB', rate: 13},
   {country: 'Ukraine', code: 'UAH', symbol: '₴', rates: ['simple',
-    {min: 0, rate: 15},
-    {min: 12180, rate: 17}
+    {max: 12180, rate: 15},
+    {max: Infinity, rate: 17}
   ]},
-  {country: 'Belarus', code: 'BYR', rates: ['simple', {min: 0, rate: 12}]}
+  {country: 'Belarus', code: 'BYR', rate: 12}
 ];

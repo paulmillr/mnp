@@ -54,7 +54,7 @@ var getRate = function(income, currentCurrency, currency, rates)  {
     var list = rates.slice().reverse();
     for (var i = 0, item; i < list.length; i++) {
       item = list[i];
-      if (convertedIncome >= item.min) {
+      if (convertedIncome < item.max) {
         return toCurrency(convertedIncome * (item.rate / 100), currentCurrency, currency);
       }
     }
@@ -113,6 +113,10 @@ App.FederatedTaxPolicy = Ember.Object.extend({
 App.TAX_POLICIES = []
 
 policies.forEach(function(item) {
+  if (item.rate) {
+    item.rates = ['simple', {max: Infinity, rate: item.rate}];
+  }
+
   if (item.states) {
     item.states.forEach(function(state) {
       var policy = App.FederatedTaxPolicy.create({ country: item.country, state: state.state, code: item.code, federalRates: item.rates, stateRates: state.rates });
