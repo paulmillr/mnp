@@ -215,8 +215,8 @@ App.ResultsController = Ember.ArrayController.extend({
   currency: Ember.computed.alias('controllers.index.currency')
 });
 
-Ember.Handlebars.helper('money', function(value, symbol) {
-  return accounting.formatMoney(value, symbol || '');
+Ember.Handlebars.helper('money', function(value) {
+  return accounting.formatMoney(value, '');
 });
 
 Ember.Handlebars.helper('percent', function(value) {
