@@ -296,6 +296,16 @@ var policies = [
     {max: Infinity, rate: 50}
   ]},
 
+  // https://en.wikipedia.org/wiki/Taxation_in_France#Income_Taxes
+  {country: 'France', code: 'EUR', rates: ['incremental',
+    {max: 6011, rate: 0},
+    {max: 11991, rate: 5.5},
+    {max: 26631, rate: 14},
+    {max: 71397, rate: 30},
+    {max: 151200, rate: 41},
+    {max: Infinity, rate: 45}
+  ]},
+
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
   // Tax % Tax Base (EUR)
