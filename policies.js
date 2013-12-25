@@ -172,6 +172,17 @@ var policies = [
     {max: Infinity, rate: 20}
   ]},
 
+  // https://en.wikipedia.org/wiki/Taxation_in_China#Individual_income_tax
+  {country: 'China', code: 'CNY', symbol: '¥', rates: ['incremental',
+    {max: 1500, rate: 3},
+    {max: 4500, rate: 10},
+    {max: 9000, rate: 20},
+    {max: 35000, rate: 25},
+    {max: 55000, rate: 30},
+    {max: 80000, rate: 35},
+    {max: Infinity, rate: 45}
+  ]},
+
   // http://www.rd.go.th/publish/6045.0.html
   {country: 'Thailand', code: 'THB', symbol: '฿', rates: ['incremental',
     {max: 150000, rate: 0},
