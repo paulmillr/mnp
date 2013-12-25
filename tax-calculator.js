@@ -161,81 +161,81 @@ policies.forEach(function(item) {
   symbols[item.code] = item.symbol || item.code;
 });
 
-var display = function() {
-  App = Ember.Application.create();
-  App.TaxPolicy = Ember.Object.extend({
-    country: null,
-    calculateFor: function(annualIncome) {}
-  });
+App = Ember.Application.create();
+App.deferReadiness();
 
-  App.TAX_POLICIES = policies.map(function(item) {
-    return App.TaxPolicy.create({country: item.country, calculateFor: makeCalc(item)});
-  });
+App.TaxPolicy = Ember.Object.extend({
+  country: null,
+  calculateFor: function(annualIncome) {}
+});
 
-  Currencies = Ember.Object.extend({
-    currentSymbol: function() {
-      return symbols[this.get('current')];
-    }.property('current')
-  });
+App.TAX_POLICIES = policies.map(function(item) {
+  return App.TaxPolicy.create({country: item.country, calculateFor: makeCalc(item)});
+});
 
-  App.Currencies = Currencies.create({
-    current: 'USD',
-    list: policies.map(function(item) {
-      return {code: item.code, symbol: symbols[item.code]};
-    })
-  });
+Currencies = Ember.Object.extend({
+  currentSymbol: function() {
+    return symbols[this.get('current')];
+  }.property('current')
+});
 
-  App.Entry = Ember.Object.extend({
-    policy: null,
-    country: Ember.computed.alias('policy.country'),
-    calculator: null,
-    annualIncome: Ember.computed.alias('calculator.annualIncome'),
+App.Currencies = Currencies.create({
+  current: 'USD',
+  list: policies.map(function(item) {
+    return {code: item.code, symbol: symbols[item.code]};
+  })
+});
 
-    currencyBinding: 'App.Currencies.current',
+App.Entry = Ember.Object.extend({
+  policy: null,
+  country: Ember.computed.alias('policy.country'),
+  calculator: null,
+  annualIncome: Ember.computed.alias('calculator.annualIncome'),
 
-    amount: function() {
-      return this.get('policy').calculateFor(this.get('annualIncome'));
-    }.property('policy', 'annualIncome', 'currency'),
+  currencyBinding: 'App.Currencies.current',
 
-    takeHome: function() {
-      return this.get('annualIncome') - this.get('policy').calculateFor(this.get('annualIncome'));
-    }.property('policy', 'annualIncome', 'currency'),
+  amount: function() {
+    return this.get('policy').calculateFor(this.get('annualIncome'));
+  }.property('policy', 'annualIncome', 'currency'),
 
-    percentage: function() {
-      return this.get('amount') / this.get('annualIncome');
-    }.property('amount', 'annualIncome')
-  });
+  takeHome: function() {
+    return this.get('annualIncome') - this.get('policy').calculateFor(this.get('annualIncome'));
+  }.property('policy', 'annualIncome', 'currency'),
 
-  App.TaxCalculation = Ember.Object.extend({
-    annualIncome: null,
-    currencySymbolBinding: 'App.Currencies.currentSymbol',
+  percentage: function() {
+    return this.get('amount') / this.get('annualIncome');
+  }.property('amount', 'annualIncome')
+});
 
-    results: function() {
-      var self = this;
-      return App.TAX_POLICIES.map(function(policy) {
-        return App.Entry.create({policy: policy, calculator: self});
-      });
-    }.property()
-  });
+App.TaxCalculation = Ember.Object.extend({
+  annualIncome: null,
+  currencySymbolBinding: 'App.Currencies.currentSymbol',
 
-  App.IndexRoute = Ember.Route.extend({
-    model: function() {
-      return App.TaxCalculation.create();
-    }
-  });
+  results: function() {
+    var self = this;
+    return App.TAX_POLICIES.map(function(policy) {
+      return App.Entry.create({policy: policy, calculator: self});
+    });
+  }.property()
+});
 
-  Ember.Handlebars.helper('money', function(value) {
-    return accounting.formatMoney(value, '');
-  });
+App.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return App.TaxCalculation.create();
+  }
+});
 
-  Ember.Handlebars.helper('percent', function(value) {
-    return accounting.formatNumber(value * 100) + '%';
-  });
-};
+Ember.Handlebars.helper('money', function(value) {
+  return accounting.formatMoney(value, '');
+});
+
+Ember.Handlebars.helper('percent', function(value) {
+  return accounting.formatNumber(value * 100) + '%';
+});
 
 $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, function(data) {
   if (!fx) throw new Error('Provide money.js library');
   fx.rates = data.rates;
   fx.base = data.base;
-  display();
+  App.advanceReadiness();
 });
