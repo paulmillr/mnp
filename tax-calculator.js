@@ -230,7 +230,7 @@ Ember.Handlebars.helper('money', function(value) {
 });
 
 Ember.Handlebars.helper('percent', function(value) {
-  return accounting.formatNumber(value * 100) + '%';
+  return accounting.formatNumber(value * 100, 2) + '%';
 });
 
 $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, function(data) {
