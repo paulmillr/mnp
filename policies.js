@@ -210,6 +210,26 @@ var policies = [
     {max: Infinity, rate: 37}
   ]},
 
+  // http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/
+  {country: 'Malaysia', code: 'MYR', rates: ['incremental',
+    {max: 2500, rate: 0},
+    {max: 5000, rate: 1},
+    {max: 10000, rate: 3},
+    {max: 20000, rate: 3},
+    {max: 35000, rate: 7},
+    {max: 50000, rate: 12},
+    {max: 70000, rate: 19},
+    {max: 100000, rate: 24},
+    {max: Infinity, rate: 26}
+  ]},
+
+  {country: 'South Korea', code: 'KRW', rates: ['incremental',
+    {max: 12000000, rate: 6},
+    {max: 46000000, rate: 16},
+    {max: 88000000, rate: 25},
+    {max: Infinity, rate: 35}
+  ]},
+
   {country: 'Japan', code: 'JPY', symbol: '¥', rates: ['incremental',
     {max: 1950000, rate: 5},
     {max: 3300000, rate: 10}, // 3300000-1950000
