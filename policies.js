@@ -97,16 +97,16 @@ var policies = [
     {max: 135054, rate: 26},
     {max: Infinity, rate: 29}
   ], states:[
-    {state: 'Newfoundland and Labrador', rates: ['incremental',
-      {max: 33748, rate: 7.7},
-      {max: 67496, rate: 12.5},
-      {max: Infinity, rate: 13.3}
-    ]},
-    {state: 'Prince Edward Island', rates: ['incremental',
-      {max: 31984, rate: 9.8},
-      {max: 63969, rate: 13.8},
-      {max: Infinity, rate: 16.7}
-    ]},
+    // {state: 'Newfoundland and Labrador', rates: ['incremental',
+    //   {max: 33748, rate: 7.7},
+    //   {max: 67496, rate: 12.5},
+    //   {max: Infinity, rate: 13.3}
+    // ]},
+    // {state: 'Prince Edward Island', rates: ['incremental',
+    //   {max: 31984, rate: 9.8},
+    //   {max: 63969, rate: 13.8},
+    //   {max: Infinity, rate: 16.7}
+    // ]},
     // {state: 'Nova Scotia', rates: ['incremental',
     //   {max: 29590, rate: 8.79},
     //   {max: 590180, rate: 14.95},
