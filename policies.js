@@ -109,6 +109,17 @@ var policies = [
     {max: Infinity, rate: 40}
   ]},
 
+  // https://en.wikipedia.org/wiki/Income_tax_in_Spain
+  {country: 'Spain', code: 'EUR', symbol: '€', rates: ['incremental',
+    {max: 17707.2, rate: 24},
+    {max: 33007.2, rate: 28},
+    {max: 53407.2, rate: 37},
+    {max: 120000.2, rate: 43},
+    {max: 175000.2, rate: 44},
+    {max: 300000.2, rate: 45},
+    {max: Infinity, rate: 45}
+  ]},
+
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
   // Tax % Tax Base (EUR)
