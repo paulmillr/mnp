@@ -288,6 +288,14 @@ var policies = [
   {country: 'Georgia', code: 'GEL', symbol: '', rate: 20},
   {country: 'Latvia', code: 'EUR', symbol: '€', rate: 24},
 
+  // http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm
+  {country: 'Austria', code: 'EUR', rates: ['incremental',
+    {max: 10999, rate: 0},
+    {max: 25000, rate: 36.5},
+    {max: 60000, rate: 43.2},
+    {max: Infinity, rate: 50}
+  ]},
+
   // Germany does not work.
   // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
   // Tax % Tax Base (EUR)
