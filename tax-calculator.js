@@ -76,12 +76,12 @@ var policies = [
   // 400,000 ----- ----- 39.6  -----
   {country: 'United States', code: 'USD', symbol: 'US$', rates: [
     {next: 8925, rate: 0}, // 0-8,925
-    {next: 27325, rate: 25}, // 8,925-36,250
-    {next: 51600, rate: 28}, // 36,250-87,850
-    {next: 95400, rate: 33}, // 87,850-183,250
-    {next: 215100, rate: 35}, // 183,250-398,350
-    {next: 1650, rate: 39.6}, // 398,350-400K
-    {next: Infinity, rate: 40} // 400K+
+    {next: 27325, rate: 15}, // 8,925-36,250
+    {next: 51600, rate: 25}, // 36,250-87,850
+    {next: 95400, rate: 28}, // 87,850-183,250
+    {next: 215100, rate: 33}, // 183,250-398,350
+    {next: 1650, rate: 35}, // 398,350-400K
+    {next: Infinity, rate: 39.6} // 400K+
   ], states: [
      {state: 'California', rates: [
         {next: 7455, rate: 0},
@@ -89,7 +89,6 @@ var policies = [
         {next: 10221, rate: 4},
         {next: 10221, rate: 6},
         {next: 10221, rate: 8},
-        {next: 10221, rate: 2},
         {next: 201058, rate: 9.3},
         {next: 50000, rate: 10.3},
         {next: 200000, rate: 11.3},
@@ -163,28 +162,54 @@ policies.forEach(function(item) {
 App = Ember.Application.create();
 App.deferReadiness();
 
-App.TaxPolicy = Ember.Object.extend({
-  country: null,
-  calculateFor: function(annualIncome, currentCurrency) {}
-});
-
-App.TAX_POLICIES = policies.map(function(item) {
-  return App.TaxPolicy.create({country: item.country, calculateFor: makeCalc(item)});
-});
-
-Currencies = Ember.Object.extend({
-  currentSymbol: function() {
-    return symbols[this.get('current')];
-  }.property('current')
-});
-
 App.CURRENCIES = policies.map(function(item) {
   return {code: item.code, symbol: symbols[item.code]};
 });
 
+App.TaxPolicy = Ember.Object.extend({
+  country: null,
+  rates: null,
+  code: null,
+  calculateFor: function(annualIncome, currentCurrency) {
+    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('rates'));
+  },
+  name: Ember.computed.alias('country')
+});
+
+App.FederatedTaxPolicy = Ember.Object.extend({
+  state: null,
+  federalRates: null,
+  stateRates: null,
+  calculateFederalFor: function(annualIncome, currentCurrency) {
+    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('federalRates'));
+  },
+  calculateStateFor: function(annualIncome, currentCurrency) {
+    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('stateRates'));
+  },
+  calculateFor: function(annualIncome, currentCurrency) {
+    return this.calculateFederalFor(annualIncome, currentCurrency) + this.calculateStateFor(annualIncome, currentCurrency);
+  },
+  name: function() {
+    return this.get('country') + ' — ' + this.get('state');
+  }.property('country', 'state')
+});
+
+App.TAX_POLICIES = []
+
+policies.forEach(function(item) {
+  if (item.states) {
+    item.states.forEach(function(state) {
+      var policy = App.FederatedTaxPolicy.create({ country: item.country, state: state.state, code: item.code, federalRates: item.rates, stateRates: state.rates });
+      App.TAX_POLICIES.push(policy);
+    });
+  } else {
+    App.TAX_POLICIES.push(App.TaxPolicy.create({ country: item.country, code: item.code, rates: item.rates }));
+  }
+});
+
 App.Entry = Ember.Object.extend({
   policy: null,
-  country: Ember.computed.alias('policy.country'),
+  country: Ember.computed.alias('policy.name'),
   calculator: null,
   annualIncome: Ember.computed.alias('calculator.annualIncome'),
   currency: Ember.computed.alias('calculator.currencySymbol'),
@@ -209,7 +234,7 @@ App.TaxCalculation = Ember.Object.extend({
   results: function() {
     var self = this;
     return App.TAX_POLICIES.map(function(policy) {
-      return App.Entry.create({policy: policy, calculator: self});
+      return App.Entry.create({ policy: policy, calculator: self });
     });
   }.property()
 });
