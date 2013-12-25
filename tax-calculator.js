@@ -172,14 +172,17 @@ var debounce = function(func, wait, immediate) {
   var timeout;
   return function() {
     var context = this, args = arguments;
+    var call = function() {
+      Ember.run(function() { func.apply(context, args); });
+    };
     var later = function() {
       timeout = null;
-      Ember.run(function() { func.apply(context, args); });
+      call();
     };
     var callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
+    if (callNow) call();
   };
 };
 
