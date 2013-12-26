@@ -78,6 +78,10 @@ policies.forEach(function(item) {
   symbols[item.code] = item.symbol || item.code;
 });
 
+Ember.TextField.reopen({
+  attributeBindings: ['autofocus', 'autocomplete']
+});
+
 App = Ember.Application.create();
 App.deferReadiness();
 
