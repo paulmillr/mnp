@@ -17,50 +17,58 @@ var fromCurrency = function(value, fromCode, toCode) {
 
 // Get rate.
 //
-// income      - The Integer income.
-// currentCode - The String code.
-// currency    - The String code.
-// rates       - The Array of tax rates. First item should indicate calculation
-//               type. Possible calculation types are 'simple' and 'incremental'.
-var getRate = function(income, currentCurrency, currency, rates)  {
+// income       - The Integer income.
+// currentCode  - The String code.
+// baseCurrency - The String code.
+// rates        - The Array of tax rates. First item should indicate calculation
+//                type. Possible calculation types are 'simple' and 'incremental'.
+var getRate = function(income, currentCurrency, baseCurrency, rates)  {
   if (!rates) return 0;
-  var convertedIncome = fromCurrency(income, currentCurrency, currency);
+  var convertedIncome = fromCurrency(income, currentCurrency, baseCurrency);
+  var amount = getSameCurrencyRate(convertedIncome, rates);
+  return toCurrency(amount, currentCurrency, baseCurrency);
+}
+
+var getSameCurrencyRate = function(convertedIncome, rates) {
   rates = rates.slice();
   var type = rates.shift(); // 'simple' or 'incremental'
+
   if (type == 'incremental') {
-    var total = 0;
-    var current = convertedIncome;
     // income 45000, brackets 20k: 0%, +10k: 2%, +10k: 3.5%
     // (45000 > 20000) = total -= 20000; 45000 - 20000 / 0
     // (15000 > 10000) = total -= 10000; 25000 - 10000 / 2
     // (5000  < 10000) = total = 0; 5000 / 3.5
-    var list = rates;
-    var prevMax = 0;
-    for (var i = 0, item, rate, fixed; i < list.length; i++) {
-      item = list[i];
-      rate = (item.rate / 100);
-      fixed = item.fixed;
-      var next = item.max - prevMax;
-      if (current > next) {
-        total += next * rate;
-        if (fixed) total += fixed;
-        current -= next;
-        var prevMax = item.max;
-      } else {
-        total += current * rate;
-        return toCurrency(total, currentCurrency, currency);
-      }
-    }
-    throw new Error('Something went wrong');
+
+    var hasInfinity = rates.any(function(item) { return item.max == Infinity; });
+
+    if (!hasInfinity) throw new Error('Something went wrong');
+
+    var ranges = rates.map(function(item, index) {
+      var prev = rates[index-1] || {};
+      var prevMax = prev.max || 0;
+      return { min: prevMax, max: item.max, rate: item.rate, fixed: item.fixed || 0 };
+    }).filter(function(item) {
+      return convertedIncome > item.min;
+    });
+
+    var charges = ranges.map(function(item) {
+      var max = item.max > convertedIncome ? convertedIncome : item.max;
+      var bracket = max - item.min;
+      var tax = bracket * item.rate / 100 + item.fixed;
+      return tax;
+    });
+
+    var total = charges.reduce(function(memo, i) { return memo + i }, 0);
+
+    return total;
   } else {
     var list = rates.slice().reverse();
-    for (var i = 0, item; i < list.length; i++) {
-      item = list[i];
-      if (convertedIncome < item.max) {
-        return toCurrency(convertedIncome * (item.rate / 100), currentCurrency, currency);
-      }
+    var item = list.find(function(i) { return convertedIncome < i.max });
+
+    if (item) {
+      return convertedIncome * item.rate / 100;
     }
-    console.log(rates)
+
     throw new Error('No rate matches the value ' + convertedIncome);
   }
 };
