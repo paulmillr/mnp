@@ -28,8 +28,9 @@
 </head>
 <body>
   <script type="text/x-handlebars" data-template-name="application">
+    {{render 'navbar'}}
+
     <div class="container">
-      <h2>International personal income tax calculator</h2>
       {{outlet}}
     </div>
 
@@ -43,6 +44,16 @@
         <p><a href="https://github.com/paulmillr/itc">Source code</a></p>
       </div>
     </footer>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="navbar">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          {{#link-to index class="navbar-brand"}}International tax calculator{{/link-to}}
+        </div>
+      </div>
+    </nav>
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
