@@ -244,9 +244,9 @@ var policies = [
   {country: 'Australia', code: 'AUD', symbol: 'AU$', rates: ['incremental',
     {max: 18200, rate: 0},
     {max: 37000, rate: 19},
-    {max: 80000, rate: 32.5, fixed: 3572},
-    {max: 180000, rate: 37, fixed: 17547},
-    {max: Infinity, rate: 45, fixed: 54547}
+    {max: 80000, rate: 32.5},
+    {max: 180000, rate: 37},
+    {max: Infinity, rate: 45}
   ]},
 
   // https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax
