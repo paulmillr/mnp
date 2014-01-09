@@ -28,8 +28,9 @@
 </head>
 <body>
   <script type="text/x-handlebars" data-template-name="application">
+    {{render 'navbar'}}
+
     <div class="container">
-      <h2>International personal income tax calculator</h2>
       {{outlet}}
     </div>
 
@@ -45,10 +46,20 @@
     </footer>
   </script>
 
+  <script type="text/x-handlebars" data-template-name="navbar">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          {{#link-to index class="navbar-brand"}}International tax calculator{{/link-to}}
+        </div>
+      </div>
+    </nav>
+  </script>
+
   <script type="text/x-handlebars" data-template-name="index">
     <form class="form-inline">
       <div class="form-group">
-        {{input autocomplete="off" value=income type="text" class="form-control" placeholder="Annual pre-tax income"}}
+        {{input value=income autocomplete="off" autofocus=true type="text" class="form-control" placeholder="Annual pre-tax income"}}
       </div>
 
       <div class="form-group">
@@ -60,9 +71,6 @@
           class="form-control"
         }}
       </div>
-
-      <p class="help-block">Assuming single individual. No deductions functionality yet. Last updated on: <strong>December 25, 2013</strong></p>
-
       <p class="help-block">
         Try the following values:
         <a href="#" {{action 'setIncome' '50,000'}}>$50,000</a>,
@@ -71,6 +79,12 @@
         <a href="#" {{action 'setIncome' '500,000'}}>$500,000</a>,
         <a href="#" {{action 'setIncome' '1,000,000'}}>$1,000,000</a>
       </p>
+
+      <div class="alert alert-warning">
+        <p>For the purpose of calculation, it is assumed that you are a single individual with no kids, and that all your income comes from wage or contracts.</p>
+        <p>Calculations do not take into account solidarity and other kinds of taxes, different deductions, contributions like Social Security yet.</p>
+        <p>Last updated on: <strong>December 25, 2013</strong>.</p>
+      </div>
     </form>
 
     {{render 'results' results}}
