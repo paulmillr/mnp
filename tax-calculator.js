@@ -242,8 +242,9 @@ App.CalculationResult = Ember.Object.extend({
   }.property('amount', 'annualIncome')
 });
 
-
 App.IndexController = Ember.Controller.extend({
+  queryParams: ['annualIncome', 'currencyCode'],
+
   annualIncome: null,
   currencyCode: 'USD',
   income: null,
