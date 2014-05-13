@@ -73,118 +73,6 @@ var getSameCurrencyRate = function(convertedIncome, rates) {
   }
 };
 
-var symbols = {};
-policies.forEach(function(item) {
-  symbols[item.code] = item.symbol || item.code;
-});
-
-Ember.TextField.reopen({
-  attributeBindings: ['autofocus', 'autocomplete']
-});
-
-App = Ember.Application.create();
-App.deferReadiness();
-
-App.CURRENCIES = policies.map(function(item) { return item.code }).
-  uniq().map(function(code) { return { code: code, symbol: symbols[code] };
-});
-
-App.TaxPolicy = Ember.Object.extend({
-  country: null,
-  rates: null,
-  code: null,
-  calculateFor: function(annualIncome, currentCurrency) {
-    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('rates'));
-  },
-  name: Ember.computed.alias('country')
-});
-
-App.FederatedTaxPolicy = Ember.Object.extend({
-  state: null,
-  federalRates: null,
-  stateRates: null,
-  calculateFederalFor: function(annualIncome, currentCurrency) {
-    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('federalRates'));
-  },
-  calculateStateFor: function(annualIncome, currentCurrency) {
-    return getRate(annualIncome, currentCurrency, this.get('code'), this.get('stateRates'));
-  },
-  calculateFor: function(annualIncome, currentCurrency) {
-    return this.calculateFederalFor(annualIncome, currentCurrency) + this.calculateStateFor(annualIncome, currentCurrency);
-  },
-  name: function() {
-    return this.get('country') + ' — ' + this.get('state');
-  }.property('country', 'state')
-});
-
-App.TAX_POLICIES = [];
-
-policies.forEach(function(item) {
-  var setRates = function(i) {
-    if (item.rate) {
-      item.rates = ['simple', {max: Infinity, rate: item.rate}];
-    }
-  }
-
-  setRates(item);
-
-  if (item.states) {
-    item.states.forEach(function(state) {
-      setRates(state);
-      var policy = App.FederatedTaxPolicy.create({ country: item.country, state: state.state, code: item.code, federalRates: item.rates, stateRates: state.rates });
-      App.TAX_POLICIES.push(policy);
-    });
-  } else {
-    App.TAX_POLICIES.push(App.TaxPolicy.create({ country: item.country, code: item.code, rates: item.rates }));
-  }
-});
-
-App.Entry = Ember.Object.extend({
-  policy: null,
-  country: Ember.computed.alias('policy.name'),
-  calculator: null,
-  annualIncome: Ember.computed.alias('calculator.annualIncome'),
-  currencyCode: Ember.computed.alias('calculator.currencyCode'),
-  currency: Ember.computed.alias('calculator.currency'),
-
-  flagURL: function() {
-    return 'flags/' + this.get('policy.country').replace(/ /g, '-') + '.png';
-  }.property('policy.country'),
-
-  amount: function() {
-    return this.get('policy').calculateFor(this.get('annualIncome'), this.get('currencyCode'));
-  }.property('policy', 'annualIncome', 'currencyCode'),
-
-  takeHome: function() {
-    return this.get('annualIncome') - this.get('amount');
-  }.property('annualIncome', 'amount'),
-
-  percentage: function() {
-    return this.get('amount') / this.get('annualIncome');
-  }.property('amount', 'annualIncome')
-});
-
-App.TaxCalculatior = Ember.Object.extend({
-  annualIncome: null,
-  currencyCode: 'USD',
-  currency: function() {
-    return symbols[this.get('currencyCode')];
-  }.property('currencyCode'),
-
-  results: function() {
-    var self = this;
-    return App.TAX_POLICIES.map(function(policy) {
-      return App.Entry.create({ policy: policy, calculator: self });
-    });
-  }.property()
-});
-
-App.IndexRoute = Ember.Route.extend({
-  model: function() {
-    return App.TaxCalculatior.create();
-  }
-});
-
 // Custom debounce implementation
 var debounce = function(func, wait, immediate) {
   var timeout;
@@ -204,8 +92,191 @@ var debounce = function(func, wait, immediate) {
   };
 };
 
-App.IndexController = Ember.ObjectController.extend({
+var symbols = {};
+policies.forEach(function(item) {
+  symbols[item.code] = item.symbol || item.code;
+});
+
+Ember.TextField.reopen({
+  attributeBindings: ['autofocus', 'autocomplete']
+});
+
+App = Ember.Application.create();
+App.deferReadiness();
+
+App.CURRENCIES = policies.map(function(item) { return item.code }).
+  uniq().map(function(code) { return { code: code, symbol: symbols[code] };
+});
+
+App.Country = Ember.Object.extend({
+  name: null,
+  slug: null,
+  code: null,
+  rates: null,
+  states: null,
+
+  hasStates: Ember.computed.notEmpty('states'),
+
+  isCountry: true,
+  isState: false
+});
+
+App.CountryState = Ember.Object.extend({
+  country: null,
+  name: null,
+  slug: null,
+  code: Ember.computed.alias('country.code'),
+  rates: null,
+
+  isCountry: false,
+  isState: true
+});
+
+App.TaxCalculator = Ember.Object.extend({
+  calculateTotalFor: function(countryOrState, annualIncome, currentCurrency) {
+    var isState = countryOrState.get('isState');
+    var country = isState ? countryOrState.get('country') : countryOrState;
+    var state = isState ? countryOrState : null;
+
+    var total1 = this.calculateFor(country, annualIncome, currentCurrency);
+    var total2 = isState ? this.calculateFor(state, annualIncome, currentCurrency) : 0;
+
+    return total1 + total2;
+  },
+
+  calculateFor: function(country, annualIncome, currentCurrency) {
+    return getRate(annualIncome, currentCurrency, country.get('code'), country.get('rates'));
+  }
+});
+
+Ember.Application.initializer({
+  name: 'injectCalculator',
+
+  initialize: function(container, application) {
+    container.register('calculator:main', App.TaxCalculator);
+    container.injection('controller', 'calculator', 'calculator:main');
+  }
+});
+
+App.COUNTRIES = [];
+
+var normalizeRates = function(item) {
+  if (item.rate) {
+    return ['simple', {max: Infinity, rate: item.rate}];
+  } else {
+    return item.rates;
+  }
+};
+
+policies.forEach(function(item) {
+  var country = App.Country.create({
+    name: item.country,
+    slug: item.slug,
+    code: item.code,
+    rates: normalizeRates(item)
+  });
+
+  var states = [];
+
+  if (item.states) {
+    states = item.states.map(function(state) {
+      return App.CountryState.create({
+        country: country,
+        name: state.state,
+        slug: state.slug,
+        rates: normalizeRates(state)
+      });
+    });
+  }
+
+  country.set('states', states);
+
+  App.COUNTRIES.push(country);
+});
+
+App.CalculationResult = Ember.Object.extend({
+  country: null,
+  state: null,
+
+  countryOrState: function() {
+    if (this.get('state')) {
+      return this.get('state');
+    } else {
+      return this.get('country');
+    }
+  }.property('country', 'state'),
+
+  countryName: Ember.computed.alias('country.name'),
+  stateName: Ember.computed.alias('state.name'),
+
+  name: function() {
+    var country = this.get('countryName'),
+        state = this.get('stateName');
+
+    if (state) {
+      return country + ' — ' + state;
+    } else {
+      return country;
+    }
+  }.property('countryName', 'stateName'),
+
+  calculator: null,
+  annualIncome: Ember.computed.alias('calculator.annualIncome'),
+  currencyCode: Ember.computed.alias('calculator.currencyCode'),
+  currency: Ember.computed.alias('calculator.currency'),
+
+  flagURL: function() {
+    return 'flags/' + this.get('country.name').replace(/ /g, '-') + '.png';
+  }.property('country'),
+
+  amount: function() {
+    return this.get('calculator.calculator').calculateTotalFor(this.get('countryOrState'), this.get('annualIncome'), this.get('currencyCode'));
+  }.property('calculator', 'countryOrState', 'annualIncome', 'currencyCode'),
+
+  takeHome: function() {
+    return this.get('annualIncome') - this.get('amount');
+  }.property('annualIncome', 'amount'),
+
+  percentage: function() {
+    return this.get('amount') / this.get('annualIncome');
+  }.property('amount', 'annualIncome')
+});
+
+
+App.IndexController = Ember.Controller.extend({
+  annualIncome: null,
+  currencyCode: 'USD',
   income: null,
+  currency: function() {
+    return symbols[this.get('currencyCode')];
+  }.property('currencyCode'),
+
+  results: function() {
+    var self = this;
+
+    return App.COUNTRIES.reduce(function(memo, item) {
+      if (item.get('hasStates')) {
+        return memo.concat(item.get('states'));
+      } else {
+        return memo.concat([item]);
+      }
+    }, []).map(function(countryOrState) {
+      var country, state;
+
+      if (countryOrState.get('isCountry')) {
+        country = countryOrState;
+      } else {
+        country = countryOrState.get('country');
+        state = countryOrState;
+      }
+
+      return App.CalculationResult.create({
+        country: country,
+        state: state,
+        calculator: self
+      });
+    });
+  }.property(),
 
   incomeChanged: function() {
     if (!this.process) {
