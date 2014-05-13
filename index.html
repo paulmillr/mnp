@@ -50,7 +50,7 @@
     <nav class="navbar navbar-default" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          {{#link-to index class="navbar-brand"}}International tax calculator{{/link-to}}
+          {{#link-to 'index' class="navbar-brand"}}International tax calculator{{/link-to}}
         </div>
       </div>
     </nav>
@@ -103,10 +103,38 @@
       <tbody>
         {{#each}}
           <tr>
-            <td><img class="flag" {{bind-attr src=flagURL alt=country}} width="24" height="24" /> <span class="country-name">{{name}}</span></td>
+            <td>
+              {{#link-to 'details' country.slug}}
+                <img class="flag" {{bind-attr src=flagURL alt=country}} width="24" height="24" />
+                <span class="country-name">{{name}}</span>
+              {{/link-to}}
+            </td>
             <td>{{percent percentage}}</td>
             <td>{{money amount}}</td>
             <td>{{money takeHome}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="details">
+    <h3>{{name}}</h3>
+
+    <h4>Income tax bands</h4>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Range</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each bands}}
+          <tr>
+            <td>Up to {{money max}}</td>
+            <td>{{rate}}%</td>
           </tr>
         {{/each}}
       </tbody>

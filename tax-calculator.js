@@ -242,6 +242,10 @@ App.CalculationResult = Ember.Object.extend({
   }.property('amount', 'annualIncome')
 });
 
+App.Router.map(function() {
+  this.resource('details', { path: '/c/:slug' });
+});
+
 App.IndexController = Ember.Controller.extend({
   queryParams: ['annualIncome', 'currencyCode'],
 
@@ -304,6 +308,22 @@ App.ResultsController = Ember.ArrayController.extend({
   needs: ['index'],
   currencyCode: Ember.computed.alias('controllers.index.currencyCode'),
   currency: Ember.computed.alias('controllers.index.currency')
+});
+
+App.DetailsRoute = Ember.Route.extend({
+  model: function(params) {
+    return App.COUNTRIES.findBy('slug', params.slug);
+  }
+});
+
+App.DetailsController = Ember.ObjectController.extend({
+  bands: function() {
+    var rates = this.get('rates').slice();
+
+    rates.shift();
+
+    return rates;
+  }.property('rates')
 });
 
 Ember.Handlebars.helper('money', function(value) {
