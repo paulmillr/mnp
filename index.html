@@ -134,9 +134,42 @@
         {{#each bands}}
           <tr>
             <td>Up to {{money max}}</td>
-            <td>{{rate}}%</td>
+            <td>{{rawPercent rate}}</td>
           </tr>
         {{/each}}
+      </tbody>
+    </table>
+
+    <h4>Sample rates</h4>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Income</th>
+          <th>Effective rate</th>
+          <th>In taxes</th>
+          <th>Take home</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each samples}}
+          <tr>
+            <td>{{money income}}</td>
+            <td>{{percent percentage}}</td>
+            <td>{{money amount}}</td>
+            <td>{{money takeHome}}</td>
+          </tr>
+        {{/each}}
+
+        <tr>
+          <td>
+            {{input value=demoIncome autocomplete="off" type="text" class="form-control" placeholder="Annual pre-tax income"}}
+          </td>
+          <td>{{percent result.percentage}}</td>
+          <td>{{money result.amount}}</td>
+          <td>{{money result.takeHome}}</td>
+        </tr>
       </tbody>
     </table>
   </script>

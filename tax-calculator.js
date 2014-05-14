@@ -317,17 +317,43 @@ App.DetailsRoute = Ember.Route.extend({
 });
 
 App.DetailsController = Ember.ObjectController.extend({
+  demoIncome: null,
+
   bands: function() {
     var rates = this.get('rates').slice();
 
     rates.shift();
 
     return rates;
-  }.property('rates')
+  }.property('rates'),
+
+  samples: function() {
+    var self = this;
+
+    return [50000, 100000, 250000, 500000, 1000000].map(function(income) {
+      var tax = self.calculator.calculateTotalFor(self.get('model'), income, 'USD');
+      var effPercent = tax / income, takeHome = income - tax;
+
+      return { income: income, amount: tax, percentage: effPercent, takeHome: takeHome };
+    });
+  }.property('model'),
+
+  result: function() {
+    var income = this.get('demoIncome');
+    var tax = this.calculator.calculateTotalFor(this.get('model'), income, 'USD');
+    var effPercent = tax / income, takeHome = income - tax;
+
+    return { income: income, amount: tax, percentage: effPercent, takeHome: takeHome };
+  }.property('model', 'demoIncome')
 });
 
 Ember.Handlebars.helper('money', function(value) {
+  if (value === Infinity) return 'Infinity';
   return accounting.formatMoney(value, '');
+});
+
+Ember.Handlebars.helper('rawPercent', function(value) {
+  return accounting.formatNumber(value, 2) + '%';
 });
 
 Ember.Handlebars.helper('percent', function(value) {
