@@ -156,8 +156,8 @@
         {{#each samples}}
           <tr>
             <td>{{money income}}</td>
-            <td>{{percent percentage}}</td>
-            <td>{{money amount}}</td>
+            <td>{{percent effectiveRate}}</td>
+            <td>{{money taxAmount}}</td>
             <td>{{money takeHome}}</td>
           </tr>
         {{/each}}
@@ -166,8 +166,8 @@
           <td>
             {{input value=demoIncome autocomplete="off" type="text" class="form-control" placeholder="Annual pre-tax income"}}
           </td>
-          <td>{{percent result.percentage}}</td>
-          <td>{{money result.amount}}</td>
+          <td>{{percent result.effectiveRate}}</td>
+          <td>{{money result.taxAmount}}</td>
           <td>{{money result.takeHome}}</td>
         </tr>
       </tbody>

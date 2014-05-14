@@ -144,6 +144,14 @@ App.TaxCalculator = Ember.Object.extend({
     return total1 + total2;
   },
 
+  calculateTotalWithStats: function(countryOrState, annualIncome, currentCurrency) {
+    var tax = this.calculateTotalFor(countryOrState, annualIncome, currentCurrency);
+    var effectiveRate = tax / annualIncome;
+    var takeHome = annualIncome - tax;
+
+    return { income: annualIncome, taxAmount: tax, effectiveRate: effectiveRate, takeHome: takeHome, currency: currentCurrency };
+  },
+
   calculateFor: function(country, annualIncome, currentCurrency) {
     return getRate(annualIncome, currentCurrency, country.get('code'), country.get('rates'));
   }
@@ -229,17 +237,17 @@ App.CalculationResult = Ember.Object.extend({
     return 'flags/' + this.get('country.name').replace(/ /g, '-') + '.png';
   }.property('country'),
 
-  amount: function() {
-    return this.get('calculator.calculator').calculateTotalFor(this.get('countryOrState'), this.get('annualIncome'), this.get('currencyCode'));
+  result: function() {
+    var country = this.get('countryOrState');
+    var income = this.get('annualIncome');
+    var currency = this.get('currencyCode');
+
+    return this.get('calculator.calculator').calculateTotalWithStats(country, income, currency);
   }.property('calculator', 'countryOrState', 'annualIncome', 'currencyCode'),
 
-  takeHome: function() {
-    return this.get('annualIncome') - this.get('amount');
-  }.property('annualIncome', 'amount'),
-
-  percentage: function() {
-    return this.get('amount') / this.get('annualIncome');
-  }.property('amount', 'annualIncome')
+  amount: Ember.computed.alias('result.taxAmount'),
+  percentage: Ember.computed.alias('result.effectiveRate'),
+  takeHome: Ember.computed.alias('result.takeHome')
 });
 
 App.Router.map(function() {
@@ -331,19 +339,13 @@ App.DetailsController = Ember.ObjectController.extend({
     var self = this;
 
     return [50000, 100000, 250000, 500000, 1000000].map(function(income) {
-      var tax = self.calculator.calculateTotalFor(self.get('model'), income, 'USD');
-      var effPercent = tax / income, takeHome = income - tax;
-
-      return { income: income, amount: tax, percentage: effPercent, takeHome: takeHome };
+      return self.calculator.calculateTotalWithStats(self.get('model'), income, 'USD');
     });
   }.property('model'),
 
   result: function() {
     var income = this.get('demoIncome');
-    var tax = this.calculator.calculateTotalFor(this.get('model'), income, 'USD');
-    var effPercent = tax / income, takeHome = income - tax;
-
-    return { income: income, amount: tax, percentage: effPercent, takeHome: takeHome };
+    return this.calculator.calculateTotalWithStats(this.get('model'), income, 'USD');
   }.property('model', 'demoIncome')
 });
 
