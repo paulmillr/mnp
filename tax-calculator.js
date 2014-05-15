@@ -455,6 +455,13 @@ Ember.Handlebars.helper('money', function(value) {
   return accounting.formatMoney(value, '');
 });
 
+Ember.Handlebars.helper('multi-money', function(value, from, to) {
+  var converted = toCurrency(value, to, from);
+  var money = function(v, c) { return accounting.formatMoney(v, c + '&nbsp;'); };
+
+  return new Ember.Handlebars.SafeString(money(value, from) + ' (' + money(converted, to) + ')');
+});
+
 Ember.Handlebars.helper('number', function(value) {
   return accounting.formatNumber(value);
 });

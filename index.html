@@ -377,7 +377,7 @@
   <script type="text/x-handlebars" data-template-name="_immigration_investor">
     {{#with immigration.investmentVisa as v}}
       {{#visa-card visa=v title="Investor visa"}}
-        <p>Min. investment amount ({{code}}): <b>{{money v.minAmount}}</b></p>
+        <p>Min. investment amount ({{code}}): <b>{{multi-money v.minAmount code currencyCode}}</b></p>
         <p>Min. jobs maintained: <b>{{v.minJobs}}</b></p>
         <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
       {{/visa-card}}
@@ -387,8 +387,10 @@
   <script type="text/x-handlebars" data-template-name="_immigration_business">
     {{#with immigration.businessVisa as v}}
       {{#visa-card visa=v title="Business visa"}}
-        <p>Min. paid-up capital ({{code}}): <b>{{money v.minCapital}}</b></p>
-        <p>Min. share in company <b>{{rawPercent v.minShare}}</b></p>
+        <p>Min. paid-up capital ({{code}}): <b>{{multi-money v.minCapital code currencyCode}}</b></p>
+        <p>Min. share in company: <b>{{#if v.minShare}}{{rawPercent v.minShare}}{{else}}&mdash;{{/if}}</b></p>
+        <p>Stay (days per year) required before PR: <b>{{#if v.stayReq}}{{v.stayReq}}{{else}}&mdash;{{/if}}</b></p>
+        <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
       {{/visa-card}}
     {{/with}}
   </script>

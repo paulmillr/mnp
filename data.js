@@ -523,7 +523,12 @@ var policies = [
     immigration: {
       workVisa: false, // TODO
       investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      businessVisa: {
+        minCapital: 200000,
+        yearsBeforePR: 5,
+        stayReq: 90,
+        source: 'http://business-investor-immigration.com/czech-business-immigration-program/'
+      }
     },
     rate: 15
   },
