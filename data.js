@@ -32,7 +32,6 @@ var policies = [
     prosperityIndexRank: 11,
     crimeIndex: 50.15,
     consumerPriceIndex: 77.39,
-    ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
     immigration: {
       workVisa: {
         degreeReq: true,
@@ -45,8 +44,10 @@ var policies = [
         minJobs: 10,
         yearsBeforePR: 2,
         source: 'http://www.uscis.gov/working-united-states/permanent-workers/employment-based-immigration-fifth-preference-eb-5/eb-5-immigrant-investor-process'
-      }
+      },
+      businessVisa: false // TODO
     },
+    ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
     rates: ['incremental',
       {max: 8925, rate: 0},
       {max: 36250, rate: 15},
@@ -110,6 +111,11 @@ var policies = [
     prosperityIndexRank: 3,
     crimeIndex: 36.29,
     consumerPriceIndex: 87.90,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html',
     rates: ['incremental',
       {max: 43561, rate: 15},
@@ -158,6 +164,11 @@ var policies = [
     prosperityIndexRank: 19,
     crimeIndex: 22.68,
     consumerPriceIndex: 76.36,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['simple',
       {max: 40000, rate: 2},
       {max: 80000, rate: 7},
@@ -173,6 +184,11 @@ var policies = [
     prosperityIndexRank: 18,
     crimeIndex: 21.35,
     consumerPriceIndex: 100.01,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['incremental',
       {max: 20000, rate: 0},
       {max: 30000, rate: 2},
@@ -193,6 +209,11 @@ var policies = [
     prosperityIndexRank: 51,
     crimeIndex: 30.13,
     consumerPriceIndex: 54.12,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_China#Individual_income_tax',
     rates: ['incremental',
       {max: 1500, rate: 3},
@@ -212,6 +233,11 @@ var policies = [
     prosperityIndexRank: 52,
     crimeIndex: 37.56,
     consumerPriceIndex: 45.95,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://www.rd.go.th/publish/6045.0.html',
     rates: ['incremental',
       {max: 150000, rate: 0},
@@ -229,6 +255,11 @@ var policies = [
     prosperityIndexRank: 44,
     crimeIndex: 66.41,
     consumerPriceIndex: 48.66,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/',
     rates: ['incremental',
       {max: 2500, rate: 0},
@@ -250,6 +281,11 @@ var policies = [
     prosperityIndexRank: 26,
     crimeIndex: 16.35,
     consumerPriceIndex: 87.56,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://www.korea4expats.com/article-income-taxes.html',
     rates: ['incremental',
       {max: 12000000, rate: 6},
@@ -266,6 +302,11 @@ var policies = [
     prosperityIndexRank: 21,
     crimeIndex: 18.10,
     consumerPriceIndex: 94.13,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['incremental',
       {max: 1950000, rate: 5},
       {max: 3300000, rate: 10},
@@ -283,6 +324,11 @@ var policies = [
     prosperityIndexRank: 7,
     crimeIndex: 41.23,
     consumerPriceIndex: 108.51,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Australia#Individual_income_tax_rates_.28residents.29',
     rates: ['incremental',
       {max: 18200, rate: 0},
@@ -300,6 +346,11 @@ var policies = [
     prosperityIndexRank: 16,
     crimeIndex: 42.62,
     consumerPriceIndex: 100.11,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax',
     rates: ['incremental',
       {max: 32011, rate: 20},
@@ -315,6 +366,11 @@ var policies = [
     prosperityIndexRank: 12,
     crimeIndex: 53.59,
     consumerPriceIndex: 106.61,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax',
     rates: ['incremental',
       {max: 32800, rate: 20},
@@ -329,6 +385,11 @@ var policies = [
     prosperityIndexRank: 23,
     crimeIndex: 32.42,
     consumerPriceIndex: 77.81,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Spain',
     rates: ['incremental',
       {max: 17707.2, rate: 24},
@@ -347,6 +408,11 @@ var policies = [
     prosperityIndexRank: 32,
     crimeIndex: 45.59,
     consumerPriceIndex: 96.81,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Italy',
     rates: ['incremental',
       {max: 15000, rate: 23},
@@ -364,6 +430,11 @@ var policies = [
     prosperityIndexRank: 9,
     crimeIndex: 37.07,
     consumerPriceIndex: 98.82,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://en.wikipedia.org/wiki/Income_tax_in_the_Netherlands#Progressive_tax_on_wages_etc._.28box_1.29',
     rates: ['incremental',
       {max: 19645, rate: 5.85},
@@ -380,6 +451,11 @@ var policies = [
     prosperityIndexRank: 37,
     crimeIndex: 37.56,
     consumerPriceIndex: 89.76,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['incremental',
       {max: 19500, rate: 0},
       {max: 28000, rate: 20},
@@ -396,6 +472,11 @@ var policies = [
     prosperityIndexRank: 4,
     crimeIndex: 38.23,
     consumerPriceIndex: 103.68,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['incremental',
       {max: 413200, rate: 30},
       {max: 591600, rate: 50},
@@ -410,6 +491,11 @@ var policies = [
     prosperityIndexRank: 13,
     crimeIndex: 31.68,
     consumerPriceIndex: 111.75,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['incremental',
       {max: 2512800, rate: 37.31},
       {max: 8166600, rate: 40.21},
@@ -424,6 +510,11 @@ var policies = [
     prosperityIndexRank: 29,
     crimeIndex: 33.88,
     consumerPriceIndex: 56.59,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 15
   },
 
@@ -434,6 +525,11 @@ var policies = [
     prosperityIndexRank: 84,
     crimeIndex: 19.91,
     consumerPriceIndex: 46.22,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 20
   },
 
@@ -444,6 +540,11 @@ var policies = [
     prosperityIndexRank: 48,
     crimeIndex: 43.74,
     consumerPriceIndex: 65.95,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 24
   },
 
@@ -454,6 +555,11 @@ var policies = [
     prosperityIndexRank: 7,
     crimeIndex: 25.83,
     consumerPriceIndex: 89.50,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm',
     rates: ['incremental',
       {max: 10999, rate: 0},
@@ -470,6 +576,11 @@ var policies = [
     prosperityIndexRank: 20,
     crimeIndex: 47.28,
     consumerPriceIndex: 100.21,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_France#Income_Taxes',
     rates: ['incremental',
       {max: 6011, rate: 0},
@@ -488,6 +599,11 @@ var policies = [
     prosperityIndexRank: 34,
     crimeIndex: 37.53,
     consumerPriceIndex: 53.68,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'http://europa.eu/youreurope/citizens/work/abroad/taxes/poland/employed_en.htm',
     rates: ['incremental',
       {max: 3091, rate: 0},
@@ -517,6 +633,11 @@ var policies = [
     prosperityIndexRank: 39,
     crimeIndex: 33.28,
     consumerPriceIndex: 91.45,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax',
     rates: ['incremental',
       {max: 62400, rate: 10},
@@ -536,6 +657,11 @@ var policies = [
     prosperityIndexRank: 28,
     crimeIndex: 20.79,
     consumerPriceIndex: 68.25,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 0
   },
 
@@ -546,6 +672,11 @@ var policies = [
     prosperityIndexRank: 61,
     crimeIndex: 52.67,
     consumerPriceIndex: 61.80,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 13
   },
 
@@ -556,6 +687,11 @@ var policies = [
     prosperityIndexRank: 64,
     crimeIndex: 49.37,
     consumerPriceIndex: 45.64,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rates: ['simple',
       {max: 12180, rate: 15},
       {max: Infinity, rate: 17}
@@ -569,6 +705,11 @@ var policies = [
     prosperityIndexRank: 58,
     crimeIndex: 32.89,
     consumerPriceIndex: 50.35,
+    immigration: {
+      workVisa: false, // TODO
+      investmentVisa: false, // TODO
+      businessVisa: false // TODO
+    },
     rate: 12
   }
 ];
