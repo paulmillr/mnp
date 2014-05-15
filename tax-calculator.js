@@ -368,6 +368,8 @@ App.MoneyInputComponent = Ember.Component.extend({
   placeholder: null,
   autofocus: false,
 
+  debounce: null,
+
   setFmt: function() {
     this.updateMoney();
   }.on('init'),
@@ -381,7 +383,13 @@ App.MoneyInputComponent = Ember.Component.extend({
   inputValueDidChange: function() {
     this.set('fmtValue', accounting.formatNumber(this.get('fmtValue')));
 
-    Ember.run.debounce(this, this.updateValue, 500);
+    var debounce = this.get('debounce');
+
+    if (debounce) {
+      Ember.run.debounce(this, this.updateValue, debounce);
+    } else {
+      this.updateValue();
+    }
   }.observes('fmtValue'),
 
   updateValue: function() {

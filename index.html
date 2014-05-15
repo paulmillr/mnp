@@ -85,7 +85,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
-    {{money-input value=income currencyCode=currencyCode autofocus=true placeholder="Annual pre-tax income"}}
+    {{money-input value=income currencyCode=currencyCode debounce=500 autofocus=true placeholder="Annual pre-tax income"}}
 
     <p class="help-block">
       Try the following values:
