@@ -133,6 +133,62 @@
     </table>
   </script>
 
+  <script type="text/x-handlebars" data-template-name="components/tax-bands">
+    {{#if flatTaxRate}}
+      <p>Flat rate of <b>{{rawPercent flatTaxRate}}</b></p>
+    {{else}}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Range (in {{currencyCode}})</th>
+            <th>Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each bands}}
+            <tr>
+              <td>Up to {{money max}}</td>
+              <td>{{rawPercent rate}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{/if}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/sample-rates">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>{{currencyCode}} income</th>
+          <th>Effective tax rate</th>
+          <th>{{currencyCode}} in taxes</th>
+          <th>{{currencyCode}} take home</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each samples}}
+          <tr>
+            <td>{{money income}}</td>
+            <td>{{percent effectiveRate}}</td>
+            <td>{{money taxAmount}}</td>
+            <td>{{money takeHome}}</td>
+          </tr>
+        {{/each}}
+
+        <tr>
+          <td>
+            {{money-input value=demoIncome currencyCode=currencyCode placeholder="Annual pre-tax income"}}
+          </td>
+          <td>{{percent result.effectiveRate}}</td>
+          <td>{{money result.taxAmount}}</td>
+          <td>{{money result.takeHome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </script>
+
   <script type="text/x-handlebars" data-template-name="details">
     <h2>
       <img class="flag" {{bind-attr src=flagURL alt=country}}>
@@ -148,61 +204,13 @@
           {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
         </h4>
 
-        {{#if flatTaxRate}}
-          <p>Flat rate of <b>{{rawPercent flatTaxRate}}</b></p>
-        {{else}}
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Range (in {{currencyCode}})</th>
-                <th>Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each bands}}
-                <tr>
-                  <td>Up to {{money max}}</td>
-                  <td>{{rawPercent rate}}</td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        {{/if}}
+        {{tax-bands countryOrState=model currencyCode=currencyCode}}
       </div>
 
       <div class="col-sm-8">
         <h4>Sample rates</h4>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>{{currencyCode}} income</th>
-              <th>Effective tax rate</th>
-              <th>{{currencyCode}} in taxes</th>
-              <th>{{currencyCode}} take home</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {{#each samples}}
-              <tr>
-                <td>{{money income}}</td>
-                <td>{{percent effectiveRate}}</td>
-                <td>{{money taxAmount}}</td>
-                <td>{{money takeHome}}</td>
-              </tr>
-            {{/each}}
-
-            <tr>
-              <td>
-                {{money-input value=income currencyCode=currencyCode placeholder="Annual pre-tax income"}}
-              </td>
-              <td>{{percent result.effectiveRate}}</td>
-              <td>{{money result.taxAmount}}</td>
-              <td>{{money result.takeHome}}</td>
-            </tr>
-          </tbody>
-        </table>
+        {{sample-rates countryOrState=model currencyCode=currencyCode}}
       </div>
     </div>
 

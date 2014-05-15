@@ -103,16 +103,8 @@ App.CURRENCIES = policies.map(function(item) { return item.code }).
   uniq().map(function(code) { return { code: code, symbol: symbols[code] };
 });
 
-App.Country = Ember.Object.extend({
-  name: null,
-  slug: null,
-  code: null,
-  prosperityIndexRank: null,
-  ratesSource: null,
+App.Taxable = Ember.Mixin.create({
   rates: null,
-  states: null,
-
-  hasStates: Ember.computed.notEmpty('states'),
 
   taxBrackets: function() {
     var rates = this.get('rates').slice();
@@ -122,6 +114,17 @@ App.Country = Ember.Object.extend({
 
   isFlatTax: Ember.computed.equal('taxBrackets.length', 1),
   flatTaxRate: Ember.computed.alias('taxBrackets.firstObject.rate'),
+});
+
+App.Country = Ember.Object.extend(App.Taxable, {
+  name: null,
+  slug: null,
+  code: null,
+  prosperityIndexRank: null,
+  ratesSource: null,
+  states: null,
+
+  hasStates: Ember.computed.notEmpty('states'),
 
   isCountry: true,
   isState: false,
@@ -131,12 +134,11 @@ App.Country = Ember.Object.extend({
   }.property('name')
 });
 
-App.CountryState = Ember.Object.extend({
+App.CountryState = Ember.Object.extend(App.Taxable, {
   country: null,
   name: null,
   slug: null,
   code: Ember.computed.alias('country.code'),
-  rates: null,
 
   isCountry: false,
   isState: true
@@ -302,10 +304,36 @@ App.DetailsRoute = Ember.Route.extend({
 
 App.DetailsController = Ember.ObjectController.extend({
   needs: ['application'],
+  currencyCode: Ember.computed.alias('controllers.application.currencyCode')
+});
+
+App.TaxBandsComponent = Ember.Component.extend({
+  countryOrState: null,
+  currencyCode: null,
+
+  sourceCurrencyCode: Ember.computed.alias('countryOrState.code'),
+  rates: Ember.computed.alias('countryOrState.rates'),
+  flatTaxRate: Ember.computed.alias('countryOrState.flatTaxRate'),
+
+  bands: function() {
+    var rates = this.get('rates').slice();
+    var currency = this.get('currencyCode');
+    var sourceCurrency = this.get('sourceCurrencyCode');
+
+    rates.shift();
+
+    return rates.map(function(rate) {
+      var newMax = toCurrency(rate.max, currency, sourceCurrency);
+      return { max: newMax, rate: rate.rate };
+    });
+  }.property('rates', 'currencyCode', 'sourceCurrencyCode')
+});
+
+App.SampleRatesComponent = Ember.Component.extend({
+  countryOrState: null,
+  currencyCode: null,
 
   demoIncome: null,
-
-  currencyCode: Ember.computed.alias('controllers.application.currencyCode'),
 
   sampleIncomes: function() {
     var currency = this.get('currencyCode');
@@ -316,35 +344,22 @@ App.DetailsController = Ember.ObjectController.extend({
     });
   }.property('currencyCode'),
 
-  bands: function() {
-    var rates = this.get('rates').slice();
-    var currency = this.get('currencyCode');
-    var sourceCurrency = this.get('model.code')
-
-    rates.shift();
-
-    return rates.map(function(rate) {
-      var newMax = toCurrency(rate.max, currency, sourceCurrency);
-      return { max: newMax, rate: rate.rate };
-    });
-  }.property('rates', 'currencyCode', 'code'),
-
   samples: function() {
-    var country = this.get('model');
+    var country = this.get('countryOrState');
     var currency = this.get('currencyCode');
 
     return this.get('sampleIncomes').map(function(income) {
       return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
     });
-  }.property('model', 'sampleIncomes'),
+  }.property('countryOrState', 'sampleIncomes'),
 
   result: function() {
     var income = this.get('demoIncome');
-    var country = this.get('model');
+    var country = this.get('countryOrState');
     var currency = this.get('currencyCode');
 
     return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
-  }.property('model', 'demoIncome')
+  }.property('countryOrState', 'demoIncome')
 });
 
 App.MoneyInputComponent = Ember.Component.extend({
