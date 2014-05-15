@@ -328,14 +328,38 @@
     <h3>Immigration</h3>
 
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         {{#bs-panel}}
-          <h4 class="text-center">
-            Work visa
-            {{check-mark value=immigration.workVisaDegreeReq}}
-          </h4>
+          {{#with immigration.workVisa as v}}
+            <h4 class="text-center">
+              Worker visa
+              {{check-mark value=v}}
+            </h4>
 
-          <p>Degree required: <b>{{yesno immigration.workVisaDegreeReq}}</b></p>
+            {{#if v}}
+              <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
+              <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
+              {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
+            {{/if}}
+          {{/with}}
+        {{/bs-panel}}
+      </div>
+
+      <div class="col-sm-4">
+        {{#bs-panel}}
+          {{#with immigration.investmentVisa as v}}
+            <h4 class="text-center">
+              Investor visa
+              {{check-mark value=v}}
+            </h4>
+
+            {{#if v}}
+              <p>Min. investment amount ({{code}}): <b>{{money v.minAmount}}</b></p>
+              <p>Min. jobs maintained: <b>{{v.minJobs}}</b></p>
+              <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
+              {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
+            {{/if}}
+          {{/with}}
         {{/bs-panel}}
       </div>
     </div>

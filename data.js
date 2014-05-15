@@ -34,8 +34,17 @@ var policies = [
     consumerPriceIndex: 77.39,
     ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
     immigration: {
-      workVisa: true,
-      workVisaDegreeReq: true
+      workVisa: {
+        degreeReq: true,
+        canApplyForPR: true,
+        source: 'http://www.uscis.gov/working-united-states/temporary-workers/h-1b-specialty-occupations-and-fashion-models/h-1b-specialty-occupations-dod-cooperative-research-and-development-project-workers-and-fashion-models'
+      },
+      investmentVisa: {
+        minAmount: 1000000,
+        minJobs: 10,
+        yearsBeforePR: 2,
+        source: 'http://www.uscis.gov/working-united-states/permanent-workers/employment-based-immigration-fifth-preference-eb-5/eb-5-immigrant-investor-process'
+      }
     },
     rates: ['incremental',
       {max: 8925, rate: 0},
