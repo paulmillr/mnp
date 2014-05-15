@@ -287,7 +287,7 @@ App.IndexController = Ember.Controller.extend({
 });
 
 App.ResultsController = Ember.ArrayController.extend({
-  sortProperties: ['amount'],
+  sortProperties: ['taxAmount'],
   needs: ['index'],
   currencyCode: Ember.computed.alias('controllers.index.currencyCode'),
   currency: Ember.computed.alias('controllers.index.currency')
