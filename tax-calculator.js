@@ -107,6 +107,7 @@ App.Country = Ember.Object.extend({
   name: null,
   slug: null,
   code: null,
+  ratesSource: null,
   rates: null,
   states: null,
 
@@ -171,6 +172,7 @@ policies.forEach(function(item) {
     name: item.country,
     slug: item.slug,
     code: item.code,
+    ratesSource: item.ratesSource,
     rates: normalizeRates(item)
   });
 

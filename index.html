@@ -136,7 +136,10 @@
   <script type="text/x-handlebars" data-template-name="details">
     <h3>{{name}}</h3>
 
-    <h4>Income tax bands</h4>
+    <h4>
+      Income tax bands
+      {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
+    </h4>
 
     <table class="table table-striped">
       <thead>
