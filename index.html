@@ -148,22 +148,26 @@
           {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
         </h4>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Range (in {{currencyCode}})</th>
-              <th>Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each bands}}
+        {{#if flatTaxRate}}
+          <p>Flat rate of <b>{{rawPercent flatTaxRate}}</b></p>
+        {{else}}
+          <table class="table table-striped">
+            <thead>
               <tr>
-                <td>Up to {{money max}}</td>
-                <td>{{rawPercent rate}}</td>
+                <th>Range (in {{currencyCode}})</th>
+                <th>Rate</th>
               </tr>
-            {{/each}}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {{#each bands}}
+                <tr>
+                  <td>Up to {{money max}}</td>
+                  <td>{{rawPercent rate}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{/if}}
       </div>
 
       <div class="col-sm-8">

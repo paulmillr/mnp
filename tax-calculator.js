@@ -114,6 +114,15 @@ App.Country = Ember.Object.extend({
 
   hasStates: Ember.computed.notEmpty('states'),
 
+  taxBrackets: function() {
+    var rates = this.get('rates').slice();
+    rates.shift();
+    return rates;
+  }.property('rates'),
+
+  isFlatTax: Ember.computed.equal('taxBrackets.length', 1),
+  flatTaxRate: Ember.computed.alias('taxBrackets.firstObject.rate'),
+
   isCountry: true,
   isState: false,
 
