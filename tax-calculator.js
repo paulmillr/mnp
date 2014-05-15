@@ -96,7 +96,14 @@ Ember.TextField.reopen({
   attributeBindings: ['autofocus', 'autocomplete']
 });
 
-App = Ember.Application.create();
+App = Ember.Application.create({
+  rootElement: '#app',
+
+  ready: function() {
+    $('.loader').hide();
+  }
+});
+
 App.deferReadiness();
 
 App.CURRENCIES = policies.map(function(item) { return item.code }).
