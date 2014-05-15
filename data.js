@@ -152,7 +152,7 @@ var policies = [
 
   {
     name: 'Hong Kong',
-    slug: 'hongkong',
+    slug: 'hong-kong',
     code: 'HKD',
     prosperityIndexRank: 19,
     crimeIndex: 22.68,
@@ -244,7 +244,7 @@ var policies = [
 
   {
     name: 'South Korea',
-    slug: 'southkorea',
+    slug: 'south-korea',
     code: 'KRW',
     prosperityIndexRank: 26,
     crimeIndex: 16.35,
@@ -418,7 +418,7 @@ var policies = [
 
   {
     name: 'Czech Republic',
-    slug: 'czechrepublic',
+    slug: 'czech-republic',
     code: 'CZK',
     prosperityIndexRank: 29,
     crimeIndex: 33.88,
