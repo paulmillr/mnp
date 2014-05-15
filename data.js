@@ -187,7 +187,17 @@ var policies = [
     immigration: {
       workVisa: false, // TODO
       investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      businessVisa: {
+        minCapital: 50000,
+        minShare: 30,
+        specialConditions: [
+          'The company is receiving monetary funding or investment of at least S$100,000 from a third-party Venture Capitalist (VC) or angel investor accredited by a Singapore Government agency.',
+          'The company holds an Intellectual Property (IP) that is registered with a recognised national IP institution.',
+          'The company has on-going research collaboration with an institution recognised by Agency for Science, Technology and Research (A*STAR) or Institutes of Higher Learning in Singapore.',
+          'The company is an incubatee at a Singapore Government-supported incubator.'
+        ],
+        source: 'http://www.guidemesingapore.com/relocation/work-pass/singapore-entrepreneur-pass-guide'
+      }
     },
     rates: ['incremental',
       {max: 20000, rate: 0},

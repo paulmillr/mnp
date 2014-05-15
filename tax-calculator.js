@@ -445,6 +445,11 @@ App.BsPanelComponent = Ember.Component.extend({
   classNames: ['panel panel-default']
 });
 
+App.VisaCardComponent = Ember.Component.extend({
+  visa: null,
+  title: null
+});
+
 Ember.Handlebars.helper('money', function(value) {
   if (value === Infinity) return 'Infinity';
   return accounting.formatMoney(value, '');

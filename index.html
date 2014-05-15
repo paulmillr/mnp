@@ -333,41 +333,64 @@
 
     <div class="row">
       <div class="col-sm-4">
-        {{#bs-panel}}
-          {{#with immigration.workVisa as v}}
-            <h4 class="text-center">
-              Worker visa
-              {{check-mark value=v}}
-            </h4>
-
-            {{#if v}}
-              <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
-              <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
-              <p>Yearly quota: <b>{{number v.quota}}</b></p>
-              {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
-            {{/if}}
-          {{/with}}
-        {{/bs-panel}}
+        {{#bs-panel}}{{partial 'immigration_worker'}}{{/bs-panel}}
       </div>
-
       <div class="col-sm-4">
-        {{#bs-panel}}
-          {{#with immigration.investmentVisa as v}}
-            <h4 class="text-center">
-              Investor visa
-              {{check-mark value=v}}
-            </h4>
-
-            {{#if v}}
-              <p>Min. investment amount ({{code}}): <b>{{money v.minAmount}}</b></p>
-              <p>Min. jobs maintained: <b>{{v.minJobs}}</b></p>
-              <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
-              {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
-            {{/if}}
-          {{/with}}
-        {{/bs-panel}}
+        {{#bs-panel}}{{partial 'immigration_investor'}}{{/bs-panel}}
+      </div>
+      <div class="col-sm-4">
+        {{#bs-panel}}{{partial 'immigration_business'}}{{/bs-panel}}
       </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/visa-card">
+    {{#with visa as v}}
+      <h4 class="text-center">
+        {{title}}
+        {{check-mark value=v}}
+      </h4>
+
+      {{#if v}}
+        {{yield v=v}}
+
+        {{#if v.specialConditions}}
+          <h5 class="text-center">Special conditions</h5>
+          <ul>{{#each v.specialConditions}}<li>{{this}}</li>{{/each}}</ul>
+        {{/if}}
+
+        {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
+      {{/if}}
+    {{/with}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_immigration_worker">
+    {{#with immigration.workVisa as v}}
+      {{#visa-card visa=v title="Worker visa"}}
+        <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
+        <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
+        <p>Yearly quota: <b>{{number v.quota}}</b></p>
+      {{/visa-card}}
+    {{/with}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_immigration_investor">
+    {{#with immigration.investmentVisa as v}}
+      {{#visa-card visa=v title="Investor visa"}}
+        <p>Min. investment amount ({{code}}): <b>{{money v.minAmount}}</b></p>
+        <p>Min. jobs maintained: <b>{{v.minJobs}}</b></p>
+        <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
+      {{/visa-card}}
+    {{/with}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_immigration_business">
+    {{#with immigration.businessVisa as v}}
+      {{#visa-card visa=v title="Business visa"}}
+        <p>Min. paid-up capital ({{code}}): <b>{{money v.minCapital}}</b></p>
+        <p>Min. share in company <b>{{rawPercent v.minShare}}</b></p>
+      {{/visa-card}}
+    {{/with}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="components/check-mark">
