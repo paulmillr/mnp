@@ -37,6 +37,7 @@ var policies = [
       workVisa: {
         degreeReq: true,
         canApplyForPR: true,
+        quota: 65000,
         source: 'http://www.uscis.gov/working-united-states/temporary-workers/h-1b-specialty-occupations-and-fashion-models/h-1b-specialty-occupations-dod-cooperative-research-and-development-project-workers-and-fashion-models'
       },
       investmentVisa: {

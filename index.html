@@ -343,6 +343,7 @@
             {{#if v}}
               <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
               <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
+              <p>Yearly quota: <b>{{number v.quota}}</b></p>
               {{#if v.source}}<p class="text-center"><small><a {{bind-attr href=v.source}} target="_blank">(source)</a></small></p>{{/if}}
             {{/if}}
           {{/with}}

@@ -450,6 +450,10 @@ Ember.Handlebars.helper('money', function(value) {
   return accounting.formatMoney(value, '');
 });
 
+Ember.Handlebars.helper('number', function(value) {
+  return accounting.formatNumber(value);
+});
+
 Ember.Handlebars.helper('rawPercent', function(value) {
   return accounting.formatNumber(value, 2) + '%';
 });
