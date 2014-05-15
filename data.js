@@ -15,7 +15,7 @@ var symbols = {
 var policies = [
   // Almost right. Needs some fix
   // http://www.worldwide-tax.com/us/us_taxes.asp
-  // Income taxes by state: http://www.bankrate.com/finance/taxes/check-taxes-in-your-state.aspx
+  // Income taxes by name: http://www.bankrate.com/finance/taxes/check-taxes-in-your-state.aspx
   // :/
   // Over  But not over  Tax +%  On amount over
   // $0  $8,925  $0.00 10  $ 0
@@ -26,9 +26,11 @@ var policies = [
   // 398,350 400,000 115,586 35  398,350
   // 400,000 ----- ----- 39.6  -----
   {
-    country: 'United States',
+    name: 'United States',
     slug: 'usa',
     code: 'USD',
+    prosperityIndexRank: 11,
+    crimeIndex: 50.15,
     ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
     rates: ['incremental',
       {max: 8925, rate: 0},
@@ -40,8 +42,8 @@ var policies = [
       {max: Infinity, rate: 39.6}
     ],
     states: [
-      { state: 'Alaska / Florida / Nevada / Texas', slug: 'ak-fl-nv-tx', rate: 0 },
-      { state: 'California', slug: 'ca', rates: ['incremental',
+      { name: 'Alaska / Florida / Nevada / Texas', slug: 'ak-fl-nv-tx', rate: 0 },
+      { name: 'California', slug: 'ca', rates: ['incremental',
           {max: 7455, rate: 0},
           {max: 17676, rate: 2},
           {max: 27897, rate: 4},
@@ -53,7 +55,7 @@ var policies = [
           {max: Infinity, rate: 12.3},
         ]
       },
-      { state: 'Delaware', slug: 'de', rates: ['incremental',
+      { name: 'Delaware', slug: 'de', rates: ['incremental',
           {max: 2000, rate: 0},
           {max: 5000, rate: 2.2},
           {max: 10000, rate: 3.9},
@@ -63,7 +65,7 @@ var policies = [
           {max: Infinity, rate: 6.75}
         ]
       },
-      { state: 'Kentucky', slug: 'ky', rates: ['incremental',
+      { name: 'Kentucky', slug: 'ky', rates: ['incremental',
           {max: 3000, rate: 2},
           {max: 4000, rate: 3},
           {max: 5000, rate: 4},
@@ -72,7 +74,7 @@ var policies = [
           {max: Infinity, rate: 6}
         ]
       },
-      { state: 'New York', slug: 'ny', rates: ['incremental',
+      { name: 'New York', slug: 'ny', rates: ['incremental',
           {max: 8000, rate: 4},
           {max: 11000, rate: 4.5},
           {max: 13000, rate: 5.25},
@@ -87,9 +89,11 @@ var policies = [
   },
 
   {
-    country: 'Canada',
+    name: 'Canada',
     slug: 'canada',
     code: 'CAD',
+    prosperityIndexRank: 3,
+    crimeIndex: 36.29,
     ratesSource: 'http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html',
     rates: ['incremental',
       {max: 43561, rate: 15},
@@ -99,28 +103,28 @@ var policies = [
     ],
     states:[
       // http://www.revenuquebec.ca/en/citoyen/impots/rens_comp/taux.aspx
-      { state: 'Quebec', slug: 'qc', rates: ['incremental',
+      { name: 'Quebec', slug: 'qc', rates: ['incremental',
           {max: 41095, rate: 16},
           {max: 82190, rate: 20},
           {max: 100000, rate: 24},
           {max: Infinity, rate: 25.75}
         ]
       },
-      { state: 'Ontario', slug: 'on', rates: ['incremental',
+      { name: 'Ontario', slug: 'on', rates: ['incremental',
           {max: 39723, rate: 5.05},
           {max: 79448, rate: 9.15},
           {max: 509000, rate: 11.16},
           {max: Infinity, rate: 13.16}
         ]
       },
-      { state: 'Manitoba', slug: 'mb', rates: ['incremental',
+      { name: 'Manitoba', slug: 'mb', rates: ['incremental',
           {max: 31000, rate: 10.8},
           {max: 67000, rate: 12.75},
           {max: Infinity, rate: 17.4}
         ]
       },
-      { state: 'Alberta', slug: 'ab', rate: 10},
-      { state: 'British Columbia', slug: 'bc', rates: ['incremental',
+      { name: 'Alberta', slug: 'ab', rate: 10},
+      { name: 'British Columbia', slug: 'bc', rates: ['incremental',
           {max: 37568, rate: 5.06},
           {max: 71138, rate: 7.7},
           {max: 82268, rate: 10.5},
@@ -132,9 +136,11 @@ var policies = [
   },
 
   {
-    country: 'Hong Kong',
+    name: 'Hong Kong',
     slug: 'hongkong',
     code: 'HKD',
+    prosperityIndexRank: 19,
+    crimeIndex: 22.68,
     rates: ['simple',
       {max: 40000, rate: 2},
       {max: 80000, rate: 7},
@@ -144,9 +150,11 @@ var policies = [
   },
 
   {
-    country: 'Singapore',
+    name: 'Singapore',
     slug: 'singapore',
     code: 'SGD',
+    prosperityIndexRank: 18,
+    crimeIndex: 21.35,
     rates: ['incremental',
       {max: 20000, rate: 0},
       {max: 30000, rate: 2},
@@ -161,9 +169,11 @@ var policies = [
   },
 
   {
-    country: 'China',
+    name: 'China',
     slug: 'china',
     code: 'CNY',
+    prosperityIndexRank: 51,
+    crimeIndex: 30.13,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_China#Individual_income_tax',
     rates: ['incremental',
       {max: 1500, rate: 3},
@@ -177,9 +187,11 @@ var policies = [
   },
 
   {
-    country: 'Thailand',
+    name: 'Thailand',
     slug: 'thailand',
     code: 'THB',
+    prosperityIndexRank: 52,
+    crimeIndex: 37.56,
     ratesSource: 'http://www.rd.go.th/publish/6045.0.html',
     rates: ['incremental',
       {max: 150000, rate: 0},
@@ -191,9 +203,11 @@ var policies = [
   },
 
   {
-    country: 'Malaysia',
+    name: 'Malaysia',
     slug: 'malaysia',
     code: 'MYR',
+    prosperityIndexRank: 44,
+    crimeIndex: 66.41,
     ratesSource: 'http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/',
     rates: ['incremental',
       {max: 2500, rate: 0},
@@ -209,9 +223,11 @@ var policies = [
   },
 
   {
-    country: 'South Korea',
+    name: 'South Korea',
     slug: 'southkorea',
     code: 'KRW',
+    prosperityIndexRank: 26,
+    crimeIndex: 16.35,
     ratesSource: 'http://www.korea4expats.com/article-income-taxes.html',
     rates: ['incremental',
       {max: 12000000, rate: 6},
@@ -222,9 +238,11 @@ var policies = [
   },
 
   {
-    country: 'Japan',
+    name: 'Japan',
     slug: 'japan',
     code: 'JPY',
+    prosperityIndexRank: 21,
+    crimeIndex: 18.10,
     rates: ['incremental',
       {max: 1950000, rate: 5},
       {max: 3300000, rate: 10},
@@ -236,9 +254,11 @@ var policies = [
   },
 
   {
-    country: 'Australia',
+    name: 'Australia',
     slug: 'australia',
     code: 'AUD',
+    prosperityIndexRank: 7,
+    crimeIndex: 41.23,
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Australia#Individual_income_tax_rates_.28residents.29',
     rates: ['incremental',
       {max: 18200, rate: 0},
@@ -250,9 +270,11 @@ var policies = [
   },
 
   {
-    country: 'United Kingdom',
+    name: 'United Kingdom',
     slug: 'uk',
     code: 'GBP',
+    prosperityIndexRank: 16,
+    crimeIndex: 42.62,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax',
     rates: ['incremental',
       {max: 32011, rate: 20},
@@ -262,9 +284,11 @@ var policies = [
   },
 
   {
-    country: 'Ireland',
+    name: 'Ireland',
     slug: 'ireland',
     code: 'EUR',
+    prosperityIndexRank: 12,
+    crimeIndex: 53.59,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax',
     rates: ['incremental',
       {max: 32800, rate: 20},
@@ -273,9 +297,11 @@ var policies = [
   },
 
   {
-    country: 'Spain',
+    name: 'Spain',
     slug: 'spain',
     code: 'EUR',
+    prosperityIndexRank: 23,
+    crimeIndex: 32.42,
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Spain',
     rates: ['incremental',
       {max: 17707.2, rate: 24},
@@ -288,9 +314,11 @@ var policies = [
   },
 
   {
-    country: 'Italy',
+    name: 'Italy',
     slug: 'italy',
     code: 'EUR',
+    prosperityIndexRank: 32,
+    crimeIndex: 45.59,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Italy',
     rates: ['incremental',
       {max: 15000, rate: 23},
@@ -302,9 +330,11 @@ var policies = [
   },
 
   {
-    country: 'Netherlands',
+    name: 'Netherlands',
     slug: 'netherlands',
     code: 'EUR',
+    prosperityIndexRank: 9,
+    crimeIndex: 37.07,
     ratesSource: 'http://en.wikipedia.org/wiki/Income_tax_in_the_Netherlands#Progressive_tax_on_wages_etc._.28box_1.29',
     rates: ['incremental',
       {max: 19645, rate: 5.85},
@@ -315,9 +345,11 @@ var policies = [
   },
 
   {
-    country: 'Cyprus',
+    name: 'Cyprus',
     slug: 'cyprus',
     code: 'EUR',
+    prosperityIndexRank: 37,
+    crimeIndex: 37.56,
     rates: ['incremental',
       {max: 19500, rate: 0},
       {max: 28000, rate: 20},
@@ -328,9 +360,11 @@ var policies = [
   },
 
   {
-    country: 'Sweden',
+    name: 'Sweden',
     slug: 'sweden',
     code: 'SEK',
+    prosperityIndexRank: 4,
+    crimeIndex: 38.23,
     rates: ['incremental',
       {max: 413200, rate: 30},
       {max: 591600, rate: 50},
@@ -339,9 +373,11 @@ var policies = [
   },
 
   {
-    country: 'Iceland',
+    name: 'Iceland',
     slug: 'iceland',
     code: 'ISK',
+    prosperityIndexRank: 13,
+    crimeIndex: 31.68,
     rates: ['incremental',
       {max: 2512800, rate: 37.31},
       {max: 8166600, rate: 40.21},
@@ -350,30 +386,38 @@ var policies = [
   },
 
   {
-    country: 'Czech Republic',
+    name: 'Czech Republic',
     slug: 'czechrepublic',
     code: 'CZK',
+    prosperityIndexRank: 29,
+    crimeIndex: 33.88,
     rate: 15
   },
 
   {
-    country: 'Georgia',
+    name: 'Georgia',
     slug: 'georgia',
     code: 'GEL',
+    prosperityIndexRank: 84,
+    crimeIndex: 19.91,
     rate: 20
   },
 
   {
-    country: 'Latvia',
+    name: 'Latvia',
     slug: 'latvia',
     code: 'EUR',
+    prosperityIndexRank: 48,
+    crimeIndex: 43.74,
     rate: 24
   },
 
   {
-    country: 'Austria',
+    name: 'Austria',
     slug: 'austria',
     code: 'EUR',
+    prosperityIndexRank: 7,
+    crimeIndex: 25.83,
     ratesSource: 'http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm',
     rates: ['incremental',
       {max: 10999, rate: 0},
@@ -384,9 +428,11 @@ var policies = [
   },
 
   {
-    country: 'France',
+    name: 'France',
     slug: 'france',
     code: 'EUR',
+    prosperityIndexRank: 20,
+    crimeIndex: 47.28,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_France#Income_Taxes',
     rates: ['incremental',
       {max: 6011, rate: 0},
@@ -399,9 +445,11 @@ var policies = [
   },
 
   {
-    country: 'Poland',
+    name: 'Poland',
     slug: 'poland',
     code: 'PLN',
+    prosperityIndexRank: 34,
+    crimeIndex: 37.53,
     ratesSource: 'http://europa.eu/youreurope/citizens/work/abroad/taxes/poland/employed_en.htm',
     rates: ['incremental',
       {max: 3091, rate: 0},
@@ -417,7 +465,7 @@ var policies = [
   // 14% 8,131-52,881
   // 42% 52,882-250,730
   // 45% 250,731 and over
-  // {country: 'Germany', code: 'EUR', rates: ['simple',
+  // {name: 'Germany', code: 'EUR', rates: ['simple',
   //   {max: 8130, rate: 0},
   //   {max: 52881, rate: 14},
   //   {max: 250731, rate: 42},
@@ -425,9 +473,11 @@ var policies = [
   // ]}
 
   {
-    country: 'Israel',
+    name: 'Israel',
     slug: 'israel',
     code: 'ILS',
+    prosperityIndexRank: 39,
+    crimeIndex: 33.28,
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax',
     rates: ['incremental',
       {max: 62400, rate: 10},
@@ -441,23 +491,29 @@ var policies = [
 
   // FTW!
   {
-    country: 'United Arab Emirates',
+    name: 'United Arab Emirates',
     slug: 'uae',
     code: 'AED',
+    prosperityIndexRank: 28,
+    crimeIndex: 20.79,
     rate: 0
   },
 
   {
-    country: 'Russia',
+    name: 'Russia',
     slug: 'russia',
     code: 'RUB',
+    prosperityIndexRank: 61,
+    crimeIndex: 52.67,
     rate: 13
   },
 
   {
-    country: 'Ukraine',
+    name: 'Ukraine',
     slug: 'ukraine',
     code: 'UAH',
+    prosperityIndexRank: 64,
+    crimeIndex: 49.37,
     rates: ['simple',
       {max: 12180, rate: 15},
       {max: Infinity, rate: 17}
@@ -465,9 +521,11 @@ var policies = [
   },
 
   {
-    country: 'Belarus',
+    name: 'Belarus',
     slug: 'belarus',
     code: 'BYR',
+    prosperityIndexRank: 58,
+    crimeIndex: 32.89,
     rate: 12
   }
 ];

@@ -107,6 +107,7 @@ App.Country = Ember.Object.extend({
   name: null,
   slug: null,
   code: null,
+  prosperityIndexRank: null,
   ratesSource: null,
   rates: null,
   states: null,
@@ -168,24 +169,18 @@ var normalizeRates = function(item) {
 };
 
 policies.forEach(function(item) {
-  var country = App.Country.create({
-    name: item.country,
-    slug: item.slug,
-    code: item.code,
-    ratesSource: item.ratesSource,
-    rates: normalizeRates(item)
-  });
+  item.rates = normalizeRates(item);
+
+  var country = App.Country.create(item);
 
   var states = [];
 
   if (item.states) {
     states = item.states.map(function(state) {
-      return App.CountryState.create({
-        country: country,
-        name: state.state,
-        slug: state.slug,
-        rates: normalizeRates(state)
-      });
+      state.country = country;
+      state.rates = normalizeRates(state);
+
+      return App.CountryState.create(state);
     });
   }
 
