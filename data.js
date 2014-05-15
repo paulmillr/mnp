@@ -463,7 +463,11 @@ var policies = [
     consumerPriceIndex: 89.76,
     immigration: {
       workVisa: false, // TODO
-      investmentVisa: false, // TODO
+      investmentVisa: {
+        minAmount: 3000000,
+        yearsBeforeCitizenship: '0',
+        source: 'http://best-citizenships.com/cyprus-citizenship.htm'
+      },
       businessVisa: false // TODO
     },
     rates: ['incremental',
