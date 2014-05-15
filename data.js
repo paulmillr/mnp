@@ -33,6 +33,10 @@ var policies = [
     crimeIndex: 50.15,
     consumerPriceIndex: 77.39,
     ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
+    immigration: {
+      workVisa: true,
+      workVisaDegreeReq: true
+    },
     rates: ['incremental',
       {max: 8925, rate: 0},
       {max: 36250, rate: 15},

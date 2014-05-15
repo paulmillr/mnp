@@ -436,6 +436,15 @@ App.MoneyInputComponent = Ember.Component.extend({
   }
 });
 
+App.CheckMarkComponent = Ember.Component.extend({
+  tagName: 'span',
+  value: null
+});
+
+App.BsPanelComponent = Ember.Component.extend({
+  classNames: ['panel panel-default']
+});
+
 Ember.Handlebars.helper('money', function(value) {
   if (value === Infinity) return 'Infinity';
   return accounting.formatMoney(value, '');
@@ -447,6 +456,10 @@ Ember.Handlebars.helper('rawPercent', function(value) {
 
 Ember.Handlebars.helper('percent', function(value) {
   return accounting.formatNumber(value * 100, 2) + '%';
+});
+
+Ember.Handlebars.helper('yesno', function(value) {
+  return value ? 'yes' : 'no';
 });
 
 $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, function(data) {

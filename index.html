@@ -324,6 +324,31 @@
       Consumer price index: <b>{{consumerPriceIndex}}</b>
       <a href="http://www.numbeo.com/cost-of-living/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
+
+    <h3>Immigration</h3>
+
+    <div class="row">
+      <div class="col-sm-3">
+        {{#bs-panel}}
+          <h4 class="text-center">
+            Work visa
+            {{check-mark value=immigration.workVisaDegreeReq}}
+          </h4>
+
+          <p>Degree required: <b>{{yesno immigration.workVisaDegreeReq}}</b></p>
+        {{/bs-panel}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/check-mark">
+    {{#if value}}&#x2713;{{else}}&#x2717;{{/if}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/bs-panel">
+    <div class="panel-body">
+      {{yield}}
+    </div>
   </script>
 
   <script>
