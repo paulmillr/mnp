@@ -119,10 +119,17 @@
         {{#each}}
           <tr>
             <td>
-              {{#link-to 'details' country.slug}}
-                <img class="flag" {{bind-attr src=country.flagURL alt=country}} width="24" height="24" />
-                <span class="country-name">{{#if state}}{{country.name}} &mdash; {{state.name}}{{else}}{{country.name}}{{/if}}</span>
-              {{/link-to}}
+              {{#if state}}
+                {{#link-to 'details_state' country.slug state.slug}}
+                  <img class="flag" {{bind-attr src=country.flagURL alt=country}} width="24" height="24" />
+                  <span class="country-name">{{country.name}} &mdash; {{state.name}}</span>
+                {{/link-to}}
+              {{else}}
+                {{#link-to 'details' country.slug}}
+                  <img class="flag" {{bind-attr src=country.flagURL alt=country}} width="24" height="24" />
+                  <span class="country-name">{{country.name}}</span>
+                {{/link-to}}
+              {{/if}}
             </td>
             <td>{{percent effectiveRate}}</td>
             <td>{{money taxAmount}}</td>
@@ -134,7 +141,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="components/tax-bands">
-    {{#if flatTaxRate}}
+    {{#if isFlatTax}}
       <p>Flat rate of <b>{{rawPercent flatTaxRate}}</b></p>
     {{else}}
       <table class="table table-striped">
@@ -191,26 +198,53 @@
 
   <script type="text/x-handlebars" data-template-name="details">
     <h2>
-      <img class="flag" {{bind-attr src=flagURL alt=country}}>
+      <img class="flag" {{bind-attr src=flagURL alt=name}}>
       {{name}}
+      {{#if state}} &mdash; {{state.name}}{{/if}}
     </h2>
 
     <h3>Taxation</h3>
 
     <div class="row">
       <div class="col-sm-4">
-        <h4>
-          Income tax bands
-          {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
-        </h4>
+        {{#if country.hasStates}}
+          <h4>
+            Federal income tax bands
+            {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
+          </h4>
 
-        {{tax-bands countryOrState=model currencyCode=currencyCode}}
+          {{tax-bands countryOrState=country currencyCode=currencyCode}}
+
+          {{#if state}}
+            <h4>
+              State income tax bands
+              {{#if state.ratesSource}}<small><a {{bind-attr href=state.ratesSource}} target="_blank">(source)</a></small>{{/if}}
+            </h4>
+
+            {{tax-bands countryOrState=state currencyCode=currencyCode}}
+          {{else}}
+            <h4>States</h4>
+
+            <ul>
+              {{#each states}}
+                <li>{{#link-to 'details_state' country.slug slug}}{{name}}{{/link-to}}</li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        {{else}}
+          <h4>
+            Income tax bands
+            {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
+          </h4>
+
+          {{tax-bands countryOrState=country currencyCode=currencyCode}}
+        {{/if}}
       </div>
 
       <div class="col-sm-8">
         <h4>Sample rates</h4>
 
-        {{sample-rates countryOrState=model currencyCode=currencyCode}}
+        {{sample-rates countryOrState=countryOrState currencyCode=currencyCode}}
       </div>
     </div>
 

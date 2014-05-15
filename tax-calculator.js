@@ -172,7 +172,7 @@ App.TaxCalculator = Ember.Object.extend({
 App.COUNTRIES = [];
 
 var normalizeRates = function(item) {
-  if (item.rate) {
+  if (item.rate !== undefined) {
     return ['simple', {max: Infinity, rate: item.rate}];
   } else {
     return item.rates;
@@ -229,7 +229,8 @@ App.CalculationEntry = Ember.Object.extend({
 });
 
 App.Router.map(function() {
-  this.resource('details', { path: '/c/:slug' });
+  this.resource('details', { path: '/c/:country_slug' });
+  this.resource('details_state', { path: '/c/:country_slug/:state_slug' });
 });
 
 App.ApplicationController = Ember.Controller.extend({
@@ -298,13 +299,43 @@ App.ResultsController = Ember.ArrayController.extend({
 
 App.DetailsRoute = Ember.Route.extend({
   model: function(params) {
-    return App.COUNTRIES.findBy('slug', params.slug);
+    return App.COUNTRIES.findBy('slug', params.country_slug);
+  }
+});
+
+App.DetailsStateRoute = Ember.Route.extend({
+  controllerName: 'details',
+
+  model: function(params) {
+    var country = App.COUNTRIES.findBy('slug', params.country_slug);
+    var state = country.get('states').findBy('slug', params.state_slug);
+    return [country, state];
+  },
+
+  setupController: function(controller, model) {
+    controller.set('model', model[0]);
+    controller.set('state', model[1]);
+  },
+
+  renderTemplate: function() {
+    this.render('details');
   }
 });
 
 App.DetailsController = Ember.ObjectController.extend({
   needs: ['application'],
-  currencyCode: Ember.computed.alias('controllers.application.currencyCode')
+  currencyCode: Ember.computed.alias('controllers.application.currencyCode'),
+
+  country: Ember.computed.alias('model'),
+  state: null,
+
+  countryOrState: function() {
+    if (this.get('state')) {
+      return this.get('state');
+    } else {
+      return this.get('country');
+    }
+  }.property('country', 'state')
 });
 
 App.TaxBandsComponent = Ember.Component.extend({
@@ -313,6 +344,7 @@ App.TaxBandsComponent = Ember.Component.extend({
 
   sourceCurrencyCode: Ember.computed.alias('countryOrState.code'),
   rates: Ember.computed.alias('countryOrState.rates'),
+  isFlatTax: Ember.computed.alias('countryOrState.isFlatTax'),
   flatTaxRate: Ember.computed.alias('countryOrState.flatTaxRate'),
 
   bands: function() {
