@@ -240,11 +240,11 @@ App.NavbarController = Ember.Controller.extend({
 
 App.IndexController = Ember.Controller.extend({
   needs: ['application'],
-  queryParams: ['annualIncome', 'currencyCode'],
+  queryParams: ['income', 'currencyCode'],
 
-  annualIncome: null,
   currencyCode: Ember.computed.alias('controllers.application.currencyCode'),
   income: null,
+
   currency: function() {
     return symbols[this.get('currencyCode')];
   }.property('currencyCode'),
@@ -272,23 +272,11 @@ App.IndexController = Ember.Controller.extend({
         country: country,
         state: state,
         source: self,
-        incomeBinding: 'source.annualIncome',
+        incomeBinding: 'source.income',
         currencyCodeBinding: 'source.currencyCode'
       });
     });
   }.property(),
-
-  incomeChanged: function() {
-    if (!this.process) {
-      this.process = debounce(this.processIncomeChange, 500, true);
-    }
-    this.process();
-  }.observes('income'),
-
-  processIncomeChange: function() {
-    var income = this.get('income');
-    this.set('annualIncome', accounting.unformat(income));
-  },
 
   actions: {
     setIncome: function(value) {
@@ -356,6 +344,33 @@ App.DetailsController = Ember.ObjectController.extend({
 
     return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
   }.property('model', 'demoIncome')
+});
+
+App.MoneyInputComponent = Ember.Component.extend({
+  currencyCode: null,
+  value: null,
+  placeholder: null,
+  autofocus: false,
+
+  setFmt: function() {
+    this.updateMoney();
+  }.on('init'),
+
+  fmtValue: null,
+
+  updateMoney: function() {
+    this.set('fmtValue', accounting.formatNumber(this.get('value')));
+  }.observes('value'),
+
+  inputValueDidChange: function() {
+    this.set('fmtValue', accounting.formatNumber(this.get('fmtValue')));
+
+    Ember.run.debounce(this, this.updateValue, 500);
+  }.observes('fmtValue'),
+
+  updateValue: function() {
+    this.set('value', accounting.unformat(this.get('fmtValue')));
+  }
 });
 
 Ember.Handlebars.helper('money', function(value) {
