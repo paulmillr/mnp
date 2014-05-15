@@ -134,62 +134,70 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="details">
-    <h3>{{name}}</h3>
+    <h2>{{name}}</h2>
 
-    <h4>
-      Income tax bands
-      {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
-    </h4>
+    <h3>Taxation</h3>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Range (in {{currencyCode}})</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each bands}}
-          <tr>
-            <td>Up to {{money max}}</td>
-            <td>{{rawPercent rate}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="col-sm-4">
+        <h4>
+          Income tax bands
+          {{#if ratesSource}}<small><a {{bind-attr href=ratesSource}} target="_blank">(source)</a></small>{{/if}}
+        </h4>
 
-    <h4>Sample rates</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Range (in {{currencyCode}})</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bands}}
+              <tr>
+                <td>Up to {{money max}}</td>
+                <td>{{rawPercent rate}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>{{currencyCode}} income</th>
-          <th>Effective rate</th>
-          <th>{{currencyCode}} in taxes</th>
-          <th>{{currencyCode}} take home</th>
-        </tr>
-      </thead>
+      <div class="col-sm-8">
+        <h4>Sample rates</h4>
 
-      <tbody>
-        {{#each samples}}
-          <tr>
-            <td>{{money income}}</td>
-            <td>{{percent effectiveRate}}</td>
-            <td>{{money taxAmount}}</td>
-            <td>{{money takeHome}}</td>
-          </tr>
-        {{/each}}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{currencyCode}} income</th>
+              <th>Effective rate</th>
+              <th>{{currencyCode}} in taxes</th>
+              <th>{{currencyCode}} take home</th>
+            </tr>
+          </thead>
 
-        <tr>
-          <td>
-            {{money-input value=income currencyCode=currencyCode placeholder="Annual pre-tax income"}}
-          </td>
-          <td>{{percent result.effectiveRate}}</td>
-          <td>{{money result.taxAmount}}</td>
-          <td>{{money result.takeHome}}</td>
-        </tr>
-      </tbody>
-    </table>
+          <tbody>
+            {{#each samples}}
+              <tr>
+                <td>{{money income}}</td>
+                <td>{{percent effectiveRate}}</td>
+                <td>{{money taxAmount}}</td>
+                <td>{{money takeHome}}</td>
+              </tr>
+            {{/each}}
+
+            <tr>
+              <td>
+                {{money-input value=income currencyCode=currencyCode placeholder="Annual pre-tax income"}}
+              </td>
+              <td>{{percent result.effectiveRate}}</td>
+              <td>{{money result.taxAmount}}</td>
+              <td>{{money result.takeHome}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </script>
 
   <script>
