@@ -52,6 +52,17 @@
         <div class="navbar-header">
           {{#link-to 'index' class="navbar-brand"}}International tax calculator{{/link-to}}
         </div>
+
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            {{view Ember.Select
+              contentBinding="App.CURRENCIES"
+              valueBinding="currencyCode"
+              optionLabelPath="content.code"
+              optionValuePath="content.code"
+              class="form-control"}}
+          </div>
+        </form>
       </div>
     </nav>
   </script>
@@ -68,9 +79,9 @@
           valueBinding="currencyCode"
           optionLabelPath="content.code"
           optionValuePath="content.code"
-          class="form-control"
-        }}
+          class="form-control"}}
       </div>
+
       <p class="help-block">
         Try the following values:
         <a href="#" {{action 'setIncome' '50,000'}}>$50,000</a>,
@@ -105,12 +116,12 @@
           <tr>
             <td>
               {{#link-to 'details' country.slug}}
-                <img class="flag" {{bind-attr src=flagURL alt=country}} width="24" height="24" />
-                <span class="country-name">{{name}}</span>
+                <img class="flag" {{bind-attr src=country.flagURL alt=country}} width="24" height="24" />
+                <span class="country-name">{{#if state}}{{country.name}} &mdash; {{state.name}}{{else}}{{country.name}}{{/if}}</span>
               {{/link-to}}
             </td>
-            <td>{{percent percentage}}</td>
-            <td>{{money amount}}</td>
+            <td>{{percent effectiveRate}}</td>
+            <td>{{money taxAmount}}</td>
             <td>{{money takeHome}}</td>
           </tr>
         {{/each}}
@@ -126,7 +137,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Range</th>
+          <th>Range (in {{currencyCode}})</th>
           <th>Rate</th>
         </tr>
       </thead>
@@ -145,10 +156,10 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Income</th>
+          <th>{{currencyCode}} income</th>
           <th>Effective rate</th>
-          <th>In taxes</th>
-          <th>Take home</th>
+          <th>{{currencyCode}} in taxes</th>
+          <th>{{currencyCode}} take home</th>
         </tr>
       </thead>
 

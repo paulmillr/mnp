@@ -118,7 +118,11 @@ App.Country = Ember.Object.extend({
   hasStates: Ember.computed.notEmpty('states'),
 
   isCountry: true,
-  isState: false
+  isState: false,
+
+  flagURL: function() {
+    return 'flags/' + this.get('name').replace(/ /g, '-') + '.png';
+  }.property('name')
 });
 
 App.CountryState = Ember.Object.extend({
@@ -155,16 +159,7 @@ App.TaxCalculator = Ember.Object.extend({
   calculateFor: function(country, annualIncome, currentCurrency) {
     return getRate(annualIncome, currentCurrency, country.get('code'), country.get('rates'));
   }
-});
-
-Ember.Application.initializer({
-  name: 'injectCalculator',
-
-  initialize: function(container, application) {
-    container.register('calculator:main', App.TaxCalculator);
-    container.injection('controller', 'calculator', 'calculator:main');
-  }
-});
+}).create();
 
 App.COUNTRIES = [];
 
@@ -202,9 +197,12 @@ policies.forEach(function(item) {
   App.COUNTRIES.push(country);
 });
 
-App.CalculationResult = Ember.Object.extend({
+App.CalculationEntry = Ember.Object.extend({
   country: null,
   state: null,
+
+  income: null,
+  currencyCode: null,
 
   countryOrState: function() {
     if (this.get('state')) {
@@ -214,39 +212,16 @@ App.CalculationResult = Ember.Object.extend({
     }
   }.property('country', 'state'),
 
-  countryName: Ember.computed.alias('country.name'),
-  stateName: Ember.computed.alias('state.name'),
-
-  name: function() {
-    var country = this.get('countryName'),
-        state = this.get('stateName');
-
-    if (state) {
-      return country + ' — ' + state;
-    } else {
-      return country;
-    }
-  }.property('countryName', 'stateName'),
-
-  calculator: null,
-  annualIncome: Ember.computed.alias('calculator.annualIncome'),
-  currencyCode: Ember.computed.alias('calculator.currencyCode'),
-  currency: Ember.computed.alias('calculator.currency'),
-
-  flagURL: function() {
-    return 'flags/' + this.get('country.name').replace(/ /g, '-') + '.png';
-  }.property('country'),
-
   result: function() {
     var country = this.get('countryOrState');
-    var income = this.get('annualIncome');
+    var income = this.get('income');
     var currency = this.get('currencyCode');
 
-    return this.get('calculator.calculator').calculateTotalWithStats(country, income, currency);
-  }.property('calculator', 'countryOrState', 'annualIncome', 'currencyCode'),
+    return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
+  }.property('countryOrState', 'income', 'currencyCode'),
 
-  amount: Ember.computed.alias('result.taxAmount'),
-  percentage: Ember.computed.alias('result.effectiveRate'),
+  taxAmount: Ember.computed.alias('result.taxAmount'),
+  effectiveRate: Ember.computed.alias('result.effectiveRate'),
   takeHome: Ember.computed.alias('result.takeHome')
 });
 
@@ -254,11 +229,21 @@ App.Router.map(function() {
   this.resource('details', { path: '/c/:slug' });
 });
 
+App.ApplicationController = Ember.Controller.extend({
+  currencyCode: 'USD'
+});
+
+App.NavbarController = Ember.Controller.extend({
+  needs: ['application'],
+  currencyCode: Ember.computed.alias('controllers.application.currencyCode')
+});
+
 App.IndexController = Ember.Controller.extend({
+  needs: ['application'],
   queryParams: ['annualIncome', 'currencyCode'],
 
   annualIncome: null,
-  currencyCode: 'USD',
+  currencyCode: Ember.computed.alias('controllers.application.currencyCode'),
   income: null,
   currency: function() {
     return symbols[this.get('currencyCode')];
@@ -283,10 +268,12 @@ App.IndexController = Ember.Controller.extend({
         state = countryOrState;
       }
 
-      return App.CalculationResult.create({
+      return App.CalculationEntry.create({
         country: country,
         state: state,
-        calculator: self
+        source: self,
+        incomeBinding: 'source.annualIncome',
+        currencyCodeBinding: 'source.currencyCode'
       });
     });
   }.property(),
@@ -325,27 +312,49 @@ App.DetailsRoute = Ember.Route.extend({
 });
 
 App.DetailsController = Ember.ObjectController.extend({
+  needs: ['application'],
+
   demoIncome: null,
+
+  currencyCode: Ember.computed.alias('controllers.application.currencyCode'),
+
+  sampleIncomes: function() {
+    var currency = this.get('currencyCode');
+    var incomes = [25000, 50000, 75000, 100000, 250000, 500000, 1000000];
+
+    return incomes.map(function(usd) {
+      return toCurrency(usd, currency, 'USD');
+    });
+  }.property('currencyCode'),
 
   bands: function() {
     var rates = this.get('rates').slice();
+    var currency = this.get('currencyCode');
+    var sourceCurrency = this.get('model.code')
 
     rates.shift();
 
-    return rates;
-  }.property('rates'),
+    return rates.map(function(rate) {
+      var newMax = toCurrency(rate.max, currency, sourceCurrency);
+      return { max: newMax, rate: rate.rate };
+    });
+  }.property('rates', 'currencyCode', 'code'),
 
   samples: function() {
-    var self = this;
+    var country = this.get('model');
+    var currency = this.get('currencyCode');
 
-    return [50000, 100000, 250000, 500000, 1000000].map(function(income) {
-      return self.calculator.calculateTotalWithStats(self.get('model'), income, 'USD');
+    return this.get('sampleIncomes').map(function(income) {
+      return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
     });
-  }.property('model'),
+  }.property('model', 'sampleIncomes'),
 
   result: function() {
     var income = this.get('demoIncome');
-    return this.calculator.calculateTotalWithStats(this.get('model'), income, 'USD');
+    var country = this.get('model');
+    var currency = this.get('currencyCode');
+
+    return App.TaxCalculator.calculateTotalWithStats(country, income, currency);
   }.property('model', 'demoIncome')
 });
 
