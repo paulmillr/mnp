@@ -134,7 +134,10 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="details">
-    <h2>{{name}}</h2>
+    <h2>
+      <img class="flag" {{bind-attr src=flagURL alt=country}}>
+      {{name}}
+    </h2>
 
     <h3>Taxation</h3>
 
@@ -170,7 +173,7 @@
           <thead>
             <tr>
               <th>{{currencyCode}} income</th>
-              <th>Effective rate</th>
+              <th>Effective tax rate</th>
               <th>{{currencyCode}} in taxes</th>
               <th>{{currencyCode}} take home</th>
             </tr>
