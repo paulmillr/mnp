@@ -526,6 +526,7 @@ var policies = [
       businessVisa: {
         minCapital: 200000,
         yearsBeforePR: 5,
+        yearsBeforeCitizenship: 5,
         stayReq: 90,
         source: 'http://business-investor-immigration.com/czech-business-immigration-program/'
       }
@@ -572,7 +573,11 @@ var policies = [
     consumerPriceIndex: 89.50,
     immigration: {
       workVisa: false, // TODO
-      investmentVisa: false, // TODO
+      investmentVisa: {
+        minAmount: 3000000,
+        yearsBeforeCitizenship: '0',
+        source: 'http://best-citizenships.com/austria-citizenship.htm'
+      },
       businessVisa: false // TODO
     },
     ratesSource: 'http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm',
