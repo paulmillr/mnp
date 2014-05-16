@@ -636,19 +636,36 @@ var policies = [
     ]
   },
 
-  // Germany does not work.
-  // http://www.parmentier.de/steuer/steuer.htm?wagetax.htm
+  // FIXME taxes might be incorrect
   // Tax % Tax Base (EUR)
   // 0 Up to 8,130
   // 14% 8,131-52,881
   // 42% 52,882-250,730
   // 45% 250,731 and over
-  // {name: 'Germany', code: 'EUR', rates: ['simple',
-  //   {max: 8130, rate: 0},
-  //   {max: 52881, rate: 14},
-  //   {max: 250731, rate: 42},
-  //   {max: Infinity, rate: 45}
-  // ]}
+  {
+    name: 'Germany',
+    slug: 'germany',
+    code: 'EUR',
+    prosperityIndexRank: 14,
+    crimeIndex: 27.14,
+    consumerPriceIndex: 87.14,
+    immigration: {
+      workVisa: false, // TODO,
+      investmentVisa: {
+        minAmount: 250000,
+        minJobs: 5,
+        source: 'http://en.wikipedia.org/wiki/Immigration_to_Germany'
+      },
+      businessVisa: false
+    },
+    ratesSource: 'http://www.parmentier.de/steuer/steuer.htm?wagetax.htm',
+    rates: ['simple',
+      {max: 8130, rate: 0},
+      {max: 52881, rate: 14},
+      {max: 250731, rate: 42},
+      {max: Infinity, rate: 45}
+    ]
+  },
 
   {
     name: 'Israel',
