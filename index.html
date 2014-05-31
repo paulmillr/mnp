@@ -204,6 +204,42 @@
     </table>
   </script>
 
+  <script type="text/x-handlebars" data-template-name="ratings">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Prosperity</th>
+          <th>Crime</th>
+          <th>Consumer prices</th>
+          <th>Freedom of speech</th>
+          <th>Ease of doing business</th>
+          <th>Corruption Perceptions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each}}
+          <tr>
+            <td>
+            {{#link-to 'details' country.slug}}
+              <img class="flag" {{bind-attr src=country.flagURL alt=country}} width="24" height="24" />
+              <span class="country-name">{{country.name}}</span>
+            {{/link-to}}
+            </td>
+            {{#with country.ratings as r}}
+              <td>r.prosperity</td>
+              <td>r.crime</td>
+              <td>r.prices</td>
+              <td>r.speech</td>
+              <td>r.business</td>
+              <td>r.corruption</td>
+            {{/with}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </script>
+
   <script type="text/x-handlebars" data-template-name="components/tax-bands">
     {{#if isFlatTax}}
       <p>Flat rate of <b>{{rawPercent flatTaxRate}}</b></p>
@@ -314,18 +350,19 @@
 
     <h3>Living</h3>
 
-    <p>
-      Prosperity index rank: <b>{{prosperityIndexRank}}</b>
-      <a href="http://prosperity.com/#!/ranking" target="_blank">(source)</a>
-    </p>
+    {{#if climate}}{{#with climate as c}}
+      <p>
+        Average high: <b>{{c.high}}°C</b>, low: <b>{{c.low}}°C</b>, rainy days: <b>{{c.rainyDays}}</b>
+      </p>
+    {{/with}}{{/if}}
 
     <p>
-      Crime index: <b>{{crimeIndex}}</b>
+      Crime index: <b>{{ratings.crime}}</b>
       <a href="http://www.numbeo.com/crime/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
 
     <p>
-      Consumer price index: <b>{{consumerPriceIndex}}</b>
+      Consumer price index: <b>{{ratings.prices}}</b>
       <a href="http://www.numbeo.com/cost-of-living/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
 
@@ -365,7 +402,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="_immigration_worker">
-    {{#with immigration.workVisa as v}}
+    {{#with immigration.work as v}}
       {{#visa-card visa=v title="Worker visa"}}
         <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
         <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
@@ -375,7 +412,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="_immigration_investor">
-    {{#with immigration.investmentVisa as v}}
+    {{#with immigration.investment as v}}
       {{#visa-card visa=v title="Investor visa"}}
         <p>Min. investment amount ({{code}}): <b>{{multi-money v.minAmount code currencyCode}}</b></p>
         <p>Min. jobs maintained: <b>{{#if v.minJobs}}{{v.minJobs}}{{else}}&mdash;{{/if}}</b></p>
@@ -386,7 +423,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="_immigration_business">
-    {{#with immigration.businessVisa as v}}
+    {{#with immigration.business as v}}
       {{#visa-card visa=v title="Business visa"}}
         <p>Min. paid-up capital ({{code}}): <b>{{multi-money v.minCapital code currencyCode}}</b></p>
         <p>Min. share in company: <b>{{#if v.minShare}}{{rawPercent v.minShare}}{{else}}&mdash;{{/if}}</b></p>

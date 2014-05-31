@@ -29,23 +29,30 @@ var policies = [
     name: 'United States',
     slug: 'usa',
     code: 'USD',
-    prosperityIndexRank: 11,
-    crimeIndex: 50.15,
-    consumerPriceIndex: 77.39,
+    ratings: {
+      crime: 1, // Low, medium, high
+      prices: 1, // 100% of New York
+      business: 1,
+      corruption: 1
+    },
+    ratings: {
+      crime: 50.15,
+      prices: 77.39
+    },
     immigration: {
-      workVisa: {
+      work: {
         degreeReq: true,
         canApplyForPR: true,
         quota: 65000,
         source: 'http://www.uscis.gov/working-united-states/temporary-workers/h-1b-specialty-occupations-and-fashion-models/h-1b-specialty-occupations-dod-cooperative-research-and-development-project-workers-and-fashion-models'
       },
-      investmentVisa: {
+      investment: {
         minAmount: 1000000,
         minJobs: 10,
         yearsBeforePR: 2,
         source: 'http://www.uscis.gov/working-united-states/permanent-workers/employment-based-immigration-fifth-preference-eb-5/eb-5-immigrant-investor-process'
       },
-      businessVisa: false // TODO
+      business: false // TODO
     },
     ratesSource: 'http://www.worldwide-tax.com/us/us_taxes.asp',
     rates: ['incremental',
@@ -108,13 +115,14 @@ var policies = [
     name: 'Canada',
     slug: 'canada',
     code: 'CAD',
-    prosperityIndexRank: 3,
-    crimeIndex: 36.29,
-    consumerPriceIndex: 87.90,
+    ratings: {
+      crime: 36.29,
+      prices: 87.90
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html',
     rates: ['incremental',
@@ -161,13 +169,14 @@ var policies = [
     name: 'Hong Kong',
     slug: 'hong-kong',
     code: 'HKD',
-    prosperityIndexRank: 19,
-    crimeIndex: 22.68,
-    consumerPriceIndex: 76.36,
+    ratings: {
+      crime: 22.68,
+      prices: 76.36
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rates: ['simple',
       {max: 40000, rate: 2},
@@ -181,20 +190,21 @@ var policies = [
     name: 'Singapore',
     slug: 'singapore',
     code: 'SGD',
-    prosperityIndexRank: 18,
-    crimeIndex: 21.35,
-    consumerPriceIndex: 100.01,
+    ratings: {
+      crime: 21.35,
+      prices: 100.01
+    },
     immigration: {
-      workVisa: {
+      work: {
         degreeReq: false,
         canApplyForPR: true
       },
-      investmentVisa: {
+      investment: {
         minAmount: 2500000,
         yearsBeforePR: 0,
         yearsBeforeCitizenship: 2
       },
-      businessVisa: {
+      business: {
         minCapital: 50000,
         minShare: 30,
         specialConditions: [
@@ -205,6 +215,11 @@ var policies = [
         ],
         source: 'http://www.guidemesingapore.com/relocation/work-pass/singapore-entrepreneur-pass-guide'
       }
+    },
+    climate: {
+      high: 31.0,
+      low: 24.1,
+      rainyDays: 178
     },
     rates: ['incremental',
       {max: 20000, rate: 0},
@@ -223,13 +238,14 @@ var policies = [
     name: 'China',
     slug: 'china',
     code: 'CNY',
-    prosperityIndexRank: 51,
-    crimeIndex: 30.13,
-    consumerPriceIndex: 54.12,
+    ratings: {
+      crime: 30.13,
+      prices: 54.12
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_China#Individual_income_tax',
     rates: ['incremental',
@@ -247,13 +263,14 @@ var policies = [
     name: 'Thailand',
     slug: 'thailand',
     code: 'THB',
-    prosperityIndexRank: 52,
-    crimeIndex: 37.56,
-    consumerPriceIndex: 45.95,
+    ratings: {
+      crime: 37.56,
+      prices: 45.95
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://www.rd.go.th/publish/6045.0.html',
     rates: ['incremental',
@@ -269,13 +286,14 @@ var policies = [
     name: 'Malaysia',
     slug: 'malaysia',
     code: 'MYR',
-    prosperityIndexRank: 44,
-    crimeIndex: 66.41,
-    consumerPriceIndex: 48.66,
+    ratings: {
+      crime: 66.41,
+      prices: 48.66
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/',
     rates: ['incremental',
@@ -295,13 +313,14 @@ var policies = [
     name: 'South Korea',
     slug: 'south-korea',
     code: 'KRW',
-    prosperityIndexRank: 26,
-    crimeIndex: 16.35,
-    consumerPriceIndex: 87.56,
+    ratings: {
+      crime: 16.35,
+      prices: 87.56
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://www.korea4expats.com/article-income-taxes.html',
     rates: ['incremental',
@@ -316,13 +335,14 @@ var policies = [
     name: 'Japan',
     slug: 'japan',
     code: 'JPY',
-    prosperityIndexRank: 21,
-    crimeIndex: 18.10,
-    consumerPriceIndex: 94.13,
+    ratings: {
+      crime: 18.10,
+      prices: 94.13
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rates: ['incremental',
       {max: 1950000, rate: 5},
@@ -338,13 +358,14 @@ var policies = [
     name: 'Australia',
     slug: 'australia',
     code: 'AUD',
-    prosperityIndexRank: 7,
-    crimeIndex: 41.23,
-    consumerPriceIndex: 108.51,
+    ratings: {
+      crime: 41.23,
+      prices: 108.51
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Australia#Individual_income_tax_rates_.28residents.29',
     rates: ['incremental',
@@ -360,13 +381,14 @@ var policies = [
     name: 'United Kingdom',
     slug: 'uk',
     code: 'GBP',
-    prosperityIndexRank: 16,
-    crimeIndex: 42.62,
-    consumerPriceIndex: 100.11,
+    ratings: {
+      crime: 42.62,
+      prices: 100.11
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax',
     rates: ['incremental',
@@ -380,13 +402,14 @@ var policies = [
     name: 'Ireland',
     slug: 'ireland',
     code: 'EUR',
-    prosperityIndexRank: 12,
-    crimeIndex: 53.59,
-    consumerPriceIndex: 106.61,
+    ratings: {
+      crime: 53.59,
+      prices: 106.61
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax',
     rates: ['incremental',
@@ -399,13 +422,14 @@ var policies = [
     name: 'Spain',
     slug: 'spain',
     code: 'EUR',
-    prosperityIndexRank: 23,
-    crimeIndex: 32.42,
-    consumerPriceIndex: 77.81,
+    ratings: {
+      crime: 32.42,
+      prices: 77.81
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Income_tax_in_Spain',
     rates: ['incremental',
@@ -422,13 +446,14 @@ var policies = [
     name: 'Italy',
     slug: 'italy',
     code: 'EUR',
-    prosperityIndexRank: 32,
-    crimeIndex: 45.59,
-    consumerPriceIndex: 96.81,
+    ratings: {
+      crime: 45.59,
+      prices: 96.81
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Italy',
     rates: ['incremental',
@@ -444,13 +469,14 @@ var policies = [
     name: 'Netherlands',
     slug: 'netherlands',
     code: 'EUR',
-    prosperityIndexRank: 9,
-    crimeIndex: 37.07,
-    consumerPriceIndex: 98.82,
+    ratings: {
+      crime: 37.07,
+      prices: 98.82
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://en.wikipedia.org/wiki/Income_tax_in_the_Netherlands#Progressive_tax_on_wages_etc._.28box_1.29',
     rates: ['incremental',
@@ -465,17 +491,18 @@ var policies = [
     name: 'Cyprus',
     slug: 'cyprus',
     code: 'EUR',
-    prosperityIndexRank: 37,
-    crimeIndex: 37.56,
-    consumerPriceIndex: 89.76,
+    ratings: {
+      crime: 37.56,
+      prices: 89.76
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: {
+      work: false, // TODO
+      investment: {
         minAmount: 3000000,
         yearsBeforeCitizenship: '0',
         source: 'http://best-citizenships.com/cyprus-citizenship.htm'
       },
-      businessVisa: false // TODO
+      business: false // TODO
     },
     rates: ['incremental',
       {max: 19500, rate: 0},
@@ -490,13 +517,14 @@ var policies = [
     name: 'Sweden',
     slug: 'sweden',
     code: 'SEK',
-    prosperityIndexRank: 4,
-    crimeIndex: 38.23,
-    consumerPriceIndex: 103.68,
+    ratings: {
+      crime: 38.23,
+      prices: 103.68
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rates: ['incremental',
       {max: 413200, rate: 30},
@@ -509,13 +537,14 @@ var policies = [
     name: 'Iceland',
     slug: 'iceland',
     code: 'ISK',
-    prosperityIndexRank: 13,
-    crimeIndex: 31.68,
-    consumerPriceIndex: 111.75,
+    ratings: {
+      crime: 31.68,
+      prices: 111.75
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rates: ['incremental',
       {max: 2512800, rate: 37.31},
@@ -528,13 +557,14 @@ var policies = [
     name: 'Czech Republic',
     slug: 'czech-republic',
     code: 'CZK',
-    prosperityIndexRank: 29,
-    crimeIndex: 33.88,
-    consumerPriceIndex: 56.59,
+    ratings: {
+      crime: 33.88,
+      prices: 56.59
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: {
+      work: false, // TODO
+      investment: false, // TODO
+      business: {
         minCapital: 200000,
         yearsBeforePR: 5,
         yearsBeforeCitizenship: 5,
@@ -549,13 +579,14 @@ var policies = [
     name: 'Georgia',
     slug: 'georgia',
     code: 'GEL',
-    prosperityIndexRank: 84,
-    crimeIndex: 19.91,
-    consumerPriceIndex: 46.22,
+    ratings: {
+      crime: 19.91,
+      prices: 46.22
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rate: 20
   },
@@ -564,13 +595,14 @@ var policies = [
     name: 'Latvia',
     slug: 'latvia',
     code: 'EUR',
-    prosperityIndexRank: 48,
-    crimeIndex: 43.74,
-    consumerPriceIndex: 65.95,
+    ratings: {
+      crime: 43.74,
+      prices: 65.95
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rate: 24
   },
@@ -579,17 +611,18 @@ var policies = [
     name: 'Austria',
     slug: 'austria',
     code: 'EUR',
-    prosperityIndexRank: 7,
-    crimeIndex: 25.83,
-    consumerPriceIndex: 89.50,
+    ratings: {
+      crime: 25.83,
+      prices: 89.50
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: {
+      work: false, // TODO
+      investment: {
         minAmount: 3000000,
         yearsBeforeCitizenship: '0',
         source: 'http://best-citizenships.com/austria-citizenship.htm'
       },
-      businessVisa: false // TODO
+      business: false // TODO
     },
     ratesSource: 'http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm',
     rates: ['incremental',
@@ -604,13 +637,14 @@ var policies = [
     name: 'France',
     slug: 'france',
     code: 'EUR',
-    prosperityIndexRank: 20,
-    crimeIndex: 47.28,
-    consumerPriceIndex: 100.21,
+    ratings: {
+      crime: 47.28,
+      prices: 100.21
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_France#Income_Taxes',
     rates: ['incremental',
@@ -627,13 +661,14 @@ var policies = [
     name: 'Poland',
     slug: 'poland',
     code: 'PLN',
-    prosperityIndexRank: 34,
-    crimeIndex: 37.53,
-    consumerPriceIndex: 53.68,
+    ratings: {
+      crime: 37.53,
+      prices: 53.68
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'http://europa.eu/youreurope/citizens/work/abroad/taxes/poland/employed_en.htm',
     rates: ['incremental',
@@ -653,17 +688,18 @@ var policies = [
     name: 'Germany',
     slug: 'germany',
     code: 'EUR',
-    prosperityIndexRank: 14,
-    crimeIndex: 27.14,
-    consumerPriceIndex: 87.14,
+    ratings: {
+      crime: 27.14,
+      prices: 87.14
+    },
     immigration: {
-      workVisa: false, // TODO,
-      investmentVisa: {
+      work: false, // TODO,
+      investment: {
         minAmount: 250000,
         minJobs: 5,
         source: 'http://en.wikipedia.org/wiki/Immigration_to_Germany'
       },
-      businessVisa: false
+      business: false
     },
     ratesSource: 'http://www.parmentier.de/steuer/steuer.htm?wagetax.htm',
     rates: ['simple',
@@ -678,13 +714,14 @@ var policies = [
     name: 'Israel',
     slug: 'israel',
     code: 'ILS',
-    prosperityIndexRank: 39,
-    crimeIndex: 33.28,
-    consumerPriceIndex: 91.45,
+    ratings: {
+      crime: 33.28,
+      prices: 91.45
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax',
     rates: ['incremental',
@@ -702,13 +739,14 @@ var policies = [
     name: 'United Arab Emirates',
     slug: 'uae',
     code: 'AED',
-    prosperityIndexRank: 28,
-    crimeIndex: 20.79,
-    consumerPriceIndex: 68.25,
+    ratings: {
+      crime: 20.79,
+      prices: 68.25
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rate: 0
   },
@@ -717,13 +755,14 @@ var policies = [
     name: 'Russia',
     slug: 'russia',
     code: 'RUB',
-    prosperityIndexRank: 61,
-    crimeIndex: 52.67,
-    consumerPriceIndex: 61.80,
+    ratings: {
+      crime: 52.67,
+      prices: 61.80
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rate: 13
   },
@@ -732,13 +771,14 @@ var policies = [
     name: 'Ukraine',
     slug: 'ukraine',
     code: 'UAH',
-    prosperityIndexRank: 64,
-    crimeIndex: 49.37,
-    consumerPriceIndex: 45.64,
+    ratings: {
+      crime: 49.37,
+      prices: 45.64
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rates: ['simple',
       {max: 12180, rate: 15},
@@ -750,13 +790,14 @@ var policies = [
     name: 'Belarus',
     slug: 'belarus',
     code: 'BYR',
-    prosperityIndexRank: 58,
-    crimeIndex: 32.89,
-    consumerPriceIndex: 50.35,
+    ratings: {
+      crime: 32.89,
+      prices: 50.35
+    },
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
-      businessVisa: false // TODO
+      work: false, // TODO
+      investment: false, // TODO
+      business: false // TODO
     },
     rate: 12
   }
