@@ -185,8 +185,15 @@ var policies = [
     crimeIndex: 21.35,
     consumerPriceIndex: 100.01,
     immigration: {
-      workVisa: false, // TODO
-      investmentVisa: false, // TODO
+      workVisa: {
+        degreeReq: false,
+        canApplyForPR: true
+      },
+      investmentVisa: {
+        minAmount: 2500000,
+        yearsBeforePR: 0,
+        yearsBeforeCitizenship: 2
+      },
       businessVisa: {
         minCapital: 50000,
         minShare: 30,

@@ -369,7 +369,7 @@
       {{#visa-card visa=v title="Worker visa"}}
         <p>Degree required: <b>{{yesno v.degreeReq}}</b></p>
         <p>Can apply for permanent residence: <b>{{yesno v.canApplyForPR}}</b></p>
-        <p>Yearly quota: <b>{{number v.quota}}</b></p>
+        <p>Yearly quota: <b>{{#if v.quota}}{{v.quota}}{{else}}&mdash;{{/if}}</b></p>
       {{/visa-card}}
     {{/with}}
   </script>
@@ -391,7 +391,7 @@
         <p>Min. paid-up capital ({{code}}): <b>{{multi-money v.minCapital code currencyCode}}</b></p>
         <p>Min. share in company: <b>{{#if v.minShare}}{{rawPercent v.minShare}}{{else}}&mdash;{{/if}}</b></p>
         <p>Stay (days per year) required before PR: <b>{{#if v.stayReq}}{{v.stayReq}}{{else}}&mdash;{{/if}}</b></p>
-        <p>Years before unconditional permanent residence: <b>{{v.yearsBeforePR}}</b></p>
+        <p>Years before unconditional permanent residence: <b>{{#if v.yearsBeforePR}}{{v.yearsBeforePR}}{{else}}&mdash;{{/if}}</b></p>
       {{/visa-card}}
     {{/with}}
   </script>
