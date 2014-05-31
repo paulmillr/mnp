@@ -122,7 +122,7 @@
             {{view Ember.Select
               contentBinding="App.CURRENCIES"
               valueBinding="currencyCode"
-              optionLabelPath="content.code"
+              optionLabelPath="content.symbol"
               optionValuePath="content.code"
               class="form-control"}}
           </div>
@@ -141,7 +141,7 @@
         {{view Ember.Select
           contentBinding="App.CURRENCIES"
           valueBinding="currencyCode"
-          optionLabelPath="content.code"
+          optionLabelPath="content.symbol"
           optionValuePath="content.code"
           class="form-control"}}
       </div>
@@ -211,7 +211,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Range (in {{currencyCode}})</th>
+            <th>Range (in {{currency}})</th>
             <th>Rate</th>
           </tr>
         </thead>
@@ -231,10 +231,10 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>{{currencyCode}} income</th>
+          <th>{{currency}} income</th>
           <th>Effective tax rate</th>
-          <th>{{currencyCode}} in taxes</th>
-          <th>{{currencyCode}} take home</th>
+          <th>{{currency}} in taxes</th>
+          <th>{{currency}} take home</th>
         </tr>
       </thead>
 

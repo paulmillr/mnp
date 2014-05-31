@@ -100,15 +100,30 @@ App = Ember.Application.create({
   rootElement: '#app',
 
   ready: function() {
+    if (fx.rates.BTC) {
+      App.CURRENCIES.push({code: 'BTC', symbol: 'BTC'});
+      symbols.BTC = 'BTC';
+    }
+
+    App.CURRENCIES = App.CURRENCIES.sort(function(a, b) {
+      var ia = currSortOrder.indexOf(a.code)
+      var ib = currSortOrder.indexOf(b.code);
+      if (ia === -1) ia = 1000;
+      if (ib === -1) ib = 1000;
+      return ia - ib;
+    });
     $('.loader').hide();
   }
 });
 
 App.deferReadiness();
 
-App.CURRENCIES = policies.map(function(item) { return item.code }).
-  uniq().map(function(code) { return { code: code, symbol: symbols[code] };
-});
+var currSortOrder = ['USD', 'EUR', 'GBP', 'RUB', 'UAH', 'BTC'];
+
+App.CURRENCIES = policies
+  .map(function(item) { return item.code })
+  .uniq()
+  .map(function(code) { return {code: code, symbol: symbols[code] || (symbols[code] = code) } });
 
 App.Taxable = Ember.Mixin.create({
   rates: null,
@@ -349,6 +364,10 @@ App.TaxBandsComponent = Ember.Component.extend({
   countryOrState: null,
   currencyCode: null,
 
+  currency: function() {
+    return symbols[this.get('currencyCode')];
+  }.property('currencyCode'),
+
   sourceCurrencyCode: Ember.computed.alias('countryOrState.code'),
   rates: Ember.computed.alias('countryOrState.rates'),
   isFlatTax: Ember.computed.alias('countryOrState.isFlatTax'),
@@ -373,6 +392,10 @@ App.SampleRatesComponent = Ember.Component.extend({
   currencyCode: null,
 
   demoIncome: null,
+
+  currency: function() {
+    return symbols[this.get('currencyCode')];
+  }.property('currencyCode'),
 
   sampleIncomes: function() {
     var currency = this.get('currencyCode');
@@ -482,5 +505,11 @@ $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, fun
   if (!fx) throw new Error('Provide money.js library');
   fx.rates = data.rates;
   fx.base = data.base;
-  App.advanceReadiness();
+  $.getJSON('https://asd').then(function(btc) {
+    fx.rates.BTC = 1 / btc.last;
+    App.advanceReadiness();
+  }, function() {
+    console.log(123);
+    App.advanceReadiness();
+  });
 });
