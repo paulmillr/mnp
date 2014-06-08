@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>ITC</title>
-  <meta name="description" content="International Tax Calculator. Great way to pick new place of living by tax rate.">
+  <meta name="description" content="MNP (My new passport). Great way to pick new place of living by ratings.">
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <style>
     .flag {
@@ -88,6 +88,27 @@
   <div id="app">
     <div class="loader">Loading...</div>
   </div>
+
+  <script type="text/x-handlebars" data-template-name="choose-your-destiny">
+    I am looking for countries which:
+    <ul>
+      <li>are best suited for business</li>
+      <li>allow to purchase citizenship quickly</li>
+      <li>allow me to live nicely on a welfare</li>
+      <li>do not require degree for work visas</li>
+      <li>allow to own guns</li>
+    </ul>
+
+    Re-order your other priorities:
+
+    [drag n drop widget]
+
+    Crime
+    Consumer prices
+    Freedom of speech
+    Ease of doing business
+    Corruption
+  </script>
 
   <script type="text/x-handlebars" data-template-name="application">
     {{render 'navbar'}}

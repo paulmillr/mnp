@@ -30,14 +30,10 @@ var policies = [
     slug: 'usa',
     code: 'USD',
     ratings: {
-      crime: 1, // Low, medium, high
-      prices: 1, // 100% of New York
-      business: 1,
-      corruption: 1
-    },
-    ratings: {
       crime: 50.15,
-      prices: 77.39
+      prices: 77.39,
+      business: 4,
+      corruption: 73
     },
     immigration: {
       work: {
@@ -192,7 +188,9 @@ var policies = [
     code: 'SGD',
     ratings: {
       crime: 21.35,
-      prices: 100.01
+      prices: 100.01,
+      business: 1,
+      corruption: 86
     },
     immigration: {
       work: {
