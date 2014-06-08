@@ -96,7 +96,8 @@
       <li>allow to purchase citizenship quickly</li>
       <li>allow me to live nicely on a welfare</li>
       <li>do not require degree for work visas</li>
-      <li>allow to own guns</li>
+      <li>allow to own guns for self-defense</li>
+      <li></li>
     </ul>
 
     Re-order your other priorities:
@@ -386,15 +387,33 @@
       </p>
     {{/with}}{{/if}}
 
+    {{#if ratings.crime}}
     <p>
       Crime index: <b>{{ratings.crime}}</b>
       <a href="http://www.numbeo.com/crime/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
+    {{/if}}
 
+    {{#if ratings.prices}}
     <p>
       Consumer price index: <b>{{ratings.prices}}</b>
       <a href="http://www.numbeo.com/cost-of-living/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
+    {{/if}}
+
+    {{#if ratings.business}}
+    <p>
+      Doing business: <b>{{ratings.business}}</b>
+      <a href="http://www.doingbusiness.org/rankings" target="_blank">(source)</a>
+    </p>
+    {{/if}}
+
+    {{#if ratings.corruption}}
+    <p>
+      Corruption perception: <b>{{ratings.corruption}}</b>
+      <a href="http://cpi.transparency.org/cpi2013/results/" target="_blank">(source)</a>
+    </p>
+    {{/if}}
 
     <h3>Immigration</h3>
 
