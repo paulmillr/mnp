@@ -9,6 +9,65 @@ var fromCurrency = function(value, fromCode, toCode) {
   return fx(value).from(fromCode).to(toCode);
 };
 
+var subjectiveWord = function(rating, value) {
+  if (rating === 'crime') {
+    return value > 75 ? 'very high' :
+      value > 50 ? 'high' :
+      value > 35 ? 'moderate' :
+      value > 25 ? 'low' :
+      'very low';
+  } else if (rating === 'prices') {
+    return value > 110 ? 'very expensive' :
+      value > 85 ? 'expensive' :
+      value > 65 ? 'moderate' :
+      value > 50 ? 'cheap' :
+      'very cheap';
+  } else if (rating === 'business') {
+    return value > 120 ? 'very hard' :
+      value > 80 ? 'hard' :
+      value > 60 ? 'moderate' :
+      value > 25 ? 'easy' :
+      'very easy';
+  } else if (rating === 'corruption') {
+    return value > 75 ? 'very low' :
+      value > 60 ? 'low' :
+      value > 45 ? 'moderate' :
+      value > 30 ? 'high' :
+      'very high';
+  } else {
+    throw new Error('Unknown rating: ' + rating);
+  }
+};
+
+var climateWord = function(value) {
+  return value > 20 ? 'very hot' :
+    value > 0 ? 'moderate' :
+    'cold';
+};
+
+var ratingTemplate = function(name, ratings) {
+  var num = ratings[name];
+  var word = subjectiveWord(name, num);
+  var numDesc = name === 'business' ? '#' + num : num;
+  var cls = word.replace(/\s+/g, '-');
+  var result = '<b class="' + cls + '">';
+  result += word;
+  result += ' (' + numDesc + ')';
+  result += '</b>';
+  return result;
+};
+
+var climateTemplate = function(climate) {
+  var num = (climate.high + climate.low) / 2;
+  var word = climateWord(num);
+  var numDesc = num;
+  var cls = word.replace(/\s+/g, '-');
+  var result = '<b class="' + cls + '">';
+  result += word;
+  result += '</b>';
+  return result;
+};
+
 // calculation type - simple or incremental
 // rates - tax brackets
 // a)    = [{min: 10000, rate: 0.05}]
@@ -153,7 +212,27 @@ App.Country = Ember.Object.extend(App.Taxable, {
 
   flagURL: function() {
     return 'flags/' + this.get('name').replace(/ /g, '-') + '.png';
-  }.property('name')
+  }.property('name'),
+
+  crimeRating: function() {
+    return ratingTemplate('crime', this.get('ratings'));
+  }.property('ratings'),
+
+  pricesRating: function() {
+    return ratingTemplate('prices', this.get('ratings'));
+  }.property('ratings'),
+
+  businessRating: function() {
+    return ratingTemplate('business', this.get('ratings'));
+  }.property('ratings'),
+
+  corruptionRating: function() {
+    return ratingTemplate('corruption', this.get('ratings'));
+  }.property('ratings'),
+
+  climateRating: function() {
+    return climateTemplate(this.get('climate'))
+  }.property('climate')
 });
 
 App.CountryState = Ember.Object.extend(App.Taxable, {

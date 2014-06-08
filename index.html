@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>ITC</title>
+  <title>MNP - My new passport</title>
   <meta name="description" content="MNP (My new passport). Great way to pick new place of living by ratings.">
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <style>
@@ -26,6 +26,15 @@
     footer img {
       border-radius: 15px;
     }
+
+
+    .very-low, .very-easy, .very-cheap {color: #0c0;}
+    .low, .easy, .cheap {color: #75AB02;}
+    .moderate {color: #ccb400;}
+    .high, .expensive {color: #FF9900;}
+    .very-high, .very-expensive, .very-hot, .hot {color: #c00;}
+    .very-cold, .cold {color: #09C5D6;}
+
 
     /* http://projects.lukehaas.me/css-loaders/ */
 
@@ -383,34 +392,34 @@
 
     {{#if climate}}{{#with climate as c}}
       <p>
-        Average high: <b>{{c.high}}°C</b>, low: <b>{{c.low}}°C</b>, rainy days: <b>{{c.rainyDays}}</b>
+        Climate: {{{climateRating}}} &mdash; average high: <b>{{c.high}}°C</b>, low: <b>{{c.low}}°C</b>, rainy days: <b>{{c.rainyDays}}</b>
       </p>
     {{/with}}{{/if}}
 
     {{#if ratings.crime}}
     <p>
-      Crime index: <b>{{ratings.crime}}</b>
+      Crime index: {{{crimeRating}}}
       <a href="http://www.numbeo.com/crime/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
     {{/if}}
 
     {{#if ratings.prices}}
     <p>
-      Consumer price index: <b>{{ratings.prices}}</b>
+      Consumer price index: {{{pricesRating}}}
       <a href="http://www.numbeo.com/cost-of-living/rankings_by_country.jsp" target="_blank">(source)</a>
     </p>
     {{/if}}
 
     {{#if ratings.business}}
     <p>
-      Doing business: <b>{{ratings.business}}</b>
+      Doing business: {{{businessRating}}}
       <a href="http://www.doingbusiness.org/rankings" target="_blank">(source)</a>
     </p>
     {{/if}}
 
     {{#if ratings.corruption}}
     <p>
-      Corruption perception: <b>{{ratings.corruption}}</b>
+      Corruption perception: {{{corruptionRating}}}
       <a href="http://cpi.transparency.org/cpi2013/results/" target="_blank">(source)</a>
     </p>
     {{/if}}
