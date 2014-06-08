@@ -34,15 +34,13 @@ var subjectiveWord = function(rating, value) {
       value > 45 ? 'moderate' :
       value > 30 ? 'high' :
       'very high';
+  } else if (rating === 'climate') {
+    return value > 20 ? 'very hot' :
+      value > 0 ? 'moderate' :
+      'cold';
   } else {
     throw new Error('Unknown rating: ' + rating);
   }
-};
-
-var climateWord = function(value) {
-  return value > 20 ? 'very hot' :
-    value > 0 ? 'moderate' :
-    'cold';
 };
 
 var ratingTemplate = function(name, ratings) {
@@ -59,7 +57,7 @@ var ratingTemplate = function(name, ratings) {
 
 var climateTemplate = function(climate) {
   var num = (climate.high + climate.low) / 2;
-  var word = climateWord(num);
+  var word = subjectiveWord('climate', num);
   var numDesc = num;
   var cls = word.replace(/\s+/g, '-');
   var result = '<b class="' + cls + '">';
