@@ -43,17 +43,6 @@ var subjectiveWord = function(rating, value) {
   }
 };
 
-var climateTemplate = function(climate) {
-  var num = (climate.high + climate.low) / 2;
-  var word = subjectiveWord('climate', num);
-  var numDesc = num;
-  var cls = word.replace(/\s+/g, '-');
-  var result = '<b class="' + cls + '">';
-  result += word;
-  result += '</b>';
-  return result;
-};
-
 // calculation type - simple or incremental
 // rates - tax brackets
 // a)    = [{min: 10000, rate: 0.05}]
@@ -273,27 +262,7 @@ App.Country = Ember.Object.extend(App.Taxable, {
 
   flagURL: function() {
     return 'flags/' + this.get('name').replace(/ /g, '-') + '.png';
-  }.property('name'),
-
-  crimeRating: function() {
-    return ratingTemplate('crime', this.get('ratings'));
-  }.property('ratings'),
-
-  pricesRating: function() {
-    return ratingTemplate('prices', this.get('ratings'));
-  }.property('ratings'),
-
-  businessRating: function() {
-    return ratingTemplate('business', this.get('ratings'));
-  }.property('ratings'),
-
-  corruptionRating: function() {
-    return ratingTemplate('corruption', this.get('ratings'));
-  }.property('ratings'),
-
-  climateRating: function() {
-    return climateTemplate(this.get('climate'))
-  }.property('climate')
+  }.property('name')
 });
 
 App.CountryState = Ember.Object.extend(App.Taxable, {
