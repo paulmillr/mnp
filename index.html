@@ -148,6 +148,10 @@
           {{#link-to 'index' class="navbar-brand"}}MNP &mdash; MyNewPassport{{/link-to}}
         </div>
 
+        <ul class="nav navbar-nav">
+          {{#link-to 'tax_rating' tagName='li'}}{{#link-to 'tax_rating'}}Tax rating{{/link-to}}{{/link-to}}
+        </ul>
+
         <form class="navbar-form navbar-right">
           <div class="form-group">
             {{view Ember.Select
@@ -180,6 +184,26 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
+    <div class="alert alert-warning">
+      We are changing the purpose of this rating.
+      <strong>Before:</strong> tax calculator.
+      <strong>Target:</strong> great advisory summary pages / comparison tables on migration.
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="well">
+          <h3 class="text-center">
+            {{#link-to 'tax_rating'}}Tax rating{{/link-to}}
+          </h3>
+
+          <p>Compare countries (states) based on the tax burden that it going to be put on <i>your</i> income.</p>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="tax_rating">
     {{money-input value=income currencyCode=currencyCode debounce=500 autofocus=true placeholder="Annual pre-tax income"}}
 
     <p class="help-block">
@@ -192,18 +216,9 @@
     </p>
 
     <div class="alert alert-warning">
-      <ol>
-        <li>
-          We are changing the purpose of this rating.
-          <strong>Before:</strong> tax calculator.
-          <strong>Target:</strong> great advisory summary pages / comparison tables on migration.
-        </li>
-        <li>
-          <p>For the purpose of calculation, it is assumed that you are a single individual with no kids, and that all your income comes from wage or contracts.</p>
-          <p>Calculations do not take into account solidarity and other kinds of taxes, different deductions, contributions like Social Security yet.</p>
-          <p>Last updated on: <strong>December 25, 2013</strong>.</p>
-        </li>
-      </ol>
+      <p>For the purpose of calculation, it is assumed that you are a single individual with no kids, and that all your income comes from wage or contracts.</p>
+      <p>Calculations do not take into account solidarity and other kinds of taxes, different deductions, contributions like Social Security yet.</p>
+      <p>Last updated on: <strong>December 25, 2013</strong>.</p>
     </div>
 
     {{render 'results' results}}

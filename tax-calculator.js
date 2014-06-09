@@ -391,6 +391,7 @@ App.CalculationEntry = Ember.Object.extend({
 });
 
 App.Router.map(function() {
+  this.resource('tax_rating', { path: '/taxes' });
   this.resource('details', { path: '/c/:country_slug' });
   this.resource('details_state', { path: '/c/:country_slug/:state_slug' });
 });
@@ -404,7 +405,7 @@ App.NavbarController = Ember.Controller.extend({
   currencyCode: Ember.computed.alias('controllers.application.currencyCode')
 });
 
-App.IndexController = Ember.Controller.extend({
+App.TaxRatingController = Ember.Controller.extend({
   needs: ['application'],
   queryParams: ['income', 'currencyCode'],
 
@@ -454,9 +455,9 @@ App.IndexController = Ember.Controller.extend({
 
 App.ResultsController = Ember.ArrayController.extend({
   sortProperties: ['taxAmount'],
-  needs: ['index'],
-  currencyCode: Ember.computed.alias('controllers.index.currencyCode'),
-  currency: Ember.computed.alias('controllers.index.currency')
+  needs: ['tax_rating'],
+  currencyCode: Ember.computed.alias('controllers.tax_rating.currencyCode'),
+  currency: Ember.computed.alias('controllers.tax_rating.currency')
 });
 
 App.DetailsRoute = Ember.Route.extend({
