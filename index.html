@@ -390,39 +390,12 @@
 
     <h3>Living</h3>
 
-    {{#if climate}}{{#with climate as c}}
-      <p>
-        Climate: {{{climateRating}}} &mdash; average high: <b>{{c.high}}°C</b>, low: <b>{{c.low}}°C</b>, rainy days: <b>{{c.rainyDays}}</b>
-      </p>
-    {{/with}}{{/if}}
+    {{country-climate climate=climate}}
 
-    {{#if ratings.crime}}
-    <p>
-      Crime index: {{{crimeRating}}}
-      <a href="http://www.numbeo.com/crime/rankings_by_country.jsp" target="_blank">(source)</a>
-    </p>
-    {{/if}}
-
-    {{#if ratings.prices}}
-    <p>
-      Consumer price index: {{{pricesRating}}}
-      <a href="http://www.numbeo.com/cost-of-living/rankings_by_country.jsp" target="_blank">(source)</a>
-    </p>
-    {{/if}}
-
-    {{#if ratings.business}}
-    <p>
-      Doing business: {{{businessRating}}}
-      <a href="http://www.doingbusiness.org/rankings" target="_blank">(source)</a>
-    </p>
-    {{/if}}
-
-    {{#if ratings.corruption}}
-    <p>
-      Corruption perception: {{{corruptionRating}}}
-      <a href="http://cpi.transparency.org/cpi2013/results/" target="_blank">(source)</a>
-    </p>
-    {{/if}}
+    {{country-rating name="crime" rating=ratings.crime}}
+    {{country-rating name="prices" rating=ratings.prices}}
+    {{country-rating name="business" rating=ratings.business}}
+    {{country-rating name="corruption" rating=ratings.corruption}}
 
     <h3>Immigration</h3>
 
@@ -437,6 +410,23 @@
         {{#bs-panel}}{{partial 'immigration_business'}}{{/bs-panel}}
       </div>
     </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/country-climate">
+    {{#if climate}}{{#with climate as c}}
+      <p>
+        Climate: {{subj-climate climate=c}} &mdash; average high: <b>{{c.high}}°C</b>, low: <b>{{c.low}}°C</b>, rainy days: <b>{{c.rainyDays}}</b>
+      </p>
+    {{/with}}{{/if}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/country-rating">
+    {{#if rating}}
+      <p>
+        {{label}}: {{subj-rating name=name rating=rating}}
+        <a {{bind-attr href="source"}} target="_blank">(source)</a>
+      </p>
+    {{/if}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="components/visa-card">

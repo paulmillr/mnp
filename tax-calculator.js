@@ -43,18 +43,6 @@ var subjectiveWord = function(rating, value) {
   }
 };
 
-var ratingTemplate = function(name, ratings) {
-  var num = ratings[name];
-  var word = subjectiveWord(name, num);
-  var numDesc = name === 'business' ? '#' + num : num;
-  var cls = word.replace(/\s+/g, '-');
-  var result = '<b class="' + cls + '">';
-  result += word;
-  result += ' (' + numDesc + ')';
-  result += '</b>';
-  return result;
-};
-
 var climateTemplate = function(climate) {
   var num = (climate.high + climate.low) / 2;
   var word = subjectiveWord('climate', num);
@@ -181,6 +169,81 @@ App.CURRENCIES = policies
   .map(function(item) { return item.code })
   .uniq()
   .map(function(code) { return {code: code, symbol: symbols[code] || (symbols[code] = code) } });
+
+
+App.SubjectiveBaseComponent = Ember.Component.extend({
+  tagName: 'b',
+  classNameBindings: ['descriptionClass'],
+
+  descriptionClass: function() {
+    return this.get('description').replace(/\s+/g, '-');
+  }.property('description')
+});
+
+App.SubjectiveClimateComponent = App.SubjectiveBaseComponent.extend({
+  layout: Ember.Handlebars.compile('{{description}}'),
+
+  climate: null,
+  avg: function() {
+    return (this.get('climate.high') + this.get('climate.low')) / 2;
+  }.property('climate.{high,low}'),
+
+  description: function() {
+    return subjectiveWord('climate', this.get('avg'));
+  }.property('avg')
+});
+
+Ember.Handlebars.helper('subj-climate', App.SubjectiveClimateComponent);
+
+App.SubjectiveRatingComponent = App.SubjectiveBaseComponent.extend({
+  layout: Ember.Handlebars.compile('{{description}} ({{numDesc}})'),
+
+  name: null, // rating name
+  rating: null, // rating value
+
+  isBusiness: Ember.computed.equal('name', 'business'),
+
+  numDesc: function() {
+    var num = this.get('rating');
+    return this.get('isBusiness') ? '#' + num : num;
+  }.property('rating', 'isBusiness'),
+
+  description: function() {
+    return subjectiveWord(this.get('name'), this.get('rating'));
+  }.property('name', 'rating')
+});
+
+Ember.Handlebars.helper('subj-rating', App.SubjectiveRatingComponent);
+
+App.CountryRatingComponent = Ember.Component.extend({
+  name: null,
+  rating: null,
+
+  sources: {
+    crime: 'http://www.numbeo.com/crime/rankings_by_country.jsp',
+    prices: 'http://www.numbeo.com/cost-of-living/rankings_by_country.jsp',
+    business: 'http://www.doingbusiness.org/rankings',
+    corruption: 'http://cpi.transparency.org/cpi2013/results/'
+  },
+
+  labels: {
+    crime: 'Crime index',
+    prices: 'Consumer price index',
+    business: 'Doing business',
+    corruption: 'Corruption perception'
+  },
+
+  source: function() {
+    var name = this.get('name');
+    return this.get('sources')[name];
+  }.property('name', 'sources'),
+
+  label: function() {
+    var name = this.get('name');
+    return this.get('labels')[name];
+  }.property('name', 'labels')
+});
+
 
 App.Taxable = Ember.Mixin.create({
   rates: null,
