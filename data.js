@@ -113,7 +113,9 @@ var policies = [
     code: 'CAD',
     ratings: {
       crime: 36.29,
-      prices: 87.90
+      prices: 87.90,
+      business: 19,
+      corruption: 81
     },
     immigration: {
       work: false, // TODO
@@ -167,7 +169,9 @@ var policies = [
     code: 'HKD',
     ratings: {
       crime: 22.68,
-      prices: 76.36
+      prices: 76.36,
+      business: 2,
+      corruption: 75
     },
     immigration: {
       work: false, // TODO
@@ -238,7 +242,9 @@ var policies = [
     code: 'CNY',
     ratings: {
       crime: 30.13,
-      prices: 54.12
+      prices: 54.12,
+      business: 96,
+      corruption: 40
     },
     immigration: {
       work: false, // TODO
@@ -263,7 +269,9 @@ var policies = [
     code: 'THB',
     ratings: {
       crime: 37.56,
-      prices: 45.95
+      prices: 45.95,
+      business: 19,
+      corruption: 35
     },
     immigration: {
       work: false, // TODO
@@ -286,7 +294,9 @@ var policies = [
     code: 'MYR',
     ratings: {
       crime: 66.41,
-      prices: 48.66
+      prices: 48.66,
+      business: 6,
+      corruption: 50
     },
     immigration: {
       work: false, // TODO
@@ -313,7 +323,9 @@ var policies = [
     code: 'KRW',
     ratings: {
       crime: 16.35,
-      prices: 87.56
+      prices: 87.56,
+      business: 7,
+      corruption: 55
     },
     immigration: {
       work: false, // TODO
@@ -335,7 +347,9 @@ var policies = [
     code: 'JPY',
     ratings: {
       crime: 18.10,
-      prices: 94.13
+      prices: 94.13,
+      business: 27,
+      corruption: 74
     },
     immigration: {
       work: false, // TODO
@@ -358,7 +372,9 @@ var policies = [
     code: 'AUD',
     ratings: {
       crime: 41.23,
-      prices: 108.51
+      prices: 108.51,
+      business: 11,
+      corruption: 81
     },
     immigration: {
       work: false, // TODO
@@ -381,7 +397,9 @@ var policies = [
     code: 'GBP',
     ratings: {
       crime: 42.62,
-      prices: 100.11
+      prices: 100.11,
+      business: 10,
+      corruption: 76
     },
     immigration: {
       work: false, // TODO
@@ -402,7 +420,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 53.59,
-      prices: 106.61
+      prices: 106.61,
+      business: 15,
+      corruption: 72
     },
     immigration: {
       work: false, // TODO
@@ -422,7 +442,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 32.42,
-      prices: 77.81
+      prices: 77.81,
+      business: 52,
+      corruption: 59
     },
     immigration: {
       work: false, // TODO
@@ -446,7 +468,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 45.59,
-      prices: 96.81
+      prices: 96.81,
+      business: 65,
+      corruption: 43
     },
     immigration: {
       work: false, // TODO
@@ -469,7 +493,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 37.07,
-      prices: 98.82
+      prices: 98.82,
+      business: 28,
+      corruption: 83
     },
     immigration: {
       work: false, // TODO
@@ -491,7 +517,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 37.56,
-      prices: 89.76
+      prices: 89.76,
+      business: 39,
+      corruption: 63
     },
     immigration: {
       work: false, // TODO
@@ -517,7 +545,9 @@ var policies = [
     code: 'SEK',
     ratings: {
       crime: 38.23,
-      prices: 103.68
+      prices: 103.68,
+      business: 14,
+      corruption: 89
     },
     immigration: {
       work: false, // TODO
@@ -537,7 +567,9 @@ var policies = [
     code: 'ISK',
     ratings: {
       crime: 31.68,
-      prices: 111.75
+      prices: 111.75,
+      business: 13,
+      corruption: 78
     },
     immigration: {
       work: false, // TODO
@@ -557,7 +589,9 @@ var policies = [
     code: 'CZK',
     ratings: {
       crime: 33.88,
-      prices: 56.59
+      prices: 56.59,
+      business: 75,
+      corruption: 48
     },
     immigration: {
       work: false, // TODO
@@ -579,7 +613,9 @@ var policies = [
     code: 'GEL',
     ratings: {
       crime: 19.91,
-      prices: 46.22
+      prices: 46.22,
+      business: 8,
+      corruption: 49
     },
     immigration: {
       work: false, // TODO
@@ -595,7 +631,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 43.74,
-      prices: 65.95
+      prices: 65.95,
+      business: 24,
+      corruption: 53
     },
     immigration: {
       work: false, // TODO
@@ -611,7 +649,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 25.83,
-      prices: 89.50
+      prices: 89.50,
+      business: 30,
+      corruption: 69
     },
     immigration: {
       work: false, // TODO
@@ -637,7 +677,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 47.28,
-      prices: 100.21
+      prices: 100.21,
+      business: 38,
+      corruption: 71
     },
     immigration: {
       work: false, // TODO
@@ -661,7 +703,9 @@ var policies = [
     code: 'PLN',
     ratings: {
       crime: 37.53,
-      prices: 53.68
+      prices: 53.68,
+      business: 45,
+      corruption: 60
     },
     immigration: {
       work: false, // TODO
@@ -688,7 +732,9 @@ var policies = [
     code: 'EUR',
     ratings: {
       crime: 27.14,
-      prices: 87.14
+      prices: 87.14,
+      business: 21,
+      corruption: 78
     },
     immigration: {
       work: false, // TODO,
@@ -714,7 +760,9 @@ var policies = [
     code: 'ILS',
     ratings: {
       crime: 33.28,
-      prices: 91.45
+      prices: 91.45,
+      business: 35,
+      corruption: 61
     },
     immigration: {
       work: false, // TODO
@@ -739,7 +787,9 @@ var policies = [
     code: 'AED',
     ratings: {
       crime: 20.79,
-      prices: 68.25
+      prices: 68.25,
+      business: 23,
+      corruption: 69
     },
     immigration: {
       work: false, // TODO
@@ -755,7 +805,9 @@ var policies = [
     code: 'RUB',
     ratings: {
       crime: 52.67,
-      prices: 61.80
+      prices: 61.80,
+      business: 92,
+      corruption: 28
     },
     immigration: {
       work: false, // TODO
@@ -771,7 +823,9 @@ var policies = [
     code: 'UAH',
     ratings: {
       crime: 49.37,
-      prices: 45.64
+      prices: 45.64,
+      business: 112,
+      corruption: 25
     },
     immigration: {
       work: false, // TODO
@@ -790,7 +844,9 @@ var policies = [
     code: 'BYR',
     ratings: {
       crime: 32.89,
-      prices: 50.35
+      prices: 50.35,
+      business: 63,
+      corruption: 29
     },
     immigration: {
       work: false, // TODO

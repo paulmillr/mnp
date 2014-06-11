@@ -31,8 +31,8 @@
     .very-low, .very-easy, .very-cheap {color: #0c0;}
     .low, .easy, .cheap {color: #75AB02;}
     .moderate {color: #ccb400;}
-    .high, .expensive {color: #FF9900;}
-    .very-high, .very-expensive, .very-hot, .hot {color: #c00;}
+    .high, .expensive, .hard, .bad {color: #FF9900;}
+    .very-high, .very-expensive, .very-bad, .very-hard, .very-hot, .hot {color: #c00;}
     .very-cold, .cold {color: #09C5D6;}
 
 
@@ -264,10 +264,8 @@
       <thead>
         <tr>
           <th>Country</th>
-          <th>Prosperity</th>
           <th>Crime</th>
-          <th>Consumer prices</th>
-          <th>Freedom of speech</th>
+          <th>Prices</th>
           <th>Ease of doing business</th>
           <th>Corruption Perceptions</th>
         </tr>
@@ -282,10 +280,8 @@
             {{/link-to}}
             </td>
             {{#with country.ratings as r}}
-              <td>r.prosperity</td>
               <td>r.crime</td>
               <td>r.prices</td>
-              <td>r.speech</td>
               <td>r.business</td>
               <td>r.corruption</td>
             {{/with}}

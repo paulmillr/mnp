@@ -29,11 +29,11 @@ var subjectiveWord = function(rating, value) {
       value > 25 ? 'easy' :
       'very easy';
   } else if (rating === 'corruption') {
-    return value > 75 ? 'very low' :
-      value > 60 ? 'low' :
+    return value > 75 ? 'very good' :
+      value > 60 ? 'good' :
       value > 45 ? 'moderate' :
-      value > 30 ? 'high' :
-      'very high';
+      value > 30 ? 'bad' :
+      'very bad';
   } else if (rating === 'climate') {
     return value > 20 ? 'very hot' :
       value > 0 ? 'moderate' :
@@ -191,10 +191,17 @@ App.SubjectiveRatingComponent = App.SubjectiveBaseComponent.extend({
   rating: null, // rating value
 
   isBusiness: Ember.computed.equal('name', 'business'),
+  isCorruption: Ember.computed.equal('name', 'corruption'),
 
   numDesc: function() {
     var num = this.get('rating');
-    return this.get('isBusiness') ? '#' + num : num;
+    if (this.get('isBusiness')) {
+      return '#' + num
+    } else if (this.get('isCorruption')) {
+      return num + ' / 100';
+    } else {
+      return num;
+    }
   }.property('rating', 'isBusiness'),
 
   description: function() {
@@ -619,7 +626,6 @@ $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, fun
     fx.rates.BTC = 1 / btc.last;
     App.advanceReadiness();
   }, function() {
-    console.log(123);
     App.advanceReadiness();
   });
 });
