@@ -5,93 +5,7 @@
   <title>MNP - My new passport</title>
   <meta name="description" content="MNP (My new passport). Great way to pick new place of living by ratings.">
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <style>
-    .flag {
-      height: 24px;
-    }
-
-    .country-name {
-      vertical-align: middle;
-    }
-
-    footer {
-      font-size: 0.85em;
-      text-align: center;
-      color: #777;
-      padding: 1em 0;
-      margin-top: 1em;
-      border-top: 1px solid #ddd;
-    }
-
-    footer img {
-      border-radius: 15px;
-    }
-
-
-    .very-low, .very-easy, .very-cheap {color: #0c0;}
-    .low, .easy, .cheap {color: #75AB02;}
-    .moderate {color: #ccb400;}
-    .high, .expensive, .hard, .bad {color: #FF9900;}
-    .very-high, .very-expensive, .very-bad, .very-hard, .very-hot, .hot {color: #c00;}
-    .very-cold, .cold {color: #09C5D6;}
-
-
-    /* http://projects.lukehaas.me/css-loaders/ */
-
-    .loader:before,
-    .loader:after,
-    .loader {
-      border-radius: 50%;
-      width: 2.5em;
-      height: 2.5em;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      -webkit-animation: load7 1.8s infinite ease-in-out;
-      animation: load7 1.8s infinite ease-in-out;
-    }
-    .loader {
-      margin: 8em auto;
-      font-size: 10px;
-      position: relative;
-      text-indent: -9999em;
-      -webkit-animation-delay: 0.16s;
-      animation-delay: 0.16s;
-    }
-    .loader:before {
-      left: -3.5em;
-    }
-    .loader:after {
-      left: 3.5em;
-      -webkit-animation-delay: 0.32s;
-      animation-delay: 0.32s;
-    }
-    .loader:before,
-    .loader:after {
-      content: '';
-      position: absolute;
-      top: 0;
-    }
-    @-webkit-keyframes load7 {
-      0%,
-      80%,
-      100% {
-        box-shadow: 0 2.5em 0 -1.3em #aaa;
-      }
-      40% {
-        box-shadow: 0 2.5em 0 0 #aaa;
-      }
-    }
-    @keyframes load7 {
-      0%,
-      80%,
-      100% {
-        box-shadow: 0 2.5em 0 -1.3em #aaa;
-      }
-      40% {
-        box-shadow: 0 2.5em 0 0 #aaa;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="app.css">
 </head>
 <body>
   <div id="app">
@@ -525,7 +439,7 @@
   <script src="http://josscrowcroft.github.io/accounting.js/accounting.min.js"></script>
   <script src="http://josscrowcroft.github.io/money.js/money.min.js"></script>
   <script src="data.js"></script>
-  <script src="tax-calculator.js"></script>
+  <script src="app.js"></script>
   <script type="text/javascript">
     var _gauges = _gauges || [];
     (function() {
