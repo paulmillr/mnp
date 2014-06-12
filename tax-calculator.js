@@ -185,7 +185,7 @@ App.SubjectiveClimateComponent = App.SubjectiveBaseComponent.extend({
 Ember.Handlebars.helper('subj-climate', App.SubjectiveClimateComponent);
 
 App.SubjectiveRatingComponent = App.SubjectiveBaseComponent.extend({
-  layout: Ember.Handlebars.compile('{{description}} ({{numDesc}})'),
+  layout: Ember.Handlebars.compile('{{#if rating}}{{description}} ({{numDesc}}){{else}}&emdash;{{/if}}'),
 
   name: null, // rating name
   rating: null, // rating value
@@ -239,7 +239,6 @@ App.CountryRatingComponent = Ember.Component.extend({
     return this.get('labels')[name];
   }.property('name', 'labels')
 });
-
 
 App.Taxable = Ember.Mixin.create({
   rates: null,
@@ -367,7 +366,8 @@ App.CalculationEntry = Ember.Object.extend({
 });
 
 App.Router.map(function() {
-  this.resource('tax_rating', { path: '/taxes' });
+  this.resource('tax-rating', { path: '/taxes' });
+  this.resource('ratings');
   this.resource('details', { path: '/c/:country_slug' });
   this.resource('details_state', { path: '/c/:country_slug/:state_slug' });
 });
@@ -379,6 +379,15 @@ App.ApplicationController = Ember.Controller.extend({
 App.NavbarController = Ember.Controller.extend({
   needs: ['application'],
   currencyCode: Ember.computed.alias('controllers.application.currencyCode')
+});
+
+App.RatingsRoute  = Ember.Route.extend({
+  model: function() {
+    return App.COUNTRIES;
+  }
+});
+
+App.RatingsController = Ember.ArrayController.extend({
 });
 
 App.TaxRatingController = Ember.Controller.extend({
