@@ -631,10 +631,5 @@ $.getJSON('http://openexchangerates.org/api/latest.json?app_id=' + oexToken, fun
   if (!fx) throw new Error('Provide money.js library');
   fx.rates = data.rates;
   fx.base = data.base;
-  $.getJSON('https://asd').then(function(btc) {
-    fx.rates.BTC = 1 / btc.last;
-    App.advanceReadiness();
-  }, function() {
-    App.advanceReadiness();
-  });
+  App.advanceReadiness();
 });
