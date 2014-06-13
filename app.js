@@ -9,38 +9,64 @@ var fromCurrency = function(value, fromCode, toCode) {
   return fx(value).from(fromCode).to(toCode);
 };
 
-var subjectiveWord = function(rating, value) {
+var subjectiveWords = {
+  crime: ['very high', 'high', 'moderate', 'low', 'very low'],
+  prices: ['very expensive', 'expensive', 'moderate', 'cheap', 'very cheap'],
+  business: ['very hard', 'hard', 'moderate', 'easy', 'very easy'],
+  corruption: ['very bad', 'bad', 'moderate', 'good', 'very good'],
+  total: ['very bad', 'bad', 'moderate', 'good', 'very good']
+};
+
+var subjectiveScore = function(rating, value) {
   if (rating === 'crime') {
-    return value > 75 ? 'very high' :
-      value > 50 ? 'high' :
-      value > 35 ? 'moderate' :
-      value > 25 ? 'low' :
-      'very low';
+    return value > 75 ? 0 :
+      value > 50 ? 1 :
+      value > 35 ? 2 :
+      value > 25 ? 3 :
+      4;
   } else if (rating === 'prices') {
-    return value > 110 ? 'very expensive' :
-      value > 85 ? 'expensive' :
-      value > 65 ? 'moderate' :
-      value > 50 ? 'cheap' :
-      'very cheap';
+    return value > 110 ? 0 :
+      value > 85 ? 1 :
+      value > 65 ? 2 :
+      value > 50 ? 3 :
+      4;
   } else if (rating === 'business') {
-    return value > 120 ? 'very hard' :
-      value > 80 ? 'hard' :
-      value > 60 ? 'moderate' :
-      value > 25 ? 'easy' :
-      'very easy';
+    return value > 120 ? 0 :
+      value > 80 ? 1 :
+      value > 60 ? 2 :
+      value > 25 ? 3 :
+      4;
   } else if (rating === 'corruption') {
-    return value > 75 ? 'very good' :
-      value > 60 ? 'good' :
-      value > 45 ? 'moderate' :
-      value > 30 ? 'bad' :
-      'very bad';
+    return value > 75 ? 0 :
+      value > 60 ? 1 :
+      value > 45 ? 2 :
+      value > 30 ? 3 :
+      4;
+  } else if (rating === 'total') {
+    var total = 0;
+    for (var item in value) {
+      total += subjectiveScore(item, value[item])
+    }
+    return total >= 20 ? 4 :
+      total >= 15 ? 3 :
+      total >= 10 ? 2 :
+      total >= 5 ? 1 :
+      0;
+  } else {
+    throw new Error('Unknown rating: ' + rating);
+  }
+};
+
+var subjectiveWord = function(rating, value) {
+  if (rating === 'crime' || rating === 'prices' || rating === 'business' || rating === 'corruption' || rating === 'total') {
+    var score = subjectiveScore(rating, value);
+    console.log(123, rating, value, score, subjectiveWords[rating][score]);
+    return subjectiveWords[rating][score];
   } else if (rating === 'climate') {
     return value > 20 ? 'very hot' :
       value > 0 ? 'moderate' :
       'cold';
   } else if (rating === 'total') {
-    console.log(value);
-    return 'very good';
   } else {
     throw new Error('Unknown rating: ' + rating);
   }
@@ -218,7 +244,6 @@ App.TotalRatingComponent = App.SubjectiveBaseComponent.extend({
   ratings: null, // rating value
 
   description: function() {
-    return 'very good'
     return subjectiveWord('total', this.get('ratings'));
   }.property('name', 'rating')
 });
