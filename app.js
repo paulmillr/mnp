@@ -38,6 +38,9 @@ var subjectiveWord = function(rating, value) {
     return value > 20 ? 'very hot' :
       value > 0 ? 'moderate' :
       'cold';
+  } else if (rating === 'total') {
+    console.log(value);
+    return 'very good';
   } else {
     throw new Error('Unknown rating: ' + rating);
   }
@@ -209,7 +212,20 @@ App.SubjectiveRatingComponent = App.SubjectiveBaseComponent.extend({
   }.property('name', 'rating')
 });
 
+App.TotalRatingComponent = App.SubjectiveBaseComponent.extend({
+  layout: Ember.Handlebars.compile('{{description}}'),
+
+  ratings: null, // rating value
+
+  description: function() {
+    return 'very good'
+    return subjectiveWord('total', this.get('ratings'));
+  }.property('name', 'rating')
+});
+
+
 Ember.Handlebars.helper('subj-rating', App.SubjectiveRatingComponent);
+Ember.Handlebars.helper('total-rating', App.TotalRatingComponent);
 
 App.CountryRatingComponent = Ember.Component.extend({
   name: null,
