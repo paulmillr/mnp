@@ -66,7 +66,6 @@ var subjectiveWord = function(rating, value) {
     return value > 20 ? 'very hot' :
       value > 0 ? 'moderate' :
       'cold';
-  } else if (rating === 'total') {
   } else {
     throw new Error('Unknown rating: ' + rating);
   }
