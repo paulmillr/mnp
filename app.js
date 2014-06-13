@@ -37,16 +37,17 @@ var subjectiveScore = function(rating, value) {
       value > 25 ? 3 :
       4;
   } else if (rating === 'corruption') {
-    return value > 75 ? 0 :
-      value > 60 ? 1 :
+    return value > 75 ? 4 :
+      value > 60 ? 3 :
       value > 45 ? 2 :
-      value > 30 ? 3 :
-      4;
+      value > 30 ? 1 :
+      0;
   } else if (rating === 'total') {
     var total = 0;
     for (var item in value) {
       total += subjectiveScore(item, value[item])
     }
+    console.log(total);
     return total >= 20 ? 4 :
       total >= 15 ? 3 :
       total >= 10 ? 2 :
@@ -60,7 +61,6 @@ var subjectiveScore = function(rating, value) {
 var subjectiveWord = function(rating, value) {
   if (rating === 'crime' || rating === 'prices' || rating === 'business' || rating === 'corruption' || rating === 'total') {
     var score = subjectiveScore(rating, value);
-    console.log(123, rating, value, score, subjectiveWords[rating][score]);
     return subjectiveWords[rating][score];
   } else if (rating === 'climate') {
     return value > 20 ? 'very hot' :
