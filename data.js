@@ -188,6 +188,11 @@ var policies = [
       business: 2,
       corruption: 75
     },
+    climate: {
+      high: 25.6,
+      low: 21.4,
+      rainyDays: 137
+    },
     immigration: {
       work: {
         degreeReq: true,
@@ -791,6 +796,11 @@ var policies = [
       prices: 91.45,
       business: 35,
       corruption: 61
+    },
+    climate: {
+      high: 30,
+      low: 9,
+      rainyDays: 45
     },
     immigration: {
       work: {
