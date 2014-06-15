@@ -118,9 +118,24 @@ var policies = [
       corruption: 81
     },
     immigration: {
-      work: false, // TODO
-      investment: false, // TODO
-      business: false // TODO
+      work: {
+        degreeReq: false,
+        source: 'http://www.workpermit.com/canada/individual/skilled.htm'
+      },
+      investment: {
+        minAmount: 800000,
+        yearsBeforePR: 0,
+        source: 'http://news.gc.ca/web/article-en.do?nid=814939'
+      },
+      business: {
+        source: 'http://www.cic.gc.ca/english/immigrate/business/start-up/eligibility.asp#language',
+        specialConditions: [
+          'Must have min $11824 in bank for settlement',
+          'You must secure a minimum investment of $200,000 if the investment comes from a designated Canadian venture capital fund.',
+          'You must secure a minimum investment of $75,000 if the investment comes from a designated Canadian angel investor group.',
+          'Alternative: visa for self-employed persons'
+        ]
+      }
     },
     ratesSource: 'http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html',
     rates: ['incremental',
@@ -174,8 +189,16 @@ var policies = [
       corruption: 75
     },
     immigration: {
-      work: false, // TODO
-      investment: false, // TODO
+      work: {
+        degreeReq: true,
+        canApplyForPR: true,
+        source: 'http://www.clic.org.hk/en/topics/immigration/hk_permanent_residence/'
+      },
+      investment: {
+        minAmount: 10000000,
+        yearsBeforePR: 7,
+        source: 'http://www.second-citizenship.org/permanent-residence/immigration-through-investment-to-hong-kong/'
+      },
       business: false // TODO
     },
     rates: ['simple',
@@ -737,7 +760,12 @@ var policies = [
       corruption: 78
     },
     immigration: {
-      work: false, // TODO,
+      work: {
+        degreeReq: false,
+        canApplyForPR: true,
+        yearsBeforePR: 5,
+        source: 'http://www.internations.org/germany-expats/guide/15983-visa-administration/how-to-get-a-german-residence-permit-15953'
+      },
       investment: {
         minAmount: 250000,
         minJobs: 5,
@@ -746,7 +774,7 @@ var policies = [
       business: false
     },
     ratesSource: 'http://www.parmentier.de/steuer/steuer.htm?wagetax.htm',
-    rates: ['simple',
+    rates: ['incremental',
       {max: 8130, rate: 0},
       {max: 52881, rate: 14},
       {max: 250731, rate: 42},
@@ -765,9 +793,16 @@ var policies = [
       corruption: 61
     },
     immigration: {
-      work: false, // TODO
-      investment: false, // TODO
-      business: false // TODO
+      work: {
+        canApplyForPR: true,
+        source: 'http://www.justlanded.com/english/Israel/Israel-Guide/Visas-Permits/Visas'
+      },
+      investment: {
+        specialConditions: [
+          'Only for U.S. investors'
+        ]
+      },
+      business: false
     },
     ratesSource: 'https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax',
     rates: ['incremental',
