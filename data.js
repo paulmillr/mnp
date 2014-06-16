@@ -189,8 +189,8 @@ var policies = [
       corruption: 75
     },
     climate: {
-      high: 25.6,
-      low: 21.4,
+      high: 31.4,
+      low: 14.5,
       rainyDays: 137
     },
     immigration: {
