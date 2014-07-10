@@ -1,0 +1,36 @@
+{
+  "name": "Netherlands",
+  "slug": "netherlands",
+  "code": "EUR",
+  "ratings": {
+    "crime": 37.07,
+    "prices": 98.82,
+    "business": 28,
+    "corruption": 83
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "http://en.wikipedia.org/wiki/Income_tax_in_the_Netherlands#Progressive_tax_on_wages_etc._.28box_1.29",
+  "rates": [
+    "incremental",
+    {
+      "max": 19645,
+      "rate": 5.85
+    },
+    {
+      "max": 33363,
+      "rate": 10.85
+    },
+    {
+      "max": 55991,
+      "rate": 42
+    },
+    {
+      "max": null,
+      "rate": 52
+    }
+  ]
+}

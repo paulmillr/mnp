@@ -1,0 +1,56 @@
+{
+  "name": "Israel",
+  "slug": "israel",
+  "code": "ILS",
+  "ratings": {
+    "crime": 33.28,
+    "prices": 91.45,
+    "business": 35,
+    "corruption": 61
+  },
+  "climate": {
+    "high": 30,
+    "low": 9,
+    "rainyDays": 45
+  },
+  "immigration": {
+    "work": {
+      "canApplyForPR": true,
+      "source": "http://www.justlanded.com/english/Israel/Israel-Guide/Visas-Permits/Visas"
+    },
+    "investment": {
+      "specialConditions": [
+        "Only for U.S. investors"
+      ]
+    },
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Taxation_in_Israel#Personal_Income_tax",
+  "rates": [
+    "incremental",
+    {
+      "max": 62400,
+      "rate": 10
+    },
+    {
+      "max": 106560,
+      "rate": 14
+    },
+    {
+      "max": 173160,
+      "rate": 21
+    },
+    {
+      "max": 261360,
+      "rate": 30
+    },
+    {
+      "max": 501960,
+      "rate": 33
+    },
+    {
+      "max": null,
+      "rate": 48
+    }
+  ]
+}

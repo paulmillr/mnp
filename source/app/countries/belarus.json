@@ -1,0 +1,17 @@
+{
+  "name": "Belarus",
+  "slug": "belarus",
+  "code": "BYR",
+  "ratings": {
+    "crime": 32.89,
+    "prices": 50.35,
+    "business": 63,
+    "corruption": 29
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rate": 12
+}

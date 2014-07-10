@@ -1,0 +1,32 @@
+{
+  "name": "Poland",
+  "slug": "poland",
+  "code": "PLN",
+  "ratings": {
+    "crime": 37.53,
+    "prices": 53.68,
+    "business": 45,
+    "corruption": 60
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "http://europa.eu/youreurope/citizens/work/abroad/taxes/poland/employed_en.htm",
+  "rates": [
+    "incremental",
+    {
+      "max": 3091,
+      "rate": 0
+    },
+    {
+      "max": 85528,
+      "rate": 18
+    },
+    {
+      "max": null,
+      "rate": 32
+    }
+  ]
+}

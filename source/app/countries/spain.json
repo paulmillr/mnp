@@ -1,0 +1,44 @@
+{
+  "name": "Spain",
+  "slug": "spain",
+  "code": "EUR",
+  "ratings": {
+    "crime": 32.42,
+    "prices": 77.81,
+    "business": 52,
+    "corruption": 59
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Income_tax_in_Spain",
+  "rates": [
+    "incremental",
+    {
+      "max": 17707.2,
+      "rate": 24
+    },
+    {
+      "max": 33007.2,
+      "rate": 28
+    },
+    {
+      "max": 53407.2,
+      "rate": 37
+    },
+    {
+      "max": 120000.2,
+      "rate": 43
+    },
+    {
+      "max": 175000.2,
+      "rate": 44
+    },
+    {
+      "max": null,
+      "rate": 45
+    }
+  ]
+}

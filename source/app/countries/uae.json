@@ -1,0 +1,17 @@
+{
+  "name": "United Arab Emirates",
+  "slug": "uae",
+  "code": "AED",
+  "ratings": {
+    "crime": 20.79,
+    "prices": 68.25,
+    "business": 23,
+    "corruption": 69
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rate": 0
+}

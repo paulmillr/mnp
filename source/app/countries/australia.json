@@ -1,0 +1,40 @@
+{
+  "name": "Australia",
+  "slug": "australia",
+  "code": "AUD",
+  "ratings": {
+    "crime": 41.23,
+    "prices": 108.51,
+    "business": 11,
+    "corruption": 81
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Income_tax_in_Australia#Individual_income_tax_rates_.28residents.29",
+  "rates": [
+    "incremental",
+    {
+      "max": 18200,
+      "rate": 0
+    },
+    {
+      "max": 37000,
+      "rate": 19
+    },
+    {
+      "max": 80000,
+      "rate": 32.5
+    },
+    {
+      "max": 180000,
+      "rate": 37
+    },
+    {
+      "max": null,
+      "rate": 45
+    }
+  ]
+}

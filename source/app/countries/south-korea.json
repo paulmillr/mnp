@@ -1,0 +1,36 @@
+{
+  "name": "South Korea",
+  "slug": "south-korea",
+  "code": "KRW",
+  "ratings": {
+    "crime": 16.35,
+    "prices": 87.56,
+    "business": 7,
+    "corruption": 55
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "http://www.korea4expats.com/article-income-taxes.html",
+  "rates": [
+    "incremental",
+    {
+      "max": 12000000,
+      "rate": 6
+    },
+    {
+      "max": 46000000,
+      "rate": 16
+    },
+    {
+      "max": 88000000,
+      "rate": 25
+    },
+    {
+      "max": null,
+      "rate": 35
+    }
+  ]
+}

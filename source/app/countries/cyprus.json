@@ -1,0 +1,43 @@
+{
+  "name": "Cyprus",
+  "slug": "cyprus",
+  "code": "EUR",
+  "ratings": {
+    "crime": 37.56,
+    "prices": 89.76,
+    "business": 39,
+    "corruption": 63
+  },
+  "immigration": {
+    "work": false,
+    "investment": {
+      "minAmount": 3000000,
+      "yearsBeforeCitizenship": "0",
+      "source": "http://best-citizenships.com/cyprus-citizenship.htm"
+    },
+    "business": false
+  },
+  "rates": [
+    "incremental",
+    {
+      "max": 19500,
+      "rate": 0
+    },
+    {
+      "max": 28000,
+      "rate": 20
+    },
+    {
+      "max": 36300,
+      "rate": 25
+    },
+    {
+      "max": 60000,
+      "rate": 30
+    },
+    {
+      "max": null,
+      "rate": 35
+    }
+  ]
+}

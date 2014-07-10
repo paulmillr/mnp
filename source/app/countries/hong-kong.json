@@ -1,0 +1,48 @@
+{
+  "name": "Hong Kong",
+  "slug": "hong-kong",
+  "code": "HKD",
+  "ratings": {
+    "crime": 22.68,
+    "prices": 76.36,
+    "business": 2,
+    "corruption": 75
+  },
+  "climate": {
+    "high": 31.4,
+    "low": 14.5,
+    "rainyDays": 137
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": true,
+      "canApplyForPR": true,
+      "source": "http://www.clic.org.hk/en/topics/immigration/hk_permanent_residence/"
+    },
+    "investment": {
+      "minAmount": 10000000,
+      "yearsBeforePR": 7,
+      "source": "http://www.second-citizenship.org/permanent-residence/immigration-through-investment-to-hong-kong/"
+    },
+    "business": false
+  },
+  "rates": [
+    "simple",
+    {
+      "max": 40000,
+      "rate": 2
+    },
+    {
+      "max": 80000,
+      "rate": 7
+    },
+    {
+      "max": 120000,
+      "rate": 12
+    },
+    {
+      "max": null,
+      "rate": 17
+    }
+  ]
+}

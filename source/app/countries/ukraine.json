@@ -1,0 +1,27 @@
+{
+  "name": "Ukraine",
+  "slug": "ukraine",
+  "code": "UAH",
+  "ratings": {
+    "crime": 49.37,
+    "prices": 45.64,
+    "business": 112,
+    "corruption": 25
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rates": [
+    "simple",
+    {
+      "max": 12180,
+      "rate": 15
+    },
+    {
+      "max": null,
+      "rate": 17
+    }
+  ]
+}
