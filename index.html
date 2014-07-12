@@ -141,16 +141,60 @@
       <div class="col-md-4">
         <h3>Immigration</h3>
 
-        <h4>Work visa</h4>
+        <ul>
+          <li>
+            <label>
+              {{input type="checkbox" checked=filterSet.warmClimate}}
+              Warm climate
+            </label>
+          </li>
+          <li>
+            <label>
+              {{input type="checkbox" checked=filterSet.ruleOfLaw}}
+              Rule of law
+            </label>
+          </li>
+          <li>
+            <label>
+              {{input type="checkbox" checked=filterSet.lowTaxes}}
+              Low income tax rate
+            </label>
+          </li>
+          <li>
+            <h5>Work visas</h5>
+            <ul>
+              <li>
+                <label>
+                  {{input type="checkbox" checked=filterSet.noEducationWorkVisa}}
+                  No degree requirement
+                </label>
+              </li>
+              <li>
+                <label>
+                  {{input type="checkbox" checked=filterSet.noWorkVisaQuotas}}
+                  No quotas
+                </label>
+              </li>
+            </ul>
+          </li>
 
-        <label>
-          {{input type="checkbox" checked=filterSet.noEducationWorkVisa}}
-          No degree requirement
-        </label>
+          <li>
+            <label>
+              {{input type="checkbox" checked=filterSet.simpleStartupVisa}}
+              Business visas
+            </label>
 
-        <h4>Investment visa</h4>
+            <ul>
+              <li>
+                <label>
+                  Capital requirement
+                  {{input type="range"}}
+                </label>
+              </li>
+            </ul>
+          </li>
 
-        <h4>Business visa</h4>
+        </ul>
       </div>
 
       <div class="col-md-8">
@@ -164,7 +208,10 @@
           <tbody>
             {{#each results}}
               <tr>
-                <td>{{name}}</td>
+                <td>
+                  <img class="flag" {{bind-attr src=flagURL alt=name}} width="24" height="24" />
+                  {{name}}
+                </td>
               </tr>
             {{/each}}
           </tbody>

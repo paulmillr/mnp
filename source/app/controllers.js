@@ -14,6 +14,11 @@ App.RatingsController = Ember.ArrayController.extend({
 
 App.FilterSet = Ember.Object.extend({
   noEducationWorkVisa: false,
+  warmClimate: false,
+  ruleOfLaw: false,
+  lowTaxes: false,
+  noWorkVisaQuotas: false,
+  simpleStartupVisa: false,
 
   allFiltersChanged: function() {
     this.notifyPropertyChange('allFilters');
@@ -21,7 +26,13 @@ App.FilterSet = Ember.Object.extend({
 
   doesMatch: function(country) {
     var noEdu = this.get('noEducationWorkVisa');
-    var clearFilters = !noEdu;
+    var warmClimate = this.get('warmClimate');
+    var ruleOfLaw = this.get('ruleOfLaw');
+    var lowTaxes = this.get('lowTaxes');
+    var noWorkVisaQuotas = this.get('noWorkVisaQuotas');
+    var simpleStartupVisa = this.get('simpleStartupVisa');
+
+    var clearFilters = !noEdu && !warmClimate && !ruleOfLaw && !lowTaxes && !noWorkVisaQuotas && !simpleStartupVisa;
 
     if (clearFilters) {
       return true;
@@ -112,10 +123,6 @@ App.DetailsController = Ember.ObjectController.extend({
   state: null,
 
   countryOrState: function() {
-    if (this.get('state')) {
-      return this.get('state');
-    } else {
-      return this.get('country');
-    }
+    return this.get('state') || this.get('country');
   }.property('country', 'state')
 });

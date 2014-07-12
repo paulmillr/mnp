@@ -44,7 +44,9 @@ window.App = App;
 
 App.deferReadiness();
 
-['components', 'controllers', 'helpers', 'models', 'routes'].forEach(require);
+[
+  'components', 'controllers', 'helpers', 'models', 'routes'
+].forEach(require);
 
 var countries = countriesData.map(function(data) {
   data.rates = normalizeRates(data);
