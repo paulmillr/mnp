@@ -1,0 +1,56 @@
+{
+  "name": "Malaysia",
+  "slug": "malaysia",
+  "code": "MYR",
+  "ratings": {
+    "crime": 66.41,
+    "prices": 48.66,
+    "business": 6,
+    "corruption": 50
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "http://savemoney.my/malaysia-personal-income-tax-guide-2013-rates-exemptions-rebates-reliefs-and-more/",
+  "rates": [
+    "incremental",
+    {
+      "max": 2500,
+      "rate": 0
+    },
+    {
+      "max": 5000,
+      "rate": 1
+    },
+    {
+      "max": 10000,
+      "rate": 3
+    },
+    {
+      "max": 20000,
+      "rate": 3
+    },
+    {
+      "max": 35000,
+      "rate": 7
+    },
+    {
+      "max": 50000,
+      "rate": 12
+    },
+    {
+      "max": 70000,
+      "rate": 19
+    },
+    {
+      "max": 100000,
+      "rate": 24
+    },
+    {
+      "max": null,
+      "rate": 26
+    }
+  ]
+}

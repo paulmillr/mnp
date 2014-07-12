@@ -1,0 +1,31 @@
+{
+  "name": "Iceland",
+  "slug": "iceland",
+  "code": "ISK",
+  "ratings": {
+    "crime": 31.68,
+    "prices": 111.75,
+    "business": 13,
+    "corruption": 78
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rates": [
+    "incremental",
+    {
+      "max": 2512800,
+      "rate": 37.31
+    },
+    {
+      "max": 8166600,
+      "rate": 40.21
+    },
+    {
+      "max": null,
+      "rate": 46.21
+    }
+  ]
+}

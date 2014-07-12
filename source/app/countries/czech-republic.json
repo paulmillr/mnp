@@ -1,0 +1,23 @@
+{
+  "name": "Czech Republic",
+  "slug": "czech-republic",
+  "code": "CZK",
+  "ratings": {
+    "crime": 33.88,
+    "prices": 56.59,
+    "business": 75,
+    "corruption": 48
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": {
+      "minCapital": 200000,
+      "yearsBeforePR": 5,
+      "yearsBeforeCitizenship": 5,
+      "stayReq": 90,
+      "source": "http://business-investor-immigration.com/czech-business-immigration-program/"
+    }
+  },
+  "rate": 15
+}

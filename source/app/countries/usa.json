@@ -1,0 +1,213 @@
+{
+  "name": "United States",
+  "slug": "usa",
+  "code": "USD",
+  "ratings": {
+    "crime": 50.15,
+    "prices": 77.39,
+    "business": 4,
+    "corruption": 73
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": true,
+      "canApplyForPR": true,
+      "quota": 65000,
+      "source": "http://www.uscis.gov/working-united-states/temporary-workers/h-1b-specialty-occupations-and-fashion-models/h-1b-specialty-occupations-dod-cooperative-research-and-development-project-workers-and-fashion-models"
+    },
+    "investment": {
+      "minAmount": 1000000,
+      "minJobs": 10,
+      "yearsBeforePR": 2,
+      "source": "http://www.uscis.gov/working-united-states/permanent-workers/employment-based-immigration-fifth-preference-eb-5/eb-5-immigrant-investor-process"
+    },
+    "business": false
+  },
+  "ratesSource": "http://www.worldwide-tax.com/us/us_taxes.asp",
+  "rates": [
+    "incremental",
+    {
+      "max": 8925,
+      "rate": 0
+    },
+    {
+      "max": 36250,
+      "rate": 15
+    },
+    {
+      "max": 87850,
+      "rate": 25
+    },
+    {
+      "max": 183250,
+      "rate": 28
+    },
+    {
+      "max": 398350,
+      "rate": 33
+    },
+    {
+      "max": 400000,
+      "rate": 35
+    },
+    {
+      "max": null,
+      "rate": 39.6
+    }
+  ],
+  "states": [
+    {
+      "name": "Alaska / Florida / Nevada / Texas",
+      "slug": "ak-fl-nv-tx",
+      "rate": 0
+    },
+    {
+      "name": "California",
+      "slug": "ca",
+      "rates": [
+        "incremental",
+        {
+          "max": 7455,
+          "rate": 0
+        },
+        {
+          "max": 17676,
+          "rate": 2
+        },
+        {
+          "max": 27897,
+          "rate": 4
+        },
+        {
+          "max": 38726,
+          "rate": 6
+        },
+        {
+          "max": 48942,
+          "rate": 8
+        },
+        {
+          "max": 250000,
+          "rate": 9.3
+        },
+        {
+          "max": 300000,
+          "rate": 10.3
+        },
+        {
+          "max": 500000,
+          "rate": 11.3
+        },
+        {
+          "max": null,
+          "rate": 12.3
+        }
+      ]
+    },
+    {
+      "name": "Delaware",
+      "slug": "de",
+      "rates": [
+        "incremental",
+        {
+          "max": 2000,
+          "rate": 0
+        },
+        {
+          "max": 5000,
+          "rate": 2.2
+        },
+        {
+          "max": 10000,
+          "rate": 3.9
+        },
+        {
+          "max": 20000,
+          "rate": 4.8
+        },
+        {
+          "max": 25000,
+          "rate": 5.2
+        },
+        {
+          "max": 60000,
+          "rate": 5.55
+        },
+        {
+          "max": null,
+          "rate": 6.75
+        }
+      ]
+    },
+    {
+      "name": "Kentucky",
+      "slug": "ky",
+      "rates": [
+        "incremental",
+        {
+          "max": 3000,
+          "rate": 2
+        },
+        {
+          "max": 4000,
+          "rate": 3
+        },
+        {
+          "max": 5000,
+          "rate": 4
+        },
+        {
+          "max": 8000,
+          "rate": 5
+        },
+        {
+          "max": 75000,
+          "rate": 5.8
+        },
+        {
+          "max": null,
+          "rate": 6
+        }
+      ]
+    },
+    {
+      "name": "New York",
+      "slug": "ny",
+      "rates": [
+        "incremental",
+        {
+          "max": 8000,
+          "rate": 4
+        },
+        {
+          "max": 11000,
+          "rate": 4.5
+        },
+        {
+          "max": 13000,
+          "rate": 5.25
+        },
+        {
+          "max": 20000,
+          "rate": 5.9
+        },
+        {
+          "max": 75000,
+          "rate": 6.45
+        },
+        {
+          "max": 200000,
+          "rate": 6.65
+        },
+        {
+          "max": 1000000,
+          "rate": 6.85
+        },
+        {
+          "max": null,
+          "rate": 8.72
+        }
+      ]
+    }
+  ]
+}

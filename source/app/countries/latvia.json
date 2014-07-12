@@ -1,0 +1,17 @@
+{
+  "name": "Latvia",
+  "slug": "latvia",
+  "code": "EUR",
+  "ratings": {
+    "crime": 43.74,
+    "prices": 65.95,
+    "business": 24,
+    "corruption": 53
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rate": 24
+}

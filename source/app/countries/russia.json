@@ -1,0 +1,17 @@
+{
+  "name": "Russia",
+  "slug": "russia",
+  "code": "RUB",
+  "ratings": {
+    "crime": 52.67,
+    "prices": 61.8,
+    "business": 92,
+    "corruption": 28
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rate": 13
+}

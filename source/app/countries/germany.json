@@ -1,0 +1,45 @@
+{
+  "name": "Germany",
+  "slug": "germany",
+  "code": "EUR",
+  "ratings": {
+    "crime": 27.14,
+    "prices": 87.14,
+    "business": 21,
+    "corruption": 78
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": false,
+      "canApplyForPR": true,
+      "yearsBeforePR": 5,
+      "source": "http://www.internations.org/germany-expats/guide/15983-visa-administration/how-to-get-a-german-residence-permit-15953"
+    },
+    "investment": {
+      "minAmount": 250000,
+      "minJobs": 5,
+      "source": "http://en.wikipedia.org/wiki/Immigration_to_Germany"
+    },
+    "business": false
+  },
+  "ratesSource": "http://www.parmentier.de/steuer/steuer.htm?wagetax.htm",
+  "rates": [
+    "incremental",
+    {
+      "max": 8130,
+      "rate": 0
+    },
+    {
+      "max": 52881,
+      "rate": 14
+    },
+    {
+      "max": 250731,
+      "rate": 42
+    },
+    {
+      "max": null,
+      "rate": 45
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Japan",
+  "slug": "japan",
+  "code": "JPY",
+  "ratings": {
+    "crime": 18.1,
+    "prices": 94.13,
+    "business": 27,
+    "corruption": 74
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rates": [
+    "incremental",
+    {
+      "max": 1950000,
+      "rate": 5
+    },
+    {
+      "max": 3300000,
+      "rate": 10
+    },
+    {
+      "max": 6950000,
+      "rate": 20
+    },
+    {
+      "max": 9000000,
+      "rate": 23
+    },
+    {
+      "max": 18000000,
+      "rate": 33
+    },
+    {
+      "max": null,
+      "rate": 40
+    }
+  ]
+}

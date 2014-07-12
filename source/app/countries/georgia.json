@@ -1,0 +1,17 @@
+{
+  "name": "Georgia",
+  "slug": "georgia",
+  "code": "GEL",
+  "ratings": {
+    "crime": 19.91,
+    "prices": 46.22,
+    "business": 8,
+    "corruption": 49
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rate": 20
+}

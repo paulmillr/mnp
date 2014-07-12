@@ -1,0 +1,28 @@
+{
+  "name": "Ireland",
+  "slug": "ireland",
+  "code": "EUR",
+  "ratings": {
+    "crime": 53.59,
+    "prices": 106.61,
+    "business": 15,
+    "corruption": 72
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Taxation_in_the_Republic_of_Ireland#Rates_of_income_tax",
+  "rates": [
+    "incremental",
+    {
+      "max": 32800,
+      "rate": 20
+    },
+    {
+      "max": null,
+      "rate": 41
+    }
+  ]
+}

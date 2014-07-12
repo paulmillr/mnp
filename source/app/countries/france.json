@@ -1,0 +1,44 @@
+{
+  "name": "France",
+  "slug": "france",
+  "code": "EUR",
+  "ratings": {
+    "crime": 47.28,
+    "prices": 100.21,
+    "business": 38,
+    "corruption": 71
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Taxation_in_France#Income_Taxes",
+  "rates": [
+    "incremental",
+    {
+      "max": 6011,
+      "rate": 0
+    },
+    {
+      "max": 11991,
+      "rate": 5.5
+    },
+    {
+      "max": 26631,
+      "rate": 14
+    },
+    {
+      "max": 71397,
+      "rate": 30
+    },
+    {
+      "max": 151200,
+      "rate": 41
+    },
+    {
+      "max": null,
+      "rate": 45
+    }
+  ]
+}

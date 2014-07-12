@@ -1,0 +1,32 @@
+{
+  "name": "United Kingdom",
+  "slug": "uk",
+  "code": "GBP",
+  "ratings": {
+    "crime": 42.62,
+    "prices": 100.11,
+    "business": 10,
+    "corruption": 76
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Taxation_in_the_United_Kingdom#Income_tax",
+  "rates": [
+    "incremental",
+    {
+      "max": 32011,
+      "rate": 20
+    },
+    {
+      "max": 150000,
+      "rate": 40
+    },
+    {
+      "max": null,
+      "rate": 45
+    }
+  ]
+}

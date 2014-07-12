@@ -1,0 +1,77 @@
+{
+  "name": "Singapore",
+  "slug": "singapore",
+  "code": "SGD",
+  "ratings": {
+    "crime": 21.35,
+    "prices": 100.01,
+    "business": 1,
+    "corruption": 86
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": false,
+      "canApplyForPR": true
+    },
+    "investment": {
+      "minAmount": 2500000,
+      "yearsBeforePR": 0,
+      "yearsBeforeCitizenship": 2
+    },
+    "business": {
+      "minCapital": 50000,
+      "minShare": 30,
+      "specialConditions": [
+        "The company is receiving monetary funding or investment of at least S$100,000 from a third-party Venture Capitalist (VC) or angel investor accredited by a Singapore Government agency.",
+        "The company holds an Intellectual Property (IP) that is registered with a recognised national IP institution.",
+        "The company has on-going research collaboration with an institution recognised by Agency for Science, Technology and Research (A*STAR) or Institutes of Higher Learning in Singapore.",
+        "The company is an incubatee at a Singapore Government-supported incubator."
+      ],
+      "source": "http://www.guidemesingapore.com/relocation/work-pass/singapore-entrepreneur-pass-guide"
+    }
+  },
+  "climate": {
+    "high": 31,
+    "low": 24.1,
+    "rainyDays": 178
+  },
+  "rates": [
+    "incremental",
+    {
+      "max": 20000,
+      "rate": 0
+    },
+    {
+      "max": 30000,
+      "rate": 2
+    },
+    {
+      "max": 40000,
+      "rate": 3.5
+    },
+    {
+      "max": 80000,
+      "rate": 7
+    },
+    {
+      "max": 120000,
+      "rate": 11.5
+    },
+    {
+      "max": 160000,
+      "rate": 15
+    },
+    {
+      "max": 200000,
+      "rate": 17
+    },
+    {
+      "max": 320000,
+      "rate": 18
+    },
+    {
+      "max": null,
+      "rate": 20
+    }
+  ]
+}

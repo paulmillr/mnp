@@ -1,0 +1,31 @@
+{
+  "name": "Sweden",
+  "slug": "sweden",
+  "code": "SEK",
+  "ratings": {
+    "crime": 38.23,
+    "prices": 103.68,
+    "business": 14,
+    "corruption": 89
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "rates": [
+    "incremental",
+    {
+      "max": 413200,
+      "rate": 30
+    },
+    {
+      "max": 591600,
+      "rate": 50
+    },
+    {
+      "max": null,
+      "rate": 55
+    }
+  ]
+}

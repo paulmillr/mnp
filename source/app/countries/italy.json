@@ -1,0 +1,40 @@
+{
+  "name": "Italy",
+  "slug": "italy",
+  "code": "EUR",
+  "ratings": {
+    "crime": 45.59,
+    "prices": 96.81,
+    "business": 65,
+    "corruption": 43
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "https://en.wikipedia.org/wiki/Taxation_in_Italy",
+  "rates": [
+    "incremental",
+    {
+      "max": 15000,
+      "rate": 23
+    },
+    {
+      "max": 28000,
+      "rate": 27
+    },
+    {
+      "max": 55000,
+      "rate": 38
+    },
+    {
+      "max": 75000,
+      "rate": 41
+    },
+    {
+      "max": null,
+      "rate": 43
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "name": "Canada",
+  "slug": "canada",
+  "code": "CAD",
+  "ratings": {
+    "crime": 36.29,
+    "prices": 87.9,
+    "business": 19,
+    "corruption": 81
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": false,
+      "source": "http://www.workpermit.com/canada/individual/skilled.htm"
+    },
+    "investment": {
+      "minAmount": 800000,
+      "yearsBeforePR": 0,
+      "source": "http://news.gc.ca/web/article-en.do?nid=814939"
+    },
+    "business": {
+      "source": "http://www.cic.gc.ca/english/immigrate/business/start-up/eligibility.asp#language",
+      "specialConditions": [
+        "Startup visa.",
+        "Must have min $11824 in bank for settlement",
+        "You must secure a minimum investment of $200,000 if the investment comes from a designated Canadian venture capital fund.",
+        "You must secure a minimum investment of $75,000 if the investment comes from a designated Canadian angel investor group.",
+        "You may proceed with no investment if you're in business incubator.",
+        "Alternative: visa for self-employed persons"
+      ]
+    }
+  },
+  "ratesSource": "http://www.cra-arc.gc.ca/tx/ndvdls/fq/txrts-eng.html",
+  "rates": [
+    "incremental",
+    {
+      "max": 43561,
+      "rate": 15
+    },
+    {
+      "max": 87123,
+      "rate": 22
+    },
+    {
+      "max": 135054,
+      "rate": 26
+    },
+    {
+      "max": null,
+      "rate": 29
+    }
+  ],
+  "states": [
+    {
+      "name": "Quebec",
+      "slug": "qc",
+      "rates": [
+        "incremental",
+        {
+          "max": 41095,
+          "rate": 16
+        },
+        {
+          "max": 82190,
+          "rate": 20
+        },
+        {
+          "max": 100000,
+          "rate": 24
+        },
+        {
+          "max": null,
+          "rate": 25.75
+        }
+      ]
+    },
+    {
+      "name": "Ontario",
+      "slug": "on",
+      "rates": [
+        "incremental",
+        {
+          "max": 39723,
+          "rate": 5.05
+        },
+        {
+          "max": 79448,
+          "rate": 9.15
+        },
+        {
+          "max": 509000,
+          "rate": 11.16
+        },
+        {
+          "max": null,
+          "rate": 13.16
+        }
+      ]
+    },
+    {
+      "name": "Manitoba",
+      "slug": "mb",
+      "rates": [
+        "incremental",
+        {
+          "max": 31000,
+          "rate": 10.8
+        },
+        {
+          "max": 67000,
+          "rate": 12.75
+        },
+        {
+          "max": null,
+          "rate": 17.4
+        }
+      ]
+    },
+    {
+      "name": "Alberta",
+      "slug": "ab",
+      "rate": 10
+    },
+    {
+      "name": "British Columbia",
+      "slug": "bc",
+      "rates": [
+        "incremental",
+        {
+          "max": 37568,
+          "rate": 5.06
+        },
+        {
+          "max": 71138,
+          "rate": 7.7
+        },
+        {
+          "max": 82268,
+          "rate": 10.5
+        },
+        {
+          "max": 104754,
+          "rate": 12.29
+        },
+        {
+          "max": null,
+          "rate": 14.7
+        }
+      ]
+    }
+  ]
+}

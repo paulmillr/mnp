@@ -1,0 +1,40 @@
+{
+  "name": "Thailand",
+  "slug": "thailand",
+  "code": "THB",
+  "ratings": {
+    "crime": 37.56,
+    "prices": 45.95,
+    "business": 19,
+    "corruption": 35
+  },
+  "immigration": {
+    "work": false,
+    "investment": false,
+    "business": false
+  },
+  "ratesSource": "http://www.rd.go.th/publish/6045.0.html",
+  "rates": [
+    "incremental",
+    {
+      "max": 150000,
+      "rate": 0
+    },
+    {
+      "max": 500000,
+      "rate": 10
+    },
+    {
+      "max": 1000000,
+      "rate": 20
+    },
+    {
+      "max": 4000000,
+      "rate": 30
+    },
+    {
+      "max": null,
+      "rate": 37
+    }
+  ]
+}

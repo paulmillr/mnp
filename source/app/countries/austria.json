@@ -1,0 +1,40 @@
+{
+  "name": "Austria",
+  "slug": "austria",
+  "code": "EUR",
+  "ratings": {
+    "crime": 25.83,
+    "prices": 89.5,
+    "business": 30,
+    "corruption": 69
+  },
+  "immigration": {
+    "work": false,
+    "investment": {
+      "minAmount": 3000000,
+      "yearsBeforeCitizenship": "0",
+      "source": "http://best-citizenships.com/austria-citizenship.htm"
+    },
+    "business": false
+  },
+  "ratesSource": "http://europa.eu/youreurope/citizens/work/retire/taxes/austria/index_en.htm",
+  "rates": [
+    "incremental",
+    {
+      "max": 10999,
+      "rate": 0
+    },
+    {
+      "max": 25000,
+      "rate": 36.5
+    },
+    {
+      "max": 60000,
+      "rate": 43.2
+    },
+    {
+      "max": null,
+      "rate": 50
+    }
+  ]
+}

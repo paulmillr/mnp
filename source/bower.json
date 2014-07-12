@@ -1,0 +1,20 @@
+{
+  "name": "your-app",
+  "version": "0.0.1",
+  "main": "public/app.js",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "handlebars": "~1.3.0",
+    "accounting": "~0.3.2",
+    "money": "~0.1.3",
+    "ember": "~1.6.0"
+  },
+  "overrides": {
+    "money": {
+      "main": "money.js"
+    },
+    "accounting": {
+      "main": "accounting.js"
+    }
+  }
+}
