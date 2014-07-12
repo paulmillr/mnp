@@ -12,6 +12,42 @@ App.NavbarController = Ember.Controller.extend({
 App.RatingsController = Ember.ArrayController.extend({
 });
 
+App.FilterSet = Ember.Object.extend({
+  noEducationWorkVisa: false,
+
+  allFiltersChanged: function() {
+    this.notifyPropertyChange('allFilters');
+  }.observes('noEducationWorkVisa'),
+
+  doesMatch: function(country) {
+    var noEdu = this.get('noEducationWorkVisa');
+    var clearFilters = !noEdu;
+
+    if (clearFilters) {
+      return true;
+    } else {
+      var work = country.get('immigration.work');
+
+      return work.degreeReq === false;
+    }
+  }
+});
+
+App.ChooseDestinyController = Ember.ArrayController.extend({
+  filterSet: function() {
+    return App.FilterSet.create();
+  }.property(),
+
+  results: function() {
+    var countries = this.get('model');
+    var filters = this.get('filterSet');
+
+    return countries.filter(function(country) {
+      return filters.doesMatch(country);
+    });
+  }.property('@each', 'filterSet.allFilters')
+});
+
 App.TaxRatingController = Ember.Controller.extend({
   needs: ['application'],
   queryParams: ['income', 'currencyCode'],

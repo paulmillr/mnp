@@ -1,6 +1,7 @@
 App.Router.map(function() {
   this.resource('tax-rating', { path: '/taxes' });
   this.resource('ratings');
+  this.resource('choose-destiny');
   this.resource('details', { path: '/c/:country_slug' });
   this.resource('details_state', { path: '/c/:country_slug/:state_slug' });
 });
@@ -14,6 +15,12 @@ App.RatingsRoute  = Ember.Route.extend({
 App.DetailsRoute = Ember.Route.extend({
   model: function(params) {
     return App.COUNTRIES.findBy('slug', params.country_slug);
+  }
+});
+
+App.ChooseDestinyRoute = Ember.Route.extend({
+  model: function() {
+    return App.COUNTRIES;
   }
 });
 

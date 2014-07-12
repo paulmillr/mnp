@@ -64,6 +64,7 @@
         <ul class="nav navbar-nav">
           {{#link-to 'tax-rating' tagName='li'}}{{#link-to 'tax-rating'}}Tax rating{{/link-to}}{{/link-to}}
           {{#link-to 'ratings' tagName='li'}}{{#link-to 'ratings'}}Living ratings{{/link-to}}{{/link-to}}
+          {{#link-to 'choose-destiny' tagName='li'}}{{#link-to 'choose-destiny'}}Choose destiny{{/link-to}}{{/link-to}}
         </ul>
 
         <form class="navbar-form navbar-right">
@@ -122,6 +123,52 @@
 
           <p>Compare countries based on their living conditions.</p>
         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="well">
+          <h3 class="text-center">
+            {{#link-to 'choose-destiny'}}Choose your destiny{{/link-to}}
+          </h3>
+
+          <p>Filter the countries based on various options.</p>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="choose-destiny">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Immigration</h3>
+
+        <h4>Work visa</h4>
+
+        <label>
+          {{input type="checkbox" checked=filterSet.noEducationWorkVisa}}
+          No degree requirement
+        </label>
+
+        <h4>Investment visa</h4>
+
+        <h4>Business visa</h4>
+      </div>
+
+      <div class="col-md-8">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Country</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{#each results}}
+              <tr>
+                <td>{{name}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
       </div>
     </div>
   </script>

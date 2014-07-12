@@ -21,6 +21,8 @@ App.Country = Ember.Object.extend(App.Taxable, {
   ratesSource: null,
   states: null,
 
+  immigration: null,
+
   hasStates: Ember.computed.notEmpty('states'),
 
   isCountry: true,
