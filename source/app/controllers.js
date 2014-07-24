@@ -1,4 +1,5 @@
 var symbols = require('config').currencies.symbols;
+var utils = require('utils');
 
 App.ApplicationController = Ember.Controller.extend({
   currencyCode: 'USD'
@@ -12,6 +13,11 @@ App.NavbarController = Ember.Controller.extend({
 App.RatingsController = Ember.ArrayController.extend({
 });
 
+var filterNames = [
+  'noEducationWorkVisa', 'warmClimate', 'ruleOfLaw',
+  'lowCrime',
+  'lowTaxes', 'noWorkVisaQuotas', 'simpleStartupVisa'
+];
 App.FilterSet = Ember.Object.extend({
   noEducationWorkVisa: false,
   warmClimate: false,
@@ -22,25 +28,55 @@ App.FilterSet = Ember.Object.extend({
 
   allFiltersChanged: function() {
     this.notifyPropertyChange('allFilters');
-  }.observes('noEducationWorkVisa'),
+  }.observes('noEducationWorkVisa', 'warmClimate', 'ruleOfLaw', 'lowCrime', 'lowTaxes', 'noWorkVisaQuotas', 'simpleStartupVisa'),
 
   doesMatch: function(country) {
-    var noEdu = this.get('noEducationWorkVisa');
-    var warmClimate = this.get('warmClimate');
-    var ruleOfLaw = this.get('ruleOfLaw');
-    var lowTaxes = this.get('lowTaxes');
-    var noWorkVisaQuotas = this.get('noWorkVisaQuotas');
-    var simpleStartupVisa = this.get('simpleStartupVisa');
+    var subj = function(type, keyName, desired) {
+      var value = country.get(keyName);
+      return utils.subjectiveWord(type, value) === desired;
+    };
+    var matches = function(name) {
+      switch (name) {
+        case 'noEducationWorkVisa':
+          var work = country.get('immigration.work');
+          return work.degreeReq === false;
+        case 'warmClimate':
+          return subj('climate', 'climate.low', 'very hot');
+        case 'ruleOfLaw':
+          return subj('corruption', 'ratings.corruption', 'very good');
+        case 'lowCrime':
+          return subj('crime', 'ratings.crime', 'very low');
+        case 'lowTaxes':
+          var sum = 100000;
+          var rate = utils.getRate(sum, 'USD', 'USD', country.get('rates'));
+          var percent = (rate / sum) * 100;
+          return percent < 20;
+        case 'noWorkVisaQuotas':
+          var work = country.get('immigration.work');
+          return work && !work.quota;
+        case 'simpleStartupVisa':
+          return ;
+      }
+    };
+    var filters = filterNames.map(function(name) {
+      var value = this.get(name);
+      return {
+        name: name, isEnabled: value,
+        doesMatch: value ? matches(name) : false
+      };
+    }, this);
 
-    var clearFilters = !noEdu && !warmClimate && !ruleOfLaw && !lowTaxes && !noWorkVisaQuotas && !simpleStartupVisa;
+    var enabled = filters.filter(function(filter) {
+      return filter.isEnabled;
+    });
 
-    if (clearFilters) {
-      return true;
-    } else {
-      var work = country.get('immigration.work');
+    console.log('Test', country.name, enabled);
 
-      return work.degreeReq === false;
-    }
+    if (!enabled.length) return true;
+
+    return enabled.every(function(filter) {
+      return filter.doesMatch;
+    });
   }
 });
 
