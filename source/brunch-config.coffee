@@ -2,6 +2,7 @@ exports.config =
   # See http://brunch.io/#documentation for docs.
   paths:
     public: '../'
+
   files:
     javascripts:
       joinTo:
@@ -11,3 +12,7 @@ exports.config =
       joinTo: 'app.css'
     templates:
       joinTo: 'app.js'
+
+  overrides:
+    production:
+      sourceMaps: false

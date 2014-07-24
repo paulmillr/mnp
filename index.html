@@ -215,8 +215,10 @@
             {{#each results}}
               <tr>
                 <td>
-                  <img class="flag" {{bind-attr src=flagURL alt=name}} width="24" height="24" />
-                  {{name}}
+                  {{#link-to 'details' slug}}
+                    <img class="flag" {{bind-attr src=flagURL alt=name}} width="24" height="24" />
+                    <span class="country-name">{{name}}</span>
+                  {{/link-to}}
                 </td>
               </tr>
             {{/each}}
