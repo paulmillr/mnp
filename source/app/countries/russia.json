@@ -4,9 +4,9 @@
   "code": "RUB",
   "ratings": {
     "crime": 52.67,
-    "prices": 61.8,
-    "business": 92,
-    "corruption": 28
+    "prices": 44.3,
+    "business": 51,
+    "corruption": 27
   },
   "immigration": {
     "work": false,

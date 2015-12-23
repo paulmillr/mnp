@@ -3,10 +3,10 @@
   "slug": "ukraine",
   "code": "UAH",
   "ratings": {
-    "crime": 49.37,
-    "prices": 45.64,
-    "business": 112,
-    "corruption": 25
+    "crime": 49.60,
+    "prices": 30.75,
+    "business": 83,
+    "corruption": 26
   },
   "immigration": {
     "work": false,
