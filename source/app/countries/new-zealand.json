@@ -1,0 +1,62 @@
+{
+  "name": "New Zealand",
+  "slug": "new-zealand",
+  "code": "NZD",
+  "ratings": {
+    "crime": 37.79,
+    "prices": 81.53,
+    "business": 2,
+    "corruption": 91
+  },
+  "climate": {
+    "high": 25,
+    "low": 3,
+    "rainyDays": 122
+  },
+  "immigration": {
+    "work": {
+      "degreeReq": false,
+      "canApplyForPR": true,
+      "quota": 0,
+      "source": "https://www.immigration.govt.nz/new-zealand-visas/options/work/explore-work-visa-options"
+    },
+    "investment": {
+      "minAmount": 1500000,
+      "yearsBeforePR": 0,
+      "yearsBeforeCitizenship": 5,
+      "specialConditions": [
+        "You’ll need to be 65 or under, and show you have access to another NZD $1 million in settlement funds or assets.",
+        "You must have at least 3 year’s business experience."
+      ],
+      "source": "https://www.immigration.govt.nz/new-zealand-visas/options/start-a-business-or-invest/explore-business-and-invest-visas"
+    },
+    "business": {
+      "minCapital": 100000,
+      "yearsBeforePR": 0.5,
+      "specialConditions": [
+        "If you apply after less than 2 years of being self-employed, you'll need to have an Entrepreneur Work Visa, have invested capital of at least NZ $500,000 and have created 3 new jobs in New Zealand."
+      ],
+      "source": "https://www.immigration.govt.nz/new-zealand-visas/options/start-a-business-or-invest/explore-business-and-invest-visas"
+    }
+  },
+  "ratesSource": "http://www.paye.net.nz/calculator.html",
+  "rates": [
+    "incremental",
+    {
+      "max": 14000,
+      "rate": 10.5
+    },
+    {
+      "max": 48000,
+      "rate": 17.5
+    },
+    {
+      "max": 70000,
+      "rate": 30
+    },
+    {
+      "max": null,
+      "rate": 33
+    }
+  ]
+}
