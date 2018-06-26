@@ -1,6 +1,6 @@
 module.exports = {
   currencies: {
-    url: 'http://openexchangerates.org/api/latest.json?app_id=8556217a83d84985930d67d6cf934289',
+    url: 'https://openexchangerates.org/api/latest.json?app_id=8556217a83d84985930d67d6cf934289',
     symbols: {
       USD: 'US$',
       CAD: 'CA$',
